@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { fetchHome, getLogin, loginAcc, createServer, logout } from "../actions/actions"
-import CSRFToken from "../components/csrf"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import SideBar from "../components/SideBar"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
@@ -49,8 +49,8 @@ const Home = (props) => {
         <div>
             <h1>Home</h1>
             <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-
-            {props.servers.map(servers => {
+            <SideBar />
+            {/* {props.servers.map(servers => {
                 return(
                     <>
                     <ul>
@@ -65,7 +65,7 @@ const Home = (props) => {
             <input type="text" name="server_name" onChange={handleServerName}/>
             <input  type="file" name="server_icon"onChange={handleServerName}/>
             <button type="submit" onClick={createServer}>CREATE SERVER</button>
-            </form>
+            </form> */}
 
             <button onClick={logout}>Logout</button>
         </div>

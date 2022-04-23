@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_LOGIN, LOGIN_ACC} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
@@ -47,6 +47,11 @@ export default function reducer(state=initialState, action){
             console.log(action.payload)
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server,
+            }
+        case GET_CHANNEL:
+            console.log(action.payload.data.current_user)
+            return{
+                ...state, isLoading:false, currentuser: action.payload.data.current_user, error: '', auth_token: action.payload.data.token,
             }
         
         default: return state

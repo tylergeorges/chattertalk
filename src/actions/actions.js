@@ -13,7 +13,7 @@ export const FOLLOW_ACCOUNT = "FOLLOW_ACCOUNT"
 export const LOGIN_ACC = "LOGIN_ACC"
 export const USER_NOTFI = "USER_NOTFI"
 export const UNFOLLOW_ACC = "UNFOLLOW_ACC"
-export const GET_POST = "GET_POST"
+export const GET_CHANNEL = "GET_CHANNEL"
 export const REPLY_POST = "REPLY_POST"
 export const DELETE_POST = "DELETE_POST"
 
@@ -175,8 +175,8 @@ export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
     instance 
     .get(`/channels/${server_id}/${channel_id}/`, )
     .then(data =>{
-        console.log(data)
-        // dispatch({type: CREATE_CHANNEL, payload: data})
+        // console.log(data)
+        dispatch({type: GET_CHANNEL, payload: data})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -189,7 +189,7 @@ export const sendMessage = (message) => (dispatch) =>{
 
     dispatch({type: FETCH_CR_START})
     instance 
-    .post(`/channels/${message.server_id}/${message.created_in}/`, message )
+    .post(`/channels/${message.server_id}/${message.channel_id}/`, message , {headers:{Authorization:`Token ${message.token}`}})
     .then(data =>{
         console.log(data)
         // dispatch({type: CREATE_CHANNEL, payload: data})

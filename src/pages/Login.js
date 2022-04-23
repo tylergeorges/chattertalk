@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { getLogin, loginAcc } from "../actions/actions"
-import CSRFToken from "../components/csrf"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 const mapStateToProps = (state) =>({

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel} from "../actions/actions"
-import CSRFToken from "../components/csrf"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import SideBar from "../components/SideBar"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
@@ -43,6 +43,7 @@ const Server = (props) => {
 
     return (
         <div>
+            <SideBar />
            <h1>{props.current_server.server_name}</h1>
                 {props.text_channels.map(channels =>{
                     return(
