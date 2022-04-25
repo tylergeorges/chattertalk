@@ -125,15 +125,22 @@ background-color: white;
   display: flex;
   align-items: center;
   height: 20px;
-  width: 155px;
   bottom: 0;
-  left: 0;
 }
 #txtchannelheader{
-  margin-top: 50%;
-  margin-right: 50%;
+  /* margin-top: 50%; */
+  /* margin-right: 50%; */
 }
 
-.channelscon{
- 
+#channelhashtag{
+margin: 2%;
+}
+
+.channelheadercon{
+  display: flex;
+  align-items: center;
+}
+
+#createChannelsIcon{
+  margin: 2%;
 }

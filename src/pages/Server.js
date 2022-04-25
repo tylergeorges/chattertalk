@@ -30,7 +30,7 @@ const theme = createTheme({
         background: {
             default: '#1F1C2C',
             dark: '#353241',
-            light: '#413f47'
+            light: '#423f51'
         },
         text: {
             primary: 'white',
@@ -93,17 +93,19 @@ const Server = (props) => {
            <SideBar />
                 <List >
                     <List  xs='false' sm={4} md={6} sx={{display: 'flex',justifyContent: 'flex-start', flexDirection: 'column', backgroundColor: 'background.light', width: 200, height: '100%', position: 'fixed', top: 0}}>
-                    
                     <div className="channelscon">
-                    <List item sx={{alignSelf: 'flex-start', marginLeft: 1}}>
+                    <List item sx={{display: 'inline-block',  alignSelf: 'flex-start',   alignItems: 'center', width: 170, }}>
+                    <div className="channelheadercon">
                     <h4 id="txtchannelheader">CHANNELS</h4>
+                    <AddIcon id="createChannelsIcon"/>
+                    </div>
                     </List>
                     {props.text_channels.map(channels =>{
                     return(
-                        <List item  sx={{display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', marginLeft: 2, alignItems: 'center', bottom: 30, backgroundColor: 'background.default'}}>
+                        <List item  sx={{display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170,  alignItems: 'center', marginTop: '4%', bottom: 30, right: 10,backgroundColor: 'background.dark', borderRadius: 2}}>
                             <Link to={`/channels/${props.match.params.server_id}/${channels.id}`}>
                             <div className="channellist">
-                        <TagIcon/>
+                        <TagIcon id="channelhashtag"/>
                         {channels.text_channel_name}
                         </div>
                         </Link>
