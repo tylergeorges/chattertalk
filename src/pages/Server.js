@@ -5,6 +5,18 @@ import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createT
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import SideBar from "../components/SideBar"
+import Drawer from '@mui/material/Drawer'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { List, ListItem } from "@mui/material"
+import { borders } from '@mui/system';
+import HomeIcon from '@mui/icons-material/Home';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import AddIcon from '@mui/icons-material/Add';
+import * as icon from '@mui/icons-material';
+import TagIcon from '@mui/icons-material/Tag';
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
@@ -12,7 +24,39 @@ const mapStateToProps = (state) =>({
     text_channels: state.text_channels,
     auth_token: state.auth_token
 })
+const drawerWidth = 150
+const theme = createTheme({
+    palette: {
+        background: {
+            default: '#1F1C2C',
+            dark: '#353241',
+            light: '#413f47'
+        },
+        text: {
+            primary: 'white',
+            secondary: 'black',
+        },
+        action: {
+            active: '#001E3C',
+        },
+        success: {
+            light: '#81c784',
+            main: '#66bb6a',
+            dark: '#388e3c',
+        },
+    },
+    components: {
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: "#353241",
+                    color: "red",
+                }
+            }
+        }
+    }
 
+});
 const Server = (props) => {
     
     const [TextChannelName, setTextChannelName] = useState('')
@@ -42,22 +86,41 @@ const Server = (props) => {
     }
 
     return (
-        <div>
-            <SideBar />
-           <h1>{props.current_server.server_name}</h1>
-                {props.text_channels.map(channels =>{
-                    return(
-                        <ul>
-                        <Link to={`/channels/${props.match.params.server_id}/${channels.id}`}><li>{channels.text_channel_name}</li></Link>
-                        </ul>
+        <ThemeProvider theme={theme}>
 
-                    )
-                })}
+            <h1>{props.current_server.server_name}</h1>
+            <Grid container   >
+           <SideBar />
+                <List >
+                    <List  xs='false' sm={4} md={6} sx={{display: 'flex',justifyContent: 'flex-start', flexDirection: 'column', backgroundColor: 'background.light', width: 200, height: '100%', position: 'fixed', top: 0}}>
+                    
+                    <div className="channelscon">
+                    <List item sx={{alignSelf: 'flex-start', marginLeft: 1}}>
+                    <h4 id="txtchannelheader">CHANNELS</h4>
+                    </List>
+                    {props.text_channels.map(channels =>{
+                    return(
+                        <List item  sx={{display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', marginLeft: 2, alignItems: 'center', bottom: 30, backgroundColor: 'background.default'}}>
+                            <Link to={`/channels/${props.match.params.server_id}/${channels.id}`}>
+                            <div className="channellist">
+                        <TagIcon/>
+                        {channels.text_channel_name}
+                        </div>
+                        </Link>
+                        </List>
+                        )
+                    })}
+                    </div>
+                    </List>
+                   
+                </List>
+                
+            </Grid>
            <form>
                <input placeholder="text-channel-name" onChange={handleChannelName}/>
                <button type="submit" onClick={createTextChannel}>Create Channel</button>
            </form>
-        </div>
+        </ThemeProvider>
     )
 }
 

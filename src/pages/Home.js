@@ -5,13 +5,46 @@ import { fetchHome, getLogin, loginAcc, createServer, logout } from "../actions/
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import SideBar from "../components/SideBar"
+import { Box, createTheme, CssBaseline } from "@mui/material"
+import { ThemeProvider } from "@emotion/react"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
     servers: state.servers,
     auth_token: state.auth_token
 })
+const theme = createTheme({
+    palette: {
+        background: {
+            default: '#1F1C2C',
+            dark: '#353241',
+            light: '#413f47'
+        },
+        text: {
+            primary: 'white',
+            secondary: 'black',
+        },
+        action: {
+            active: '#001E3C',
+        },
+        success: {
+            light: '#81c784',
+            main: '#66bb6a',
+            dark: '#388e3c',
+        },
+    },
+    components: {
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: "#353241",
+                    color: "red",
+                }
+            }
+        }
+    }
 
+});
 const Home = (props) => {
     const [serverName, setServerName] = useState('')
     const [serverIcon, setServerIcon] = useState(null)
@@ -46,10 +79,12 @@ const Home = (props) => {
     }
 
     return (
-        <div>
+        <ThemeProvider theme={theme}>
+            <SideBar />
+            <Box sx={{bgcolor: 'background.main'}}>
             <h1>Home</h1>
             <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-            <SideBar />
+            
             {/* {props.servers.map(servers => {
                 return(
                     <>
@@ -68,7 +103,8 @@ const Home = (props) => {
             </form> */}
 
             <button onClick={logout}>Logout</button>
-        </div>
+            </Box>
+        </ThemeProvider>
     )
 }
 
