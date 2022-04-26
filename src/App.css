@@ -88,7 +88,7 @@ a /* &c... */ {
 }
 
 #servericonpreview{
-  width: 30%;
+  width: 120px;
   border-radius: 55%;
   margin-bottom: 2rem;
 }
@@ -126,11 +126,12 @@ background-color: white;
   align-items: center;
   height: 20px;
   bottom: 0;
+  cursor: pointer;
 }
-#txtchannelheader{
-  /* margin-top: 50%; */
-  /* margin-right: 50%; */
-}
+/* #txtchannelheader{
+  margin-top: 50%;
+  margin-right: 50%;
+} */
 
 #channelhashtag{
 margin: 2%;
@@ -144,3 +145,48 @@ margin: 2%;
 #createChannelsIcon{
   margin: 2%;
 }
+
+.serverNameCon{
+  width: 100%;
+  border-bottom: 2px solid #353241;
+  text-overflow: ellipsis;
+
+}
+
+
+
+
+.chatboxcon{
+  position: relative;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.messageFieldCon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+}
+.messageCon{
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  /* margin-left: 50%; */
+  height: 4%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: red;
+}
+#message{
+  display: flex;
+  border: none;
+  height: 100%;
+  width: 55%;
+  margin-bottom: 1%;
+  background-color: #353241;
+}
+
+

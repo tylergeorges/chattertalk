@@ -6,13 +6,50 @@ import axios from "axios"
 import { useHistory } from "react-router-dom"
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
+import ServerChannels from "../components/ServerChannels"
+import { ThemeProvider } from "@emotion/react"
+import { createTheme, Grid, List, Typography } from "@mui/material"
 
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
     servers: state.servers,
+    currentchannel: state.currentchannel,
 })
 
+const drawerWidth = 150
+const theme = createTheme({
+    palette: {
+        background: {
+            default: '#1F1C2C',
+            dark: '#353241',
+            light: '#423f51'
+        },
+        text: {
+            primary: 'white',
+            secondary: 'black',
+        },
+        action: {
+            active: '#001E3C',
+        },
+        success: {
+            light: '#81c784',
+            main: '#66bb6a',
+            dark: '#388e3c',
+        },
+    },
+    components: {
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: "#353241",
+                    color: "red",
+                }
+            }
+        }
+    }
+
+});
 
 
 
@@ -30,7 +67,7 @@ const TextChannel = (props) => {
     useEffect(() => {
         props.getTextChannel(props.match.params.server_id, props.match.params.text_id)
        
-
+            console.log(props)
             const serverId = props.match.params.server_id
             const channelId = props.match.params.text_id
             const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${serverId}/${channelId}/`);
@@ -49,7 +86,6 @@ const TextChannel = (props) => {
            
             client.onmessage =  (e) => {
                 const data = JSON.parse(e.data)
-                  console.log(data)
                 //  document.querySelector('#chat-text').value += (data.map(msgs =>  `${msgs.fields.author.user}:${msgs.fields.text_content}`) + '\n')
                 setMessages([...messages, data])
             }
@@ -80,37 +116,47 @@ const TextChannel = (props) => {
         props.logout()
     }
     return (
-        <div>
-            <SideBar />
-            <h1>text channel</h1>
-            <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
+        <ThemeProvider theme={theme}>
+            <Grid container >
+
+                <div className="sidepanels">
+                <ServerChannels serverid={props.match.params.server_id}/>
+                </div>
+
+           
 
 
-            <form>
-                <input type="text" name="message" onChange={handleTextContent} />
-                <button type="submit" onClick={sendMsg}>Send</button>
-            </form>
-            <div>
+            <div className="chatboxcon">
+            <List  >
+                <List item  sx={{display: 'flex', alignItems: 'flex-start', justifyContent:'center',flexDirection: 'column-reverse',   height: '200px'}}>
             {messages.map(msg => {
-                console.log(msg)
                 return(
                     <>
                     {msg.map(message =>{
+                        console.log(message)
                         return(
-                            <>
-                            <h4>{message.fields.author.user}{message.fields.author.user_tag}</h4>
+                                <>
+                            <h4>{message.fields.author.user} {message.fields.created_at}</h4>
                              <p>{message.fields.text_content}</p>
-                            </>
-                        )
-                    })}
+                             </>
+                             )
+                            })}
                         
                     </>
                 )
             })}
-            
+            <div className="messageFieldCon">
             </div>
-            <button onClick={logout}>Logout</button>
-        </div>
+            <form className="messageCon">
+                <input type="text" name="message" onChange={handleTextContent} id="message" />
+                <button type="submit" onClick={sendMsg}>Send</button>
+            </form>
+            </List>
+            </List>
+            </div>
+            
+            </Grid>
+        </ThemeProvider>
     )
 }
 

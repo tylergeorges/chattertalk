@@ -103,7 +103,7 @@ export const getLogin = (acc) => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
     instance 
     .get('login')
-    .then(data =>console.log(data))
+    .then(data =>dispatch({type: FETCH_CR_LOGIN, payload: data}))
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
         console.log(err.message)

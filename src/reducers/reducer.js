@@ -4,6 +4,7 @@ const initialState = ({
    currentuser: '',
    error: '',
    isLoading: false,
+   isLoggedIn: false,
    login_status: '',
    servers: [],
    current_server: '',
@@ -25,6 +26,11 @@ export default function reducer(state=initialState, action){
         return{
             ...state, isLoading:false, currentuser: state.currentuser, error: '', 
         }
+        case FETCH_CR_LOGIN:
+           console.log(action.payload.data.isLoggedIn)
+            return{
+                ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
+            }
         case LOGIN_ACC:
            console.log(action.payload.data.Authorization)
             return{

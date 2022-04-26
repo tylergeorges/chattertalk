@@ -17,6 +17,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AddIcon from '@mui/icons-material/Add';
 import * as icon from '@mui/icons-material';
 import TagIcon from '@mui/icons-material/Tag';
+import ServerChannels from "../components/ServerChannels"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
@@ -61,9 +62,7 @@ const Server = (props) => {
     
     const [TextChannelName, setTextChannelName] = useState('')
 
-    useEffect(() =>{
-        props.getServer(props.match.params.server_id)
-    },[])
+
 
     const handleChannelName = (e) =>{
         e.preventDefault()
@@ -88,40 +87,7 @@ const Server = (props) => {
     return (
         <ThemeProvider theme={theme}>
 
-            <h1>{props.current_server.server_name}</h1>
-            <Grid container   >
-           <SideBar />
-                <List >
-                    <List  xs='false' sm={4} md={6} sx={{display: 'flex',justifyContent: 'flex-start', flexDirection: 'column', backgroundColor: 'background.light', width: 200, height: '100%', position: 'fixed', top: 0}}>
-                    <div className="channelscon">
-                    <List item sx={{display: 'inline-block',  alignSelf: 'flex-start',   alignItems: 'center', width: 170, }}>
-                    <div className="channelheadercon">
-                    <h4 id="txtchannelheader">CHANNELS</h4>
-                    <AddIcon id="createChannelsIcon"/>
-                    </div>
-                    </List>
-                    {props.text_channels.map(channels =>{
-                    return(
-                        <List item  sx={{display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170,  alignItems: 'center', marginTop: '4%', bottom: 30, right: 10,backgroundColor: 'background.dark', borderRadius: 2}}>
-                            <Link to={`/channels/${props.match.params.server_id}/${channels.id}`}>
-                            <div className="channellist">
-                        <TagIcon id="channelhashtag"/>
-                        {channels.text_channel_name}
-                        </div>
-                        </Link>
-                        </List>
-                        )
-                    })}
-                    </div>
-                    </List>
-                   
-                </List>
-                
-            </Grid>
-           <form>
-               <input placeholder="text-channel-name" onChange={handleChannelName}/>
-               <button type="submit" onClick={createTextChannel}>Create Channel</button>
-           </form>
+           <ServerChannels serverid={props.match.params.server_id}/>
         </ThemeProvider>
     )
 }
