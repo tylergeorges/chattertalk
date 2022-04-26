@@ -32,9 +32,9 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
             }
         case LOGIN_ACC:
-           console.log(action.payload.data.Authorization)
+           console.log(action.payload.data)
             return{
-                ...state, isLoading:false,  error: '', auth_token: action.payload.data.Authorization
+                ...state, isLoading:false,  error: '', auth_token: action.payload.data.Authorization, isLoggedIn: action.payload.data.isLoggedIn
             }
         case ADD_ACCOUNT:
         return{

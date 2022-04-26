@@ -84,6 +84,7 @@ const ServerChannels = (props) => {
             <Grid container>
                 <SideBar />
                 <List >
+                <div className="channelspanelCon">
                     <List xs='false' sm={4} md={6} sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', backgroundColor: 'background.light', width: 200, height: '100%', position: 'fixed', top: 0 }}>
                         <div className="serverNameCon" >
                             <h3>{props.current_server.server_name}</h3>
@@ -110,13 +111,13 @@ const ServerChannels = (props) => {
                         </div>
                     </List>
 
+                </div>
                 </List>
-
             </Grid>
-            <form>
+            {/* <form>
                 <input placeholder="text-channel-name" onChange={handleChannelName} />
                 <button type="submit" onClick={createTextChannel}>Create Channel</button>
-            </form>
+            </form> */}
 
 
         </ThemeProvider>

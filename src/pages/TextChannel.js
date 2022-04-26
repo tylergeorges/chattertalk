@@ -8,7 +8,7 @@ import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
 import ServerChannels from "../components/ServerChannels"
 import { ThemeProvider } from "@emotion/react"
-import { createTheme, Grid, List, Typography } from "@mui/material"
+import { Box, createTheme, Grid, List, Typography } from "@mui/material"
 
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
@@ -61,6 +61,7 @@ const TextChannel = (props) => {
     const [currClient, setClient] = useState('')
     const ws = useRef(null);
     
+    const dummy = useRef()
 
  
 
@@ -71,7 +72,7 @@ const TextChannel = (props) => {
             const serverId = props.match.params.server_id
             const channelId = props.match.params.text_id
             const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${serverId}/${channelId}/`);
-            
+
 
              client.onopen =  (e) => {
                 e.preventDefault()
@@ -88,6 +89,7 @@ const TextChannel = (props) => {
                 const data = JSON.parse(e.data)
                 //  document.querySelector('#chat-text').value += (data.map(msgs =>  `${msgs.fields.author.user}:${msgs.fields.text_content}`) + '\n')
                 setMessages([...messages, data])
+                
             }
             return() =>{
                 client.close()
@@ -106,7 +108,7 @@ const TextChannel = (props) => {
         currClient.send(JSON.stringify({
             'text_content': textContent,
         }))
-
+        dummy.current.scrollIntoView({behavior: 'smooth'})
 
     }
 
@@ -127,32 +129,32 @@ const TextChannel = (props) => {
 
 
             <div className="chatboxcon">
-            <List  >
-                <List item  sx={{display: 'flex', alignItems: 'flex-start', justifyContent:'center',flexDirection: 'column-reverse',   height: '200px'}}>
+            <List >
+                {/* <List item sx={{display: 'flex', alignItems: 'flex-start', justifyContent:'center',flexDirection: 'column',   height: '200px'}}> */}
             {messages.map(msg => {
                 return(
                     <>
                     {msg.map(message =>{
                         console.log(message)
                         return(
-                                <>
+                            <div className="allmessages">
                             <h4>{message.fields.author.user} {message.fields.created_at}</h4>
                              <p>{message.fields.text_content}</p>
-                             </>
+                             </div>
                              )
                             })}
                         
                     </>
                 )
             })}
-            <div className="messageFieldCon">
-            </div>
+            <div ref={dummy}></div>
+            </List>
+
             <form className="messageCon">
                 <input type="text" name="message" onChange={handleTextContent} id="message" />
                 <button type="submit" onClick={sendMsg}>Send</button>
             </form>
-            </List>
-            </List>
+
             </div>
             
             </Grid>

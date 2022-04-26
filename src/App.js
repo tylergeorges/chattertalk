@@ -25,6 +25,7 @@ function App(props) {
         <Switch>
           {props.isLoggedIn ? <Redirect from='/login' to='/home'/> : ''}
           {props.isLoggedIn ? <Redirect from='/register' to='/home'/> : ''}
+          {!props.isLoggedIn ? <Redirect from='/home' to='/login'/> : ''}
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/home" component={Home} />

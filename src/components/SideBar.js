@@ -85,7 +85,7 @@ const Sidebar = (props) => {
         <ThemeProvider theme={theme}    >
             <CssBaseline />
 
-            <Drawer variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} >
+            <Drawer  variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} >
                 <List justify="center" align="center" >
 
                     <List item="true" xs="false" sm={4} md={6}>
@@ -107,6 +107,7 @@ const Sidebar = (props) => {
                         <AddIcon sx={{ bgcolor: 'background.default', fontSize: 70, }} className="addServerBtn" onClick={createServerForm}/>
                     </List>
                 </List>
+                
             </Drawer>
             
             
