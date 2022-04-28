@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout } from "../actions/actions"
+import { fetchHome, getLogin, loginAcc, createServer, logout } from "../../actions/actions"
 import { useHistory } from "react-router-dom"
 import Drawer from '@mui/material/Drawer'
 import Grid from '@mui/material/Grid'

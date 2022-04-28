@@ -50,10 +50,9 @@ const theme = createTheme({
     }
 
 });
-const ServerChannels = (props) => {
+const HomeLists = (props) => {
 
     const [TextChannelName, setTextChannelName] = useState('')
-    const [showServerForm, setShowServerForm] = useState(false)
 
     useEffect(() => {
         // console.log(props)
@@ -69,8 +68,8 @@ const ServerChannels = (props) => {
     const createTextChannel = (e) => {
         e.preventDefault()
 
-        setShowServerForm(!showServerForm)
-        // props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
+
+        props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
 
     }
 
@@ -86,46 +85,22 @@ const ServerChannels = (props) => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className="panelsCon">
-                        <div onClick={createTextChannel} style={showServerForm === true ? {backgroundColor: 'black', position:'fixed', zIndex: '1000', height: '100%', width: '200%', opacity: '0.5'}: {display: 'none'}}/>
-                {/* <List > */}
-                {/* <SideBar /> */}
                 <div className="channelsPanelRel">
                 <div className="channelspanelCon">
-                    {/* <List xs='false' sm={4} md={6} sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', backgroundColor: 'background.light', width: 200, height: '100%', position: 'fixed', top: 0 }}> */}
                         <div className="serverNameCon" >
-                            <h3>{props.current_server.server_name}</h3>
+                            <h3>Friends</h3>
                         </div>
-                        <div className="channelscon">
+                        {/* <div className="channelscon">
                             <List item sx={{ display: 'inline-block', alignSelf: 'flex-start', alignItems: 'center', width: 170, }}>    
                                 <div className="channelheadercon">
-                                    <h4 id="txtchannelheader">CHANNELS</h4>
-                                    <AddIcon id="createChannelsIcon" onClick={createTextChannel}/>
+                                    <h4 id="txtchannelheader">FRIENDS</h4>
                                 </div>
                             </List>
-                            {props.text_channels.map(channels => {
-                                return (
-                                    <List item sx={{ display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170, alignItems: 'center', marginTop: '4%', bottom: 30, right: 10, backgroundColor: 'background.dark', borderRadius: 2 }}>
-                                        <Link to={`/channels/${props.serverid}/${channels.id}`}>
-                                            <div className="channellist">
-                                                <TagIcon id="channelhashtag" />
-                                                {channels.text_channel_name}
-                                            </div>
-                                        </Link>
-                                    </List>
-                                )
-                            })}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
-            
-            <div className={showServerForm === true ?'innerForm' : 'dontShow'} > 
-                        <CreateChannelForm serverid={props.serverid}/>
-                        </div>
-            {/* <form>
-                <input placeholder="text-channel-name" onChange={handleChannelName} />
-                <button type="submit" onClick={createTextChannel}>Create Channel</button>
-            </form> */}
+         
 
 
         </ThemeProvider>
@@ -133,4 +108,4 @@ const ServerChannels = (props) => {
     )
 }
 
-export default connect(mapStateToProps, { logout, getServer, createServer, createTextChannel, fetchHome })(ServerChannels)
+export default connect(mapStateToProps, { logout, getServer, createServer, createTextChannel, fetchHome })(HomeLists)

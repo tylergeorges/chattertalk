@@ -5,8 +5,11 @@ import { fetchHome, getLogin, loginAcc, createServer, logout } from "../actions/
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import SideBar from "../components/SideBar"
-import { Box, createTheme, CssBaseline } from "@mui/material"
+import { Box, createTheme, CssBaseline, Grid } from "@mui/material"
 import { ThemeProvider } from "@emotion/react"
+import HomeLists from "../components/HomeLists"
+import TextChannelMsgs from "../components/TextChannelMsgs"
+import ServerChannels from "../components/ServerChannels"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
@@ -80,30 +83,32 @@ const Home = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <SideBar />
-            <Box sx={{bgcolor: 'background.main'}}>
+            {/* <SideBar /> */}
+            <div className="serversCon">
+            <Grid container >
+                    <Grid item sx={{zIndex: 10000}} >
+                        <SideBar />
+                    </Grid>
+                    <Grid item >
+                        <HomeLists serverid={props.match.params.server_id} />
+                    </Grid>
+                <Grid item className="channelsmsgs"  sx={{height: 300}}>
+                <h1>Home</h1>
+            <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
+                </Grid >
+            </Grid>
+            </div>
+
+{/* 
+            <div className="homeCon">
+            <div className="homeContent">
             <h1>Home</h1>
             <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-            
-            {/* {props.servers.map(servers => {
-                return(
-                    <>
-                    <ul>
-                        <h4>{servers.server_name}</h4>
-                        <Link to={`server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`}/></Link>
-                    </ul>
-                    </>
-                )
-            })}
-
-            <form>
-            <input type="text" name="server_name" onChange={handleServerName}/>
-            <input  type="file" name="server_icon"onChange={handleServerName}/>
-            <button type="submit" onClick={createServer}>CREATE SERVER</button>
-            </form> */}
+            </div>
+            </div> */}
+          
 
             <button onClick={logout}>Logout</button>
-            </Box>
         </ThemeProvider>
     )
 }

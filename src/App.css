@@ -7,7 +7,10 @@
 a /* &c... */ {
   all: unset;
 }
-
+body{
+  margin: none;
+  
+}
 .serverIcons{
   border-radius: 50%;
   /* width: 100%; */
@@ -19,6 +22,10 @@ a /* &c... */ {
   /* width: 100%; */
   transition: 250ms ease;
   text-decoration: none; 
+}
+.serverChannelsCon{
+  height: 100%;
+  
 }
 .addServerBtn{
   color: #66bb6a;
@@ -34,9 +41,41 @@ a /* &c... */ {
 
 .serverForm{
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.innerForm{
+  border-radius: 2%;
+  z-index: 0; 
+  display: flex;
+  text-align: center;
+  position:fixed; 
+  background-color: #353241; 
+  height: 450px;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  position: fixed;
+  top: 0; 
+left: 0;
+transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+
+}
+.dontShow{
+  display: none;
+}
+.blackScreen{
+  position: absolute;
+  width:100%; 
+  height: 100%; 
+  background-color: black; 
+  z-index: 3;
 }
 .forminput{
   width: 100%;
@@ -67,6 +106,7 @@ a /* &c... */ {
   flex-direction: column;
   border-radius: 5px;
   margin-bottom: 2rem;
+  z-index: 3;
 }
 
 #serverFormIcon{
@@ -101,7 +141,12 @@ a /* &c... */ {
   top: 5%;
   font-size: 25px;
 }
-
+.forminputCon{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 #changeicon{
 position: absolute; 
 height: 15%;
@@ -120,7 +165,11 @@ border-radius: 50%;
 .channelspanel{
 background-color: white;
 }
-
+.channelsmsgs{
+  position: absolute;
+  width: calc(100% - 300px);
+  left: 300px;
+}
 .channellist{
   display: flex;
   align-items: center;
@@ -128,10 +177,7 @@ background-color: white;
   bottom: 0;
   cursor: pointer;
 }
-/* #txtchannelheader{
-  margin-top: 50%;
-  margin-right: 50%;
-} */
+
 
 #channelhashtag{
 margin: 2%;
@@ -153,52 +199,164 @@ margin: 2%;
 
 }
 
-
+/* .channelViewCon{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+} */
 
 .chatboxcon{
   position: relative;
-  margin-left: 25px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  
+  width: calc(100% - 300px);
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
 }
-
+/* 
 .messageFieldCon{
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: red;
-  
+} */
+
+.messagecontent{
+  position: absolute;
+  height: 100%;
+  top: 30%;
+  /* padding-bottom: 50px; */
 }
 .messageCon{
   position: fixed;
+  display: flex;
   bottom: 0;
-  width: 100%;
+  width: calc(100% - 300px);
   /* margin-left: 50%; */
-  height: 4%;
-  align-items: center;
+  height: 70px;
+  /* align-items: center; */
   justify-content: center;
-  display: flex;
+  /* background-color: #1F1C2C; */
   background-color: #1F1C2C;
-  justify-content: flex-end;
+  
 }
-#message{
+#messageInput{
   position: relative;
-  display: flex;
+  width: 98%;
   border: none;
-  height: 150%;
-  width: 88%;
-  justify-content: flex-end;
-  margin-bottom: 3%;
+  height: 50px;
+  max-height: fit-content;
+  /* bottom: 10px; */
   background-color: #353241;
   color: white;
-  padding-left: 5px;
+  border-radius: 10px;
+}
+form input{
+ outline: none;
+ border: none;
 }
 .allmessages{
   position: relative;
-  width: 100%;
-  margin-left: 65%;
+  height: 200px;
+  /* margin-bottom: 50px; */
+  width: max-content;
+  
+  /* margin-bottom: 6%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-block-end: 15%;
+}
+.allmsgsCon{
+  position: relative;
+  margin-bottom: 6%;
+  height: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2%;
+  justify-content: flex-start;
+  /* margin-left: -200px; */
+}
+.grandfather{
+  position: relative;
 }
 
+.serverSideBar{
+  position: relative;
+  display: flex;
+  background-color: #353241;
+  width: 100px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  float: left;
+  left: 0;
+  height: 100%;
+  top: 0;
+  justify-content: center;
+  z-index: 1;
+}
+.panelsCon{
+  position: fixed;
+  height: 100%;
+  top: 0;
+  box-sizing: border-box;
+}
+.serverCon{
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+.sidecom{
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+}
+.channelsPanelRel{
+  position: relative;
+  justify-content: flex-start;
+  flex-direction: column; 
+  background-color: #423f51; 
+  width: 200px;
+  height: 100%; 
+  float: left;
+  top: 0;
+}
+.channelsCon{
+  position: relative;
+}
+.sidebar{
+  position: fixed;
+  display: flex ;
+  background-color: #353241;
+  width: 100px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  
+  /* position: fixed; */
+  float: left;
+  left: 0;
+  height: 100%;
+  top: 0;
+  justify-content: center;
+  z-index: 0;
+}
+.serversCon{
+  position: relative;
+  display: flex;
+  height: 30px;
+}
+.homeCon{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+}
+
+.homeContent{
+  position: relative;
+  justify-content: flex-start;
+}

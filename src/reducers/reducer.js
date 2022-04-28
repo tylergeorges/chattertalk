@@ -27,12 +27,10 @@ export default function reducer(state=initialState, action){
             ...state, isLoading:false, currentuser: state.currentuser, error: '', 
         }
         case FETCH_CR_LOGIN:
-           console.log(action.payload.data.isLoggedIn)
             return{
                 ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
             }
         case LOGIN_ACC:
-           console.log(action.payload.data)
             return{
                 ...state, isLoading:false,  error: '', auth_token: action.payload.data.Authorization, isLoggedIn: action.payload.data.isLoggedIn
             }
@@ -45,17 +43,14 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false, currentuser: action.payload.data.data.currentuser, error: '', servers: action.payload.data.data.servers, auth_token: action.payload.data.token
             }
         case FETCH_SERVER:
-            console.log(action.payload.data.token)
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server, text_channels: action.payload.data.data.text_channels, auth_token: action.payload.data.token
             }
         case CREATE_CHANNEL:
-            console.log(action.payload)
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server,
             }
         case GET_CHANNEL:
-            console.log(action.payload.data.current_user)
             return{
                 ...state, isLoading:false, currentuser: action.payload.data.current_user, error: '', auth_token: action.payload.data.token,
             }

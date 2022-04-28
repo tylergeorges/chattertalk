@@ -8,13 +8,13 @@ import Drawer from '@mui/material/Drawer'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { List, ListItem } from "@mui/material"
+import { List, ListItem, Toolbar } from "@mui/material"
 import { borders } from '@mui/system';
 import HomeIcon from '@mui/icons-material/Home';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AddIcon from '@mui/icons-material/Add';
-import ServerForm from './ServerForm';
+import ServerForm from './forms/ServerForm';
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -82,14 +82,19 @@ const Sidebar = (props) => {
     }
 
     return (
-        <ThemeProvider theme={theme}    >
-            <CssBaseline />
 
-            <Drawer  variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} >
+        <div className='serverSideBar'style={{backgroundColor: 'black', zIndex: '0'}} >
+            {/* <Toolbar /> */}
+        <ThemeProvider theme={theme} >
+            <CssBaseline/>
+
+            {/* <Drawer  variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} > */}
+             <div className='sidebar' >
+                 <div onClick={createServerForm} style={showServerForm === true ? {backgroundColor: 'black', position:'fixed', zIndex: '1000', height: '100%', width: '200%', opacity: '0.5'}: {display: 'none'}}/>
                 <List justify="center" align="center" >
 
-                    <List item="true" xs="false" sm={4} md={6}>
-                        <Link to="/home"> <HomeIcon sx={{ color: 'white', bgcolor: 'background.default', fontSize: 70, }} className="serverIcons" /></Link>
+                    <List item="true" xs="false" sm={4} md={6} >
+                        <Link to="/home"> <HomeIcon sx={{ color: 'white', bgcolor: 'background.default', fontSize: 70}} className="serverIcons" /></Link>
                     </List>
 
                     {props.servers.map(servers => {
@@ -97,7 +102,7 @@ const Sidebar = (props) => {
                             <>
                                 {/* <h4>{servers.server_name}</h4> */}
 
-                                <List item="true" xs='false' sm={4} md={6}>
+                                <List item="true" xs='false' sm={4} md={6} >
                                     <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} className="serverIcons" width="70px" /></Link>
                                 </List>
                             </>
@@ -107,17 +112,12 @@ const Sidebar = (props) => {
                         <AddIcon sx={{ bgcolor: 'background.default', fontSize: 70, }} className="addServerBtn" onClick={createServerForm}/>
                     </List>
                 </List>
-                
-            </Drawer>
-            
-            
-            <Grid container justifyContent="center" alignItems="center"  sx={showServerForm === true ? { minHeight: '100vh',  position:'fixed', } : {display: 'none'}} >
-                         <Grid item xs={6}  sx={{borderRadius: 2, display: 'flex', alignItems: 'center', textAlign: 'center', position:'absolute', bgcolor: 'background.dark', height: 450, width: 400}}> 
+             </div>
+                         <div className={showServerForm === true ?'innerForm' : 'dontShow'} > 
                          <ServerForm />
-                        </Grid>
-
-                    </Grid>
-        </ThemeProvider>
+                        </div>
+                    </ThemeProvider>
+        </div>
     )
 }
 

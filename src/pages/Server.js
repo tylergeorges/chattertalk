@@ -86,8 +86,14 @@ const Server = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
-
-           <ServerChannels serverid={props.match.params.server_id}/>
+            <Grid container className="serverCon">
+            <Grid item sx={{zIndex: 0}}>
+            <SideBar />
+            </Grid>
+            <Grid item  sx={{zIndex: 500}}>
+            <ServerChannels serverid={props.match.params.server_id}/>
+            </Grid>
+            </Grid>
         </ThemeProvider>
     )
 }

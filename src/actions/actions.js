@@ -64,7 +64,6 @@ export const addAccount = (acc) => (dispatch) =>{
     .post('register', JSON.stringify(acc))
     .then(data =>{
         // dispatch({type: ADD_ACCOUNT, payload: data})
-        console.log(data)
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -79,7 +78,6 @@ export const fetchRegister = (acc) => (dispatch) =>{
     .then(data =>{
         
         // dispatch({type: FETCH_SM_REGISTER, payload: data})
-        console.log(data)
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -134,7 +132,6 @@ export const createServer = (serverInfo) =>  async(dispatch) =>{
     instance 
     .post(`/home`, formData, config)
     .then(data =>{
-        console.log(data)
         // dispatch({type: FETCH_CR_HOME, payload: data})
     })
     .catch(err=>{
@@ -149,7 +146,6 @@ export const getServer = (server_id) => (dispatch) =>{
     .get(`/server/${server_id}/`)
     .then(data =>{
         dispatch({type: FETCH_SERVER, payload: data})
-        console.log(data)
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -163,7 +159,6 @@ export const createTextChannel = (channel_info) => (dispatch) =>{
     .post(`/server/${channel_info.server_id}/`, {text_channel_name: channel_info.text_channel_name, server_id: channel_info.server_id}, {headers:{Authorization: `Token ${channel_info.token}`}})
     .then(data =>{
         dispatch({type: CREATE_CHANNEL, payload: data})
-        console.log(data)
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -185,13 +180,11 @@ export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
 }
 export const sendMessage = (message) => (dispatch) =>{
 
-    console.log(message)
 
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/channels/${message.server_id}/${message.channel_id}/`, message , {headers:{Authorization:`Token ${message.token}`}})
     .then(data =>{
-        console.log(data)
         // dispatch({type: CREATE_CHANNEL, payload: data})
     })
     .catch(err=>{
@@ -210,7 +203,6 @@ export const logout = () =>  async(dispatch) =>{
     instance 
     .get(`/logout`)
     .then(data =>{
-        console.log(data)
         // dispatch({type: FETCH_CR_HOME, payload: data})
     })
     .catch(err=>{

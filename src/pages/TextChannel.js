@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from "react"
+import { useEffect, useState, useRef } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { fetchHome, getLogin, loginAcc, createServer, logout, getTextChannel, sendMessage } from "../actions/actions"
@@ -8,7 +8,8 @@ import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
 import ServerChannels from "../components/ServerChannels"
 import { ThemeProvider } from "@emotion/react"
-import { Box, createTheme, Grid, List, Typography } from "@mui/material"
+import { Box, createTheme, Grid, List, Toolbar, Typography } from "@mui/material"
+import TextChannelMsgs from "../components/TextChannelMsgs"
 
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
@@ -60,40 +61,15 @@ const TextChannel = (props) => {
     const [newMsg, setNewMsg] = useState('')
     const [currClient, setClient] = useState('')
     const ws = useRef(null);
-    
+
     const dummy = useRef()
 
- 
+
 
     useEffect(() => {
-        props.getTextChannel(props.match.params.server_id, props.match.params.text_id)
-       
-            console.log(props)
-            const serverId = props.match.params.server_id
-            const channelId = props.match.params.text_id
-            const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${serverId}/${channelId}/`);
+        // props.getTextChannel(props.match.params.server_id, props.match.params.text_id)
 
 
-             client.onopen =  (e) => {
-                e.preventDefault()
-                console.log('connected')
-            
-            }
-            client.onclose = () =>{
-                console.log('close')
-            }
-            setClient(client)
-
-           
-            client.onmessage =  (e) => {
-                const data = JSON.parse(e.data)
-                //  document.querySelector('#chat-text').value += (data.map(msgs =>  `${msgs.fields.author.user}:${msgs.fields.text_content}`) + '\n')
-                setMessages([...messages, data])
-                
-            }
-            return() =>{
-                client.close()
-            }  
     }, [])
 
     const handleTextContent = (e) => {
@@ -104,11 +80,11 @@ const TextChannel = (props) => {
     //! send msg button
     const sendMsg = (e) => {
         e.preventDefault()
-        
+
         currClient.send(JSON.stringify({
             'text_content': textContent,
         }))
-        dummy.current.scrollIntoView({behavior: 'smooth'})
+        dummy.current.scrollIntoView({ behavior: 'smooth' })
 
     }
 
@@ -119,45 +95,21 @@ const TextChannel = (props) => {
     }
     return (
         <ThemeProvider theme={theme}>
+            <div className="serversCon">
             <Grid container >
+                    <Grid item  >
+                        <SideBar />
+                    </Grid>
+                    <Grid item >
+                        <ServerChannels serverid={props.match.params.server_id} />
 
-                <div className="sidepanels">
-                <ServerChannels serverid={props.match.params.server_id}/>
-                </div>
-
-           
-
-
-            <div className="chatboxcon">
-            <List >
-                {/* <List item sx={{display: 'flex', alignItems: 'flex-start', justifyContent:'center',flexDirection: 'column',   height: '200px'}}> */}
-            {messages.map(msg => {
-                return(
-                    <>
-                    {msg.map(message =>{
-                        console.log(message)
-                        return(
-                            <div className="allmessages">
-                            <h4>{message.fields.author.user} {message.fields.created_at}</h4>
-                             <p>{message.fields.text_content}</p>
-                             </div>
-                             )
-                            })}
-                        
-                    </>
-                )
-            })}
-            <div ref={dummy}></div>
-            </List>
-
-            <form className="messageCon">
-                <input type="text" name="message" onChange={handleTextContent} id="message" />
-                <button type="submit" onClick={sendMsg}>Send</button>
-            </form>
-
-            </div>
-            
+                    </Grid>
+                <Grid item className="channelsmsgs"  sx={{height: 300}}>
+                    {/* //! make height 100% - #message height */}
+                </Grid >
+                    <TextChannelMsgs serverid={props.match.params.server_id} channelid={props.match.params.text_id} />
             </Grid>
+            </div>
         </ThemeProvider>
     )
 }
