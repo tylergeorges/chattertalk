@@ -53,7 +53,7 @@ const theme = createTheme({
 const ServerChannels = (props) => {
 
     const [TextChannelName, setTextChannelName] = useState('')
-    const [showServerForm, setShowServerForm] = useState(false)
+    const [showChannelForm, setShowChannelForm] = useState(false)
 
     useEffect(() => {
         // console.log(props)
@@ -69,7 +69,7 @@ const ServerChannels = (props) => {
     const createTextChannel = (e) => {
         e.preventDefault()
 
-        setShowServerForm(!showServerForm)
+        setShowChannelForm(!showChannelForm)
         // props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
 
     }
@@ -82,11 +82,11 @@ const ServerChannels = (props) => {
 
     return (
         <div className="serverChannelsCon">
-            <Toolbar />
+            {/* <Toolbar /> */}
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <div className="panelsCon">
-                        <div onClick={createTextChannel} style={showServerForm === true ? {backgroundColor: 'black', position:'fixed', zIndex: '1000', height: '100%', width: '200%', opacity: '0.5'}: {display: 'none'}}/>
+                <div onClick={createTextChannel} style={showChannelForm === true ? {backgroundColor: 'black', position:'absolute', zIndex: '1000',left:'0', height: '100%', width: '100%', opacity: '0.5'}: {display: 'none'}}/>
+            <div className="panelsCon" >
                 {/* <List > */}
                 {/* <SideBar /> */}
                 <div className="channelsPanelRel">
@@ -119,15 +119,9 @@ const ServerChannels = (props) => {
                 </div>
             </div>
             
-            <div className={showServerForm === true ?'innerForm' : 'dontShow'} > 
+            <div className={showChannelForm === true ?'innerForm' : 'dontShow'} > 
                         <CreateChannelForm serverid={props.serverid}/>
                         </div>
-            {/* <form>
-                <input placeholder="text-channel-name" onChange={handleChannelName} />
-                <button type="submit" onClick={createTextChannel}>Create Channel</button>
-            </form> */}
-
-
         </ThemeProvider>
         </div>
     )

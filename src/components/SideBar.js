@@ -83,7 +83,7 @@ const Sidebar = (props) => {
 
     return (
 
-        <div className='serverSideBar'style={{backgroundColor: 'black', zIndex: '0'}} >
+        <div className='serverSideBar' >
             {/* <Toolbar /> */}
         <ThemeProvider theme={theme} >
             <CssBaseline/>

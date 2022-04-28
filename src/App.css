@@ -52,7 +52,7 @@ body{
 
 .innerForm{
   border-radius: 2%;
-  z-index: 0; 
+  z-index: 1001; 
   display: flex;
   text-align: center;
   position:fixed; 
@@ -342,7 +342,6 @@ top: 0;
   height: 100%;
   top: 0;
   justify-content: center;
-  z-index: 0;
 }
 .serversCon{
   position: relative;

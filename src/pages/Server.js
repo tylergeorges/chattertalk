@@ -87,10 +87,10 @@ const Server = (props) => {
     return (
         <ThemeProvider theme={theme}>
             <Grid container className="serverCon">
-            <Grid item sx={{zIndex: 0}}>
+            <Grid item >
             <SideBar />
             </Grid>
-            <Grid item  sx={{zIndex: 500}}>
+            <Grid item  >
             <ServerChannels serverid={props.match.params.server_id}/>
             </Grid>
             </Grid>
