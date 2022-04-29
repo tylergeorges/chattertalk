@@ -15,6 +15,7 @@ const initialState = ({
 export default function reducer(state=initialState, action){
     switch(action.type){
         case FETCH_CR_START:
+            console.log('loading')
         return{
             ...state, isLoading:true, currentuser: state.currentuser, error: '', 
         }

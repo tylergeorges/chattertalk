@@ -9,6 +9,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
 import CreateChannelForm from "./forms/CreateChannelForm"
+import { useHistory } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -51,7 +53,7 @@ const theme = createTheme({
 
 });
 const ServerChannels = (props) => {
-
+    const history = useHistory()
     const [TextChannelName, setTextChannelName] = useState('')
     const [showChannelForm, setShowChannelForm] = useState(false)
 
@@ -71,13 +73,14 @@ const ServerChannels = (props) => {
 
         setShowChannelForm(!showChannelForm)
         // props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
-
+        
     }
 
-    const logout = (e) => {
+    const toChannel = (e) => {
         e.preventDefault()
-
-        props.logout()
+        const channel_id = e.target.id
+        // console.log(e.target.id)
+        history.push(`/channels/${props.serverid}/${channel_id}`)
     }
 
     return (
@@ -105,11 +108,11 @@ const ServerChannels = (props) => {
                             </List>
                             {props.text_channels.map(channels => {
                                 return (
-                                    <List item sx={{ display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170, alignItems: 'center', marginTop: '4%', bottom: 30, right: 10, backgroundColor: 'background.dark', borderRadius: 2 }}>
+                                    <List  item sx={{ display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170, alignItems: 'center', marginTop: '4%', bottom: 30, right: 10, backgroundColor: 'background.dark', borderRadius: 2 }}>
                                         <Link to={`/channels/${props.serverid}/${channels.id}`}>
-                                            <div className="channellist">
-                                                <TagIcon id="channelhashtag" />
-                                                {channels.text_channel_name}
+                                            <div className="channellist"  id={channels.id} >
+                                                <TagIcon className="channelhashtag" id={channels.id}  />
+                                                <p>{channels.text_channel_name}</p>
                                             </div>
                                         </Link>
                                     </List>

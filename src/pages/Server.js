@@ -23,7 +23,8 @@ const mapStateToProps = (state) => ({
     currentuser: state.currentuser,
     current_server: state.current_server,
     text_channels: state.text_channels,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
+    isLoading: state.isLoading,
 })
 const drawerWidth = 150
 const theme = createTheme({
@@ -56,36 +57,12 @@ const theme = createTheme({
             }
         }
     }
-
 });
 const Server = (props) => {
-
-    const [TextChannelName, setTextChannelName] = useState('')
-
-
-
-    const handleChannelName = (e) => {
-        e.preventDefault()
-
-        setTextChannelName(e.target.value)
-    }
-
-    const createTextChannel = (e) => {
-        e.preventDefault()
-
-
-        props.createTextChannel({ server_id: props.match.params.server_id, text_channel_name: TextChannelName, token: props.auth_token })
-
-    }
-
-    const logout = (e) => {
-        e.preventDefault()
-
-        props.logout()
-    }
-
+    
     return (
         <ThemeProvider theme={theme}>
+             {props.isLoading && <div>Loading...</div>}
             <Grid container className="serverCon">
                 <Grid item >
                     <SideBar />

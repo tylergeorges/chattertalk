@@ -16,6 +16,7 @@ const mapStateToProps = (state) => ({
     currentuser: state.currentuser,
     servers: state.servers,
     currentchannel: state.currentchannel,
+    isLoading: state.isLoading
 })
 
 const drawerWidth = 150
@@ -55,56 +56,19 @@ const theme = createTheme({
 
 
 const TextChannel = (props) => {
-    const [textContent, setTextContent] = useState('')
-    const [serverIcon, setServerIcon] = useState(null)
-    const [messages, setMessages] = useState([])
-    const [newMsg, setNewMsg] = useState('')
-    const [currClient, setClient] = useState('')
-    const ws = useRef(null);
 
-    const dummy = useRef()
-
-
-
-    useEffect(() => {
-        // props.getTextChannel(props.match.params.server_id, props.match.params.text_id)
-
-
-    }, [])
-
-    const handleTextContent = (e) => {
-        e.preventDefault()
-        setTextContent(e.target.value)
-    }
-
-    //! send msg button
-    const sendMsg = (e) => {
-        e.preventDefault()
-
-        currClient.send(JSON.stringify({
-            'text_content': textContent,
-        }))
-        dummy.current.scrollIntoView({ behavior: 'smooth' })
-
-    }
-
-    const logout = (e) => {
-        e.preventDefault()
-
-        props.logout()
-    }
     return (
         <ThemeProvider theme={theme}>
+            {props.isLoading && <div>Loading...</div>}
             <Grid container className="serverCon">
                     <Grid item  >
                         <SideBar />
                     </Grid>
                     <Grid item >
-                        <ServerChannels serverid={props.match.params.server_id} />
+                       {props.match.params.server_id && <ServerChannels serverid={props.match.params.server_id} />}
                     </Grid>
                 <Grid item className="channelsmsgs" >
-                    {/* //! make height 100% - #message height */}
-                    <TextChannelMsgs serverid={props.match.params.server_id} channelid={props.match.params.text_id} />
+                   {props.match.params.text_id && props.match.params.server_id && <TextChannelMsgs serverid={props.match.params.server_id} channelid={props.match.params.text_id} />}
                 </Grid >
             </Grid>
         </ThemeProvider>

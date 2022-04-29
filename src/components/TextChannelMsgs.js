@@ -15,6 +15,7 @@ const mapStateToProps = (state) => ({
     currentuser: state.currentuser,
     servers: state.servers,
     currentchannel: state.currentchannel,
+    isLoading: state.isLoading
 })
 
 const drawerWidth = 150
@@ -55,52 +56,51 @@ const theme = createTheme({
 
 const TextChannelMsgs = (props) => {
     const [textContent, setTextContent] = useState('')
-    const [serverIcon, setServerIcon] = useState(null)
     const [messages, setMessages] = useState([])
-    const [newMsg, setNewMsg] = useState('')
     const [currClient, setClient] = useState('')
-    const ws = useRef(null);
+    const [update, setUpdate] = useState(false)
     const messageRef = useRef();
- 
 
+    const history = useHistory()
+    const url = window.location.pathname.split('/').pop();
 
-    useEffect(() => {
-        props.getTextChannel(props.serverid, props.channelid)
-       
+    useEffect( () =>  {
         
-            // console.log(props)
-            const serverId = props.serverid
-            const channelId = props.channelid
-            const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${serverId}/${channelId}/`);
+        const serverId = props.serverid
+        const channelId = props.channelid
+        props.getTextChannel(props.serverid, props.channelid)
+        console.log(props)
 
-
-           
+        
+            const client =  new  W3CWebSocket(`ws://127.0.0.1:8000/channels/${serverId}/${channelId}/`);
 
              client.onopen =  (e) => {
                 e.preventDefault()
                 console.log('connected')
-            
             }
             client.onclose = () =>{
                 console.log('close')
+                setMessages([])
             }
             setClient(client)
 
            
             client.onmessage =  (e) => {
-                const data = JSON.parse(e.data)
-                //  document.querySelector('#chat-text').value += (data.map(msgs =>  `${msgs.fields.author.user}:${msgs.fields.text_content}`) + '\n')
-                setMessages([...messages, data])
-                
-                // if(data.fields.author.user )
-                messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+                const data =  JSON.parse(e.data)
+                console.log(data)
+                // if(data.fields.created_in === channelId){
+
+                    setMessages([data])
+                   
+                    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+                // }
+                 
             }
             return() =>{
                 client.close()
                 
-            }  
-
-    }, [])
+        }
+    }, [url])
 
     const handleTextContent = (e) => {
         e.preventDefault()
@@ -118,24 +118,14 @@ const TextChannelMsgs = (props) => {
 
     }
 
-    const logout = (e) => {
-        e.preventDefault()
-
-        props.logout()
-    }
     return (
            
         <>
 
-                {/* <div className="channelsCon"> */}
-                
-                    
-                
-                {/* </div> */}
             <div className="chatboxcon">
              
             
-            {messages.map(msg => {
+         {  messages.map(msg => {
                 return(
                     <div className="allmsgsCon" >
                     {msg.map(message =>{
@@ -151,7 +141,7 @@ const TextChannelMsgs = (props) => {
                             })}
                     </div>
                 )
-            })}
+            }) }
             
             </div>
                     <form className="messageCon" autoComplete="off">

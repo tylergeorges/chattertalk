@@ -9,6 +9,9 @@ import Server from './pages/Server';
 import TextChannel from './pages/TextChannel';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createBrowserHistory } from 'history';
+import { useHistory } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
 
 const mapStateToProps = (state) => ({
@@ -18,23 +21,23 @@ const mapStateToProps = (state) => ({
 function App(props) {
   
   
-
+  const history = createBrowserHistory()
 
   return (
-    <div className="App">
+    
         <Switch>
+        {/* <div className="App"> */}
           {props.isLoggedIn ? <Redirect from='/login' to='/home'/> : ''}
           {props.isLoggedIn ? <Redirect from='/register' to='/home'/> : ''}
           {!props.isLoggedIn ? <Redirect from='/home' to='/login'/> : ''}
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/home" component={Home} />
-          <Route path="/server/:server_id" component={Server} />
-          <Route path="/channels/:server_id/:text_id" component={TextChannel} />
+          <Route  path="/channels/:server_id/:text_id" component={TextChannel} />
+          <Route  path="/server/:server_id" component={Server} />
           <Redirect from='/' to='/login'/>
-
+        {/* </div> */}
         </Switch>
-    </div>
   );
 }
 

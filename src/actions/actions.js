@@ -153,7 +153,6 @@ export const getServer = (server_id) => (dispatch) =>{
     })
 }
 export const createTextChannel = (channel_info) => (dispatch) =>{
-    
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/server/${channel_info.server_id}/`, {text_channel_name: channel_info.text_channel_name, server_id: channel_info.server_id}, {headers:{Authorization: `Token ${channel_info.token}`}})
@@ -166,11 +165,11 @@ export const createTextChannel = (channel_info) => (dispatch) =>{
     })
 }
 export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
+
     dispatch({type: FETCH_CR_START})
     instance 
     .get(`/channels/${server_id}/${channel_id}/`, )
     .then(data =>{
-        // console.log(data)
         dispatch({type: GET_CHANNEL, payload: data})
     })
     .catch(err=>{

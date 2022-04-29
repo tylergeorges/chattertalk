@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap');
-.App {
+* {
   text-align: center;
   font-family: 'Fredoka', sans-serif;
   font-family: 'Poppins', sans-serif;
@@ -185,7 +185,7 @@ background-color: white;
 }
 
 
-#channelhashtag{
+.channelhashtag{
 margin: 2%;
 }
 
@@ -259,6 +259,7 @@ margin: 2%;
   background-color: #353241;
   color: white;
   border-radius: 10px;
+  text-align: left;
 }
 form input{
  outline: none;
