@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel} from "../actions/actions"
+import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel } from "../actions/actions"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import SideBar from "../components/SideBar"
@@ -18,8 +18,8 @@ import AddIcon from '@mui/icons-material/Add';
 import * as icon from '@mui/icons-material';
 import TagIcon from '@mui/icons-material/Tag';
 import ServerChannels from "../components/ServerChannels"
-const mapStateToProps = (state) =>({
-    login_status : state.login_status,
+const mapStateToProps = (state) => ({
+    login_status: state.login_status,
     currentuser: state.currentuser,
     current_server: state.current_server,
     text_channels: state.text_channels,
@@ -59,26 +59,26 @@ const theme = createTheme({
 
 });
 const Server = (props) => {
-    
+
     const [TextChannelName, setTextChannelName] = useState('')
 
 
 
-    const handleChannelName = (e) =>{
+    const handleChannelName = (e) => {
         e.preventDefault()
-        
-       setTextChannelName(e.target.value)
+
+        setTextChannelName(e.target.value)
     }
 
-    const createTextChannel = (e) =>{
+    const createTextChannel = (e) => {
         e.preventDefault()
-        
-        
-        props.createTextChannel({server_id: props.match.params.server_id,text_channel_name: TextChannelName, token: props.auth_token})
+
+
+        props.createTextChannel({ server_id: props.match.params.server_id, text_channel_name: TextChannelName, token: props.auth_token })
 
     }
 
-    const logout = (e) =>{
+    const logout = (e) => {
         e.preventDefault()
 
         props.logout()
@@ -87,12 +87,12 @@ const Server = (props) => {
     return (
         <ThemeProvider theme={theme}>
             <Grid container className="serverCon">
-            <Grid item >
-            <SideBar />
-            </Grid>
-            <Grid item  >
-            <ServerChannels serverid={props.match.params.server_id}/>
-            </Grid>
+                <Grid item >
+                    <SideBar />
+                </Grid>
+                <Grid item  >
+                    <ServerChannels serverid={props.match.params.server_id} />
+                </Grid>
             </Grid>
         </ThemeProvider>
     )

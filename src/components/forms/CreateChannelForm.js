@@ -63,7 +63,6 @@ const theme = createTheme({
 
 const CreateChannelForm = (props) => {
     const [TextChannelName, setTextChannelName] = useState('')
-    console.log(props)
     useEffect(() => {
         // props.getServer(props.serverid)
     }, [])
@@ -71,8 +70,22 @@ const CreateChannelForm = (props) => {
 
     const handleChannelName = (e) => {
         e.preventDefault()
+        
 
-        setTextChannelName(e.target.value)
+        if(e.target.value.indexOf(' ') >= 0 ){
+            e.target.value = e.target.value.split(' ').join('-')
+
+            setTextChannelName(e.target.value.split(' ').join('-'))
+        }
+        if(e.target.value.indexOf('--') !== -1 ){
+            e.target.value = e.target.value.split('--').join('-')
+            setTextChannelName(e.target.value.split('--').join('-'))
+        }
+        else{
+            setTextChannelName(e.target.value)
+
+        }
+
     }
 
     const createTextChannel = (e) => {
@@ -99,7 +112,7 @@ const CreateChannelForm = (props) => {
 
                         <div className='forminputCon'>
                         <label htmlFor="servernameinput" style={{fontSize: '14px', marignLeft: '0'}} id="servernamelabel">CHANNEL NAME</label>
-                        <input placeholder="text-channel-name"className="forminput" id="servernameinput"onChange={handleChannelName} />
+                        <input className="forminput" id="servernameinput"onChange={handleChannelName} pattern="[^\s]+" />
                         </div>
                         <button type="submit" onClick={createTextChannel} id="createServerBtn">Create</button>
                         </form>

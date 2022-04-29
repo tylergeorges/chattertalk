@@ -95,21 +95,18 @@ const TextChannel = (props) => {
     }
     return (
         <ThemeProvider theme={theme}>
-            <div className="serversCon">
-            <Grid container >
+            <Grid container className="serverCon">
                     <Grid item  >
                         <SideBar />
                     </Grid>
                     <Grid item >
                         <ServerChannels serverid={props.match.params.server_id} />
-
                     </Grid>
-                <Grid item className="channelsmsgs"  sx={{height: 300}}>
+                <Grid item className="channelsmsgs" >
                     {/* //! make height 100% - #message height */}
-                </Grid >
                     <TextChannelMsgs serverid={props.match.params.server_id} channelid={props.match.params.text_id} />
+                </Grid >
             </Grid>
-            </div>
         </ThemeProvider>
     )
 }

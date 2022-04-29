@@ -83,9 +83,10 @@ const ServerChannels = (props) => {
     return (
         <div className="serverChannelsCon">
             {/* <Toolbar /> */}
+                <div className={showChannelForm === true ? 'blackScreen' :  'hide'} onClick={createTextChannel} />
         <ThemeProvider theme={theme}>
             <CssBaseline />
-                <div onClick={createTextChannel} style={showChannelForm === true ? {backgroundColor: 'black', position:'absolute', zIndex: '1000',left:'0', height: '100%', width: '100%', opacity: '0.5'}: {display: 'none'}}/>
+                {/* <div onClick={createTextChannel} style={showChannelForm === true ? {backgroundColor: 'black', position:'absolute', zIndex: '1000',left:'0', height: '100%', width: '100%', opacity: '0.5'}: {display: 'none'}}/> */}
             <div className="panelsCon" >
                 {/* <List > */}
                 {/* <SideBar /> */}

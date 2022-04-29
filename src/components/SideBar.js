@@ -88,9 +88,9 @@ const Sidebar = (props) => {
         <ThemeProvider theme={theme} >
             <CssBaseline/>
 
+                 <div onClick={createServerForm} className={showServerForm === true ? 'blackScreen' :  'hide'} />
             {/* <Drawer  variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} > */}
              <div className='sidebar' >
-                 <div onClick={createServerForm} style={showServerForm === true ? {backgroundColor: 'black', position:'fixed', zIndex: '1000', height: '100%', width: '200%', opacity: '0.5'}: {display: 'none'}}/>
                 <List justify="center" align="center" >
 
                     <List item="true" xs="false" sm={4} md={6} >
