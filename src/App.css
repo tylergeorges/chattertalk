@@ -231,10 +231,15 @@ margin: 2%;
 } */
 
 .messagecontent{
+  margin-top: 0%;
   position: absolute;
   height: 100%;
   top: 30%;
-  /* padding-bottom: 50px; */
+  width: 100%;
+  display:inline;
+  flex-wrap: wrap;
+  text-align: left;
+  padding-bottom: 7rem;
 }
 .messageCon{
   position: fixed;
@@ -261,21 +266,67 @@ margin: 2%;
   border-radius: 10px;
   text-align: left;
 }
+.userInfoCon{
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #353241;
+  align-items: flex-start;
+  height: 5%;
+}
+#usertag{
+  position: absolute;
+  /* margin-top: 25%; */
+  top: 15%;
+}
+#username{
+  position: absolute;
+  bottom: 15%;
+  /* margin-bottom: 25%; */
+  /* margin-top: 15%; */
+}
 form input{
  outline: none;
  border: none;
+ display: flex;
+ justify-content: flex-start;
+ text-align: left;
 }
 .allmessages{
   position: relative;
   height: 200px;
   /* margin-bottom: 50px; */
-  width: max-content;
+  width: 100%;
   
-  /* margin-bottom: 6%; */
+  margin-bottom: 6%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-block-end: 15%;
+}
+.userMsgInfoCon{
+  position: relative;
+  width: 20em;
+  display: flex;
+  justify-content: flex-start;
+  /* align-items: baseline; */
+}
+
+.userMsgUsername{
+  width: -moz-fit-content;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+}
+.userMsgTime{
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0;
+  align-self: flex-end;
+  color: #7c7a87;
+  padding-left: 5px;
 }
 .allmsgsCon{
   position: relative;
@@ -285,6 +336,7 @@ form input{
   flex-direction: column;
   margin-left: 2%;
   justify-content: flex-start;
+text-align: left;
   /* margin-left: -200px; */
 }
 .grandfather{

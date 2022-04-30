@@ -56,12 +56,17 @@ const ServerChannels = (props) => {
     const history = useHistory()
     const [TextChannelName, setTextChannelName] = useState('')
     const [showChannelForm, setShowChannelForm] = useState(false)
-
+    const [textChannels, setTextChannels] = useState([])
     useEffect(() => {
         // console.log(props)
         props.getServer(props.serverid)
+
+        setTextChannels([...props.text_channels])
+        
     }, [])
 
+    console.log(textChannels)
+    
     const handleChannelName = (e) => {
         e.preventDefault()
 
@@ -73,7 +78,7 @@ const ServerChannels = (props) => {
 
         setShowChannelForm(!showChannelForm)
         // props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
-        
+
     }
 
     const toChannel = (e) => {
@@ -85,17 +90,12 @@ const ServerChannels = (props) => {
 
     return (
         <div className="serverChannelsCon">
-            {/* <Toolbar /> */}
                 <div className={showChannelForm === true ? 'blackScreen' :  'hide'} onClick={createTextChannel} />
         <ThemeProvider theme={theme}>
             <CssBaseline />
-                {/* <div onClick={createTextChannel} style={showChannelForm === true ? {backgroundColor: 'black', position:'absolute', zIndex: '1000',left:'0', height: '100%', width: '100%', opacity: '0.5'}: {display: 'none'}}/> */}
             <div className="panelsCon" >
-                {/* <List > */}
-                {/* <SideBar /> */}
                 <div className="channelsPanelRel">
                 <div className="channelspanelCon">
-                    {/* <List xs='false' sm={4} md={6} sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', backgroundColor: 'background.light', width: 200, height: '100%', position: 'fixed', top: 0 }}> */}
                         <div className="serverNameCon" >
                             <h3>{props.current_server.server_name}</h3>
                         </div>
@@ -120,6 +120,10 @@ const ServerChannels = (props) => {
                             })}
                         </div>
                     </div>
+                            <div className="userInfoCon">
+                                <p id="username">{props.currentuser.username}</p>
+                                <p id="usertag">{props.currentuser.user_tag}</p>
+                            </div>
                 </div>
             </div>
             

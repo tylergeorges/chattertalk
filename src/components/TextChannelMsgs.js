@@ -130,10 +130,15 @@ const TextChannelMsgs = (props) => {
                     <div className="allmsgsCon" >
                     {msg.map(message =>{
                         
+                        var dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+                        var datetime = new Date(message.fields.created_at).toLocaleString('en', dateOptions);
                         return(
-                          
                           <div className="allmessages">
-                            <h4  >{message.fields.author.user} {message.fields.created_at}</h4>
+                            <div className="userMsgInfoCon">
+                                <h4 className="userMsgUsername">{message.fields.author.user}</h4>
+                                <p className="userMsgTime" style={{fontSize: 'smaller'}}>{datetime}</p>
+                            </div>
+
                              <p ref={messageRef} key={message.pk} className="messagecontent">{message.fields.text_content}</p>
                              <div />
                              </div>
