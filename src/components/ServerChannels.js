@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
 import CreateChannelForm from "./forms/CreateChannelForm"
 import { useHistory } from "react-router-dom"
-import { withRouter } from "react-router-dom"
+import { w3cwebsocket as W3CWebSocket } from "websocket"
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -57,15 +57,17 @@ const ServerChannels = (props) => {
     const [TextChannelName, setTextChannelName] = useState('')
     const [showChannelForm, setShowChannelForm] = useState(false)
     const [textChannels, setTextChannels] = useState([])
+    const [notifis, setNotifis] = useState([])
+    const url = window.location.pathname.split('/').pop();
     useEffect(() => {
         // console.log(props)
         props.getServer(props.serverid)
 
         setTextChannels([...props.text_channels])
-        
+
     }, [])
 
-    console.log(textChannels)
+    console.log(notifis)
     
     const handleChannelName = (e) => {
         e.preventDefault()
@@ -108,11 +110,14 @@ const ServerChannels = (props) => {
                             </List>
                             {props.text_channels.map(channels => {
                                 return (
-                                    <List  item sx={{ display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170, alignItems: 'center', marginTop: '4%', bottom: 30, right: 10, backgroundColor: 'background.dark', borderRadius: 2 }}>
+                                    <List  item sx={{  textOverflow: 'elipsis', alignItems: 'center',  display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170, alignItems: 'center', marginTop: '3%', bottom: 30, right: 10, backgroundColor: 'background.dark', borderRadius: 2 }}>
                                         <Link to={`/channels/${props.serverid}/${channels.id}`}>
                                             <div className="channellist"  id={channels.id} >
                                                 <TagIcon className="channelhashtag" id={channels.id}  />
                                                 <p>{channels.text_channel_name}</p>
+                                                <div className="notifiIcon">
+                                                <p id="channelNotifis">{notifis.length}</p>
+                                                </div>
                                             </div>
                                         </Link>
                                     </List>
@@ -121,7 +126,7 @@ const ServerChannels = (props) => {
                         </div>
                     </div>
                             <div className="userInfoCon">
-                                <p id="username">{props.currentuser.username}</p>
+                                <p id="userInfoUsername">{props.currentuser.username}</p>
                                 <p id="usertag">{props.currentuser.user_tag}</p>
                             </div>
                 </div>

@@ -54,10 +54,7 @@ const HomeLists = (props) => {
 
     const [TextChannelName, setTextChannelName] = useState('')
 
-    useEffect(() => {
-        // console.log(props)
-        props.getServer(props.serverid)
-    }, [])
+    
 
     const handleChannelName = (e) => {
         e.preventDefault()

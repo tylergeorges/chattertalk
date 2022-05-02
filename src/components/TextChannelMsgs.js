@@ -57,67 +57,105 @@ const theme = createTheme({
 const TextChannelMsgs = (props) => {
     const [textContent, setTextContent] = useState('')
     const [messages, setMessages] = useState([])
-    const [currClient, setClient] = useState('')
+    const [usersMentioned, setUsersMentioned] = useState([])
+    const [currClient, setClient] = useState(null)
     const [update, setUpdate] = useState(false)
     const messageRef = useRef();
 
     const history = useHistory()
-    const url = window.location.pathname.split('/').pop();
 
     useEffect( () =>  {
-        
-        const serverId = props.serverid
-        const channelId = props.channelid
-        props.getTextChannel(props.serverid, props.channelid)
-        console.log(props)
+        let client = props.client
+        setClient(client)
+        console.log(client)
 
-        
-            const client =  new  W3CWebSocket(`ws://127.0.0.1:8000/channels/${serverId}/${channelId}/`);
-
-             client.onopen =  (e) => {
+        if(currClient !== null){
+            
+            client.onopen =  (e) => {
                 e.preventDefault()
                 console.log('connected')
-            }
-            client.onclose = () =>{
-                console.log('close')
-                setMessages([])
-            }
-            setClient(client)
-
-           
-            client.onmessage =  (e) => {
-                const data =  JSON.parse(e.data)
-                console.log(data)
-                // if(data.fields.created_in === channelId){
-
-                    setMessages([data])
-                   
-                    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-                // }
-                 
-            }
-            return() =>{
-                client.close()
-                
+                currClient.send(JSON.stringify({
+                    'event': 'receive_msgs',
+               }))
+         
+            
+     //        client.send(JSON.stringify({
+     //         'event': 'receive_msgs',
+     //    }))
+     
         }
-    }, [url])
+           console.log(currClient)
+           currClient.onclose = () =>{
+            console.log('close')
+        }
+           currClient.onmessage =  (e) => {
+               const data =  JSON.parse(e.data)
+               // if(data.fields.created_in === channelId){
+                   console.log(data)
+                if(data[0].model == 'chatroom.message'){
+                    setMessages([data])
+                }
+                     messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+                  
+               // }
+                
+           }
+           return() =>{
+            currClient.close()
+                       
+               }
+          
+        }
+    
+    }, [currClient])
 
     const handleTextContent = (e) => {
         e.preventDefault()
-        setTextContent(e.target.value)
+
+
+        if(e.target.value.indexOf('@') >= 0){
+            let users = e.target.value.split('@').pop()
+
+            if(users.indexOf(" ") >= 0 && users.indexOf("#") >= 0){
+               let usersInfo = users.substring(0, users.indexOf(" "))
+               let userTag = '#' + usersInfo.split('#').pop()
+
+              
+                if(usersInfo !== '' &&  userTag.length === 5 && usersMentioned.includes(usersInfo) === false){
+                    setUsersMentioned([...usersMentioned, usersInfo.trim()])
+                }
+           
+            }
+      
+           
+        }
+        console.log(usersMentioned)
+         setTextContent(e.target.value.trim())
+        
+        // setTextContent(e.target.value)
     }
 
     //! send msg button
     const sendMsg =  (e) => {
         e.preventDefault()
       
-         currClient.send(JSON.stringify({
-            'text_content': textContent,
-        }))
+      
+        console.log(usersMentioned ? 'true': 'false')
+        if(usersMentioned){
+            currClient.send(JSON.stringify({
+                'event': 'send_msg',
+                'text_content': textContent,
+               'users': usersMentioned,
+           }))
+        }
+        else{
+            currClient.send(JSON.stringify({
+                'text_content': textContent,
+            }))
+        }
 
 
     }
-
     return (
            
         <>
@@ -126,10 +164,10 @@ const TextChannelMsgs = (props) => {
              
             
          {  messages.map(msg => {
+             console.log(messages)
                 return(
                     <div className="allmsgsCon" >
                     {msg.map(message =>{
-                        
                         var dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
                         var datetime = new Date(message.fields.created_at).toLocaleString('en', dateOptions);
                         return(

@@ -86,14 +86,15 @@ const ServerForm = (props) => {
 
     const createServer = (e) => {
         e.preventDefault()
-
-        props.createServer({ server_name: serverName, server_icon: serverIcon[0], auth_token: props.auth_token })
+        console.log(serverIcon)
+        props.createServer({ server_name: serverName, server_icon: serverIcon, auth_token: props.auth_token })
 
     }
+
     const handleServerIcon = (e) =>{
         e.preventDefault()
-        console.log(e.target.files[0])
-
+        // console.log(e.target.files[0])
+        setServerIcon(e.target.files[0])
         const reader = new FileReader();
 
         reader.onload = () =>{

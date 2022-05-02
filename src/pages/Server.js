@@ -1,23 +1,13 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
 import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel } from "../actions/actions"
-import axios from "axios"
-import { useHistory } from "react-router-dom"
 import SideBar from "../components/SideBar"
-import Drawer from '@mui/material/Drawer'
 import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import { List, ListItem } from "@mui/material"
-import { borders } from '@mui/system';
-import HomeIcon from '@mui/icons-material/Home';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import AddIcon from '@mui/icons-material/Add';
-import * as icon from '@mui/icons-material';
-import TagIcon from '@mui/icons-material/Tag';
 import ServerChannels from "../components/ServerChannels"
+import { w3cwebsocket as W3CWebSocket } from "websocket"
+
+
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -59,7 +49,7 @@ const theme = createTheme({
     }
 });
 const Server = (props) => {
-    
+  
     return (
         <ThemeProvider theme={theme}>
              {props.isLoading && <div>Loading...</div>}
