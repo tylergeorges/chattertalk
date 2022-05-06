@@ -61,17 +61,18 @@ const ServerChannels = (props) => {
     const [notifs, setNotifs] = useState([])
     const [currClient, setClient] = useState(null)
     const url = window.location.pathname.split('/').pop();
-
+    
     useEffect(() => {
         // console.log(props)
         props.getServer(props.serverid)
         
         setTextChannels([...props.text_channels])
         setNotifs(props.notifs)
-        
+        console.log(notifs)
           
     
     }, [props.notifs])
+
 
 
     
@@ -121,11 +122,25 @@ const ServerChannels = (props) => {
                                             <div className="channellist"  id={channels.id} >
                                                 <TagIcon className="channelhashtag" id={channels.id}  />
                                                 <p>{channels.text_channel_name}</p>
-                                                {/* {console.log(notifs)}
-                                                {console.log(channels)} */}
-                                                {channels.notifs > 0 ? <div className="notifiIcon"> 
+                                                {notifs.length > 0 ? notifs.map(notif => notif.text_channel === channels.id) ? 
+                                                <>
+                                                    {notifs.map(notif => {
+                                                        return(
+                                                            <> 
+                                                    {notif.text_channel === channels.id ? 
+                                                    notif.notifications !== 0 ?<div className="notifiIcon"> 
+                                                     <p id="channelNotifis">
+                                                    {notif.notifications}
+                                                        </p>
+                                                    </div> : ''
+                                                    
+                                                    : ''}
+                                                    </>
+                                                ) })}
+                                                </> : ' ' : ''}
+                                                {/* {channels.notifs > 0 ? <div className="notifiIcon"> 
                                                 <p id="channelNotifis">{notifs.length}</p> 
-                                                </div> : ' '}
+                                                </div> : ' '} */}
                                             </div>
                                         </Link>
                                     </List>

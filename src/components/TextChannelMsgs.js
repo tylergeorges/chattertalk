@@ -113,7 +113,6 @@ const TextChannelMsgs = (props) => {
         ws.current.onmessage =  (e) => {
             const data =  JSON.parse(e.data)
          //    props.setNotifis()
-         
           if(data.model == 'chatroom.message'){
              
             setMessages((prevState)=>[...prevState, data])
@@ -139,10 +138,11 @@ const TextChannelMsgs = (props) => {
             console.log('connected')
             
             ws.current.send(JSON.stringify({
-                'event': 'receive_notifs',
-            }))
-            ws.current.send(JSON.stringify({
                 'event': 'receive_msgs',
+            }))
+
+            ws.current.send(JSON.stringify({
+                'event': 'receive_notifs',
             }))
         }
         
@@ -153,11 +153,17 @@ const TextChannelMsgs = (props) => {
         ws.current.onmessage =  (e) => {
                const data =  JSON.parse(e.data)
             //    props.setNotifis()
+            console.log(data)
             if(messages.length === 0 && data[0].model === "chatroom.message" ){
                 setMessages(data)
                 messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
             }
-            if(!data.model && data[0].model === "chatroom.notifications" ){
+            // if(data.notifis){
+            //     console.log(data)
+            //         props.setNotifis(data)
+                    
+            //     }
+            else if(data[0].model === "chatroom.notifications" ){
                     props.setNotifis(data)
                     
                 }

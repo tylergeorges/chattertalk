@@ -58,16 +58,29 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false, currentuser: action.payload.data.current_user, error: '', auth_token: action.payload.data.token,
             }
         case SET_NOTIFIS:
-            return{
-                ...state, isLoading:false, error: '', notifs: action.payload.length ? [...action.payload] : [...state.notifs, action.payload]
+            console.log(action.payload)
+            if(action.payload[0].user === state.currentuser.id){
+                return{
+                    ...state, isLoading:false, error: '', notifs: action.payload.length ? [...action.payload] : [...state.notifs, action.payload], currentuser: state.currentuser
+                }
+            }else{
+                return{
+                    ...state, isLoading:false, error: '', notifs: state.notifs, currentuser: state.currentuser
+                }
             }
         
         case CREATE_MESSAGE:
+            if(action.payload.data.notifis.user_mentioned === state.currentuser.id){
 
-            return{
-                ...state, isLoading:false, error: '', notifs: action.payload.data.notifis ? [...state.notifs, action.payload.data.notifis]: state.notifs
+                return{
+                    ...state, isLoading:false, error: '', notifs: action.payload.data.notifis ? [...state.notifs, action.payload.data.notifis]: state.notifs, currentuser: state.currentuser
+                }
+            
+            }else{
+                return{
+                    ...state, isLoading:false, error: '', notifs: state.notifs, currentuser: state.currentuser
+                }
             }
-        
         default: return state
     }
 }

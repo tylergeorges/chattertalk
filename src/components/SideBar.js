@@ -103,7 +103,7 @@ const Sidebar = (props) => {
                                 {/* <h4>{servers.server_name}</h4> */}
 
                                 <List item="true" xs='false' sm={4} md={6} >
-                                    <Link to={`/channels/${servers.id}/1`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} className="serverIcons" width="70px" /></Link>
+                                    <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} className="serverIcons" width="70px" /></Link>
                                 </List>
                             </>
                         )
