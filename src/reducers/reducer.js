@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
@@ -9,7 +9,8 @@ const initialState = ({
    servers: [],
    current_server: '',
    text_channels: [],
-   auth_token: ''
+   auth_token: '',
+   notifs: []
 })
 
 export default function reducer(state=initialState, action){
@@ -52,8 +53,19 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server,
             }
         case GET_CHANNEL:
+
             return{
                 ...state, isLoading:false, currentuser: action.payload.data.current_user, error: '', auth_token: action.payload.data.token,
+            }
+        case SET_NOTIFIS:
+            return{
+                ...state, isLoading:false, error: '', notifs: action.payload.length ? [...action.payload] : [...state.notifs, action.payload]
+            }
+        
+        case CREATE_MESSAGE:
+
+            return{
+                ...state, isLoading:false, error: '', notifs: action.payload.data.notifis ? [...state.notifs, action.payload.data.notifis]: state.notifs
             }
         
         default: return state

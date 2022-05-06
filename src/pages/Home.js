@@ -108,7 +108,7 @@ const Home = (props) => {
             </div> */}
           
 
-            <button onClick={logout}>Logout</button>
+            <button onClick={logout} style={{zIndex: '99999', position:'absolute'}}>Logout</button>
         </ThemeProvider>
     )
 }

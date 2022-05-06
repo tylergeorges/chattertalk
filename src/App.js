@@ -31,6 +31,8 @@ function App(props) {
           {props.isLoggedIn ? <Redirect from='/login' to='/home'/> : ''}
           {props.isLoggedIn ? <Redirect from='/register' to='/home'/> : ''}
           {!props.isLoggedIn ? <Redirect from='/home' to='/login'/> : ''}
+          {/* {!props.isLoggedIn ? <Redirect from='/channels/:server_id/:text_id' to='/login'/> : ''} */}
+          {/* {!props.isLoggedIn ? <Redirect from='/server/:server_id' to='/login'/> : ''} */}
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/home" component={Home} />

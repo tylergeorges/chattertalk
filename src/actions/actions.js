@@ -25,6 +25,8 @@ export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
 export const FETCH_CR_LOGIN = "FETCH_CR_LOGIN"
 export const FETCH_SERVER = "FETCH_SERVER"
 export const CREATE_CHANNEL = "CREATE_CHANNEL"
+export const SET_NOTIFIS = "SET_NOTIFIS"
+export const CREATE_MESSAGE = "CREATE_MESSAGE"
 
 
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
@@ -152,6 +154,11 @@ export const getServer = (server_id) => (dispatch) =>{
         console.log(err.message)
     })
 }
+export const setNotifis = (notifis) => (dispatch) =>{
+
+    dispatch({type: SET_NOTIFIS, payload: notifis})
+   
+}
 export const createTextChannel = (channel_info) => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
     instance 
@@ -177,6 +184,18 @@ export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
         console.log(err.message)
     })
 }
+export const createMessage = (server_id, channel_id, text_content, users_mentioned, token, currentuser,created_in) => (dispatch) =>{
+    dispatch({type: FETCH_CR_START})
+    instance 
+    .post(`/channels/${server_id}/${channel_id}/`, {text_content: text_content, users_mentioned: users_mentioned, author: currentuser, created_in:created_in}, {headers:{Authorization: `Token ${token}`}})
+    .then(data =>{
+        dispatch({type: CREATE_MESSAGE, payload: data})
+    })
+    .catch(err=>{
+        dispatch({type: FETCH_CR_FAIL, payload: err.message})
+        console.log(err.message)
+    })
+}
 export const sendMessage = (message) => (dispatch) =>{
 
 
@@ -194,9 +213,7 @@ export const sendMessage = (message) => (dispatch) =>{
 
 
 
-export const logout = () =>  async(dispatch) =>{
-
-
+export const logout = () =>  (dispatch) =>{
 
     dispatch({type: FETCH_CR_START})
     instance 

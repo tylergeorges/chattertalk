@@ -300,6 +300,9 @@ height: 130%;
 align-items: center;
 border-radius: 6px;
 }
+.mention{
+  color: blue;
+}
 #channelNotifis{
 /* background-color: red; */
 /* width: 35%; */
@@ -348,7 +351,7 @@ border-radius: 6px;
 }
 .allmsgsCon{
   position: relative;
-  margin-bottom: 6%;
+  margin-bottom: 80px;
   height: 5px;
   display: flex;
   flex-direction: column;

@@ -58,7 +58,7 @@ const TextChannel = (props) => {
     const [textContent, setTextContent] = useState('')
     const [messages, setMessages] = useState([])
     const [usersMentioned, setUsersMentioned] = useState([])
-    const [currClient, setClient] = useState('')
+    const [currClient, setClient] = useState(null)
     const [update, setUpdate] = useState(false)
     const url = window.location.pathname.split('/').pop();
 
@@ -66,24 +66,7 @@ const TextChannel = (props) => {
     useEffect(() => {
         // console.log(props)
 
-       console.log(props)
-        const client =  new  W3CWebSocket(`ws://127.0.0.1:8000/channels/${props.match.params.server_id}/${props.match.params.text_id}/`);
-        setClient(client)
-        
-        client.onopen =  (e) => {
-           e.preventDefault()
-           console.log('connected')
-        
-           
-    //        client.send(JSON.stringify({
-    //         'event': 'receive_msgs',
-    //    }))
-    
-       }
-       client.onclose = () =>{
-           console.log('close')
-       }
-    //    setClient(client)
+      
 
       
     //    client.onmessage =  (e) => {
@@ -98,25 +81,25 @@ const TextChannel = (props) => {
     //        // }
             
     //    }
-       return() =>{
-           client.close()
+//        return() =>{
+//            client.close()
            
-   }
+//    }
     
         
     }, [])
     return (
         <ThemeProvider theme={theme}>
-            {props.isLoading && <div>Loading...</div>}
+            {/* {props.isLoading && <div>Loading...</div>} */}
             <Grid container className="serverCon">
                     <Grid item  >
                         <SideBar />
                     </Grid>
                     <Grid item >
-                       {props.match.params.server_id && <ServerChannels serverid={props.match.params.server_id} channelid={props.match.params.text_id}/>}
+                      <ServerChannels  serverid={props.match.params.server_id} channelid={props.match.params.text_id}/>
                     </Grid>
                 <Grid item className="channelsmsgs" >
-                   {currClient !== '' ? <TextChannelMsgs client={currClient} serverid={props.match.params.server_id} channelid={props.match.params.text_id} /> : ''}
+                 <TextChannelMsgs serverid={props.match.params.server_id} channelid={props.match.params.text_id} /> 
                 </Grid >
             </Grid>
         </ThemeProvider>

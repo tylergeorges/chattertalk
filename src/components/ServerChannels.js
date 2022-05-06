@@ -16,7 +16,8 @@ const mapStateToProps = (state) => ({
     currentuser: state.currentuser,
     current_server: state.current_server,
     text_channels: state.text_channels,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
+    notifs: state.notifs
 })
 
 const drawerWidth = 150
@@ -57,17 +58,22 @@ const ServerChannels = (props) => {
     const [TextChannelName, setTextChannelName] = useState('')
     const [showChannelForm, setShowChannelForm] = useState(false)
     const [textChannels, setTextChannels] = useState([])
-    const [notifis, setNotifis] = useState([])
+    const [notifs, setNotifs] = useState([])
+    const [currClient, setClient] = useState(null)
     const url = window.location.pathname.split('/').pop();
+
     useEffect(() => {
         // console.log(props)
         props.getServer(props.serverid)
-
+        
         setTextChannels([...props.text_channels])
+        setNotifs(props.notifs)
+        
+          
+    
+    }, [props.notifs])
 
-    }, [])
 
-    console.log(notifis)
     
     const handleChannelName = (e) => {
         e.preventDefault()
@@ -115,9 +121,11 @@ const ServerChannels = (props) => {
                                             <div className="channellist"  id={channels.id} >
                                                 <TagIcon className="channelhashtag" id={channels.id}  />
                                                 <p>{channels.text_channel_name}</p>
-                                                <div className="notifiIcon">
-                                                <p id="channelNotifis">{notifis.length}</p>
-                                                </div>
+                                                {/* {console.log(notifs)}
+                                                {console.log(channels)} */}
+                                                {channels.notifs > 0 ? <div className="notifiIcon"> 
+                                                <p id="channelNotifis">{notifs.length}</p> 
+                                                </div> : ' '}
                                             </div>
                                         </Link>
                                     </List>
