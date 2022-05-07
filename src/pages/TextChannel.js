@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom"
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
 import ServerChannels from "../components/ServerChannels"
-import { ThemeProvider } from "@emotion/react"
+import { ThemeProvider } from "@mui/material/styles"
 import { Box, createTheme, Grid, List, Toolbar, Typography } from "@mui/material"
 import TextChannelMsgs from "../components/TextChannelMsgs"
 const mapStateToProps = (state) => ({
@@ -91,7 +91,7 @@ const TextChannel = (props) => {
     return (
         <ThemeProvider theme={theme}>
             {/* {props.isLoading && <div>Loading...</div>} */}
-            <Grid container className="serverCon">
+            <Grid container  >
                     <Grid item  >
                         <SideBar />
                     </Grid>

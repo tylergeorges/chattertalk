@@ -184,10 +184,13 @@ export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
         console.log(err.message)
     })
 }
-export const createMessage = (server_id, channel_id, text_content, users_mentioned, token, currentuser,created_in) => (dispatch) =>{
+export const createMessage = (msginfo) => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
     instance 
-    .post(`/channels/${server_id}/${channel_id}/`, {text_content: text_content, users_mentioned: users_mentioned, author: currentuser, created_in:created_in}, {headers:{Authorization: `Token ${token}`}})
+    .post(`/channels/${msginfo.serverid}/${msginfo.channelid}/`, 
+    {
+        text_content: msginfo.text_content, users_mentioned: msginfo.users_mentioned, 
+        author: msginfo.currentuser, created_in:msginfo.channelid, isMention: msginfo.isMention}, {headers:{Authorization: `Token ${msginfo.auth_token}`}})
     .then(data =>{
         dispatch({type: CREATE_MESSAGE, payload: data})
     })

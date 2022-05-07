@@ -138,9 +138,6 @@ const ServerChannels = (props) => {
                                                     </>
                                                 ) })}
                                                 </> : ' ' : ''}
-                                                {/* {channels.notifs > 0 ? <div className="notifiIcon"> 
-                                                <p id="channelNotifis">{notifs.length}</p> 
-                                                </div> : ' '} */}
                                             </div>
                                         </Link>
                                     </List>

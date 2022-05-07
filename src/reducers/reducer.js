@@ -70,6 +70,7 @@ export default function reducer(state=initialState, action){
             }
         
         case CREATE_MESSAGE:
+            console.log(action.payload)
             if(action.payload.data.notifis.user_mentioned === state.currentuser.id){
 
                 return{

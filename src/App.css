@@ -174,7 +174,10 @@ background-color: white;
 .channelsmsgs{
   position: absolute;
   width: calc(100% - 300px);
+  height: calc(100% - 50px);
   left: 300px;
+  /* margin-bottom: 100px; */
+  overflow-y: auto;
 }
 .channellist{
   display: flex;
@@ -217,10 +220,11 @@ margin: 2%;
 .chatboxcon{
   position: relative;
   display: flex;
-  width: calc(100% - 300px);
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  height: 100%;
+  margin: 0px;
+  overflow-y: auto;
 }
 /* 
 .messageFieldCon{
@@ -231,17 +235,7 @@ margin: 2%;
   background-color: red;
 } */
 
-.messagecontent{
-  margin-top: 0%;
-  position: absolute;
-  height: 100%;
-  top: 30%;
-  width: 100%;
-  display:inline;
-  flex-wrap: wrap;
-  text-align: left;
-  padding-bottom: 7rem;
-}
+
 .messageCon{
   position: fixed;
   display: flex;
@@ -300,32 +294,19 @@ height: 130%;
 align-items: center;
 border-radius: 6px;
 }
-.mention{
-  color: blue;
-}
-#channelNotifis{
-/* background-color: red; */
-/* width: 35%; */
-/* border-radius: 8px; */
-}
-/* form input{
- outline: none;
- border: none;
- display: flex;
- justify-content: flex-start;
- text-align: left;
-} */
+
+
 .allmessages{
   position: relative;
-  height: 200px;
+  height: fit-content;
   /* margin-bottom: 50px; */
   width: 100%;
   
-  margin-bottom: 6%;
+  /* margin-bottom: 6%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-block-end: 15%;
+  /* padding-block-end: 15%; */
 }
 .userMsgInfoCon{
   position: relative;
@@ -359,6 +340,108 @@ border-radius: 6px;
   justify-content: flex-start;
 text-align: left;
   /* margin-left: -200px; */
+  width: auto;
+  display: block;
+  padding: 0px;
+}
+.messagecontent{
+  position: relative  ;
+  height: fit-content;
+  /* top: 5%; */
+  width: 100%;
+  /* display:inline; */
+  flex-wrap: wrap;
+  text-align: left;
+  /* margin-bottom: 20px; */
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;  
+  /* padding-bottom: 5em; */
+  padding-top: 0px;
+  margin-top: 0px;
+  margin: 0;
+}
+
+@media (max-height:900px){
+  .allmessages{
+    position: relative;
+    height: 40%;
+    /* margin-bottom: 50px; */
+    width: 100%;
+    
+    /* margin-bottom: 6%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-size-adjust: 80%;
+
+    /* padding-block-end: 15%; */
+  }
+  .allmsgsCon{
+    position: relative;
+    /* margin-bottom: 80px; */
+    width: 100%;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    margin-left: 5px;
+    width: auto;
+    display: block;
+    padding: 0px;
+    text-size-adjust: 80%;
+
+  }
+  
+  .messagecontent{
+    position: relative  ;
+    height: fit-content;
+    /* top: 5%; */
+    width: 100%;
+    /* display:inline; */
+    flex-wrap: wrap;
+    text-align: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;  
+    padding-top: 0px;
+    text-overflow: ellipsis;
+    display: flex;
+    margin-top: 0px;
+    text-size-adjust: 80%;
+
+  }
+
+  .userMention{
+    background-color: yellow;
+    padding: 0px;
+    text-size-adjust: 80%;
+    width: 100%;
+    display: flex;
+    padding-bottom: 0px;
+    text-overflow: ellipsis;
+  }
+
+  #messageInput{
+    position: relative;
+    width: 98%;
+    border: none;
+    height: 50px;
+    max-height: fit-content;
+    /* bottom: 10px; */
+    background-color: #353241;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+  }
+}
+
+
+
+
+.mention{
+  color: blue;
 }
 .grandfather{
   position: relative;
@@ -383,16 +466,16 @@ text-align: left;
   top: 0;
   box-sizing: border-box;
 }
-.serverCon{
-  width: 100%;
-  height: 100%;
-  top: 0;
-}
+
 .sidecom{
 position: fixed;
 width: 100%;
 height: 100%;
 top: 0;
+}
+
+.messageconParent{
+  position: relative;
 }
 .channelsPanelRel{
   position: relative;
