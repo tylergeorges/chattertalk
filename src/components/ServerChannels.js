@@ -68,7 +68,6 @@ const ServerChannels = (props) => {
         
         setTextChannels([...props.text_channels])
         setNotifs(props.notifs)
-        console.log(notifs)
           
     
     }, [props.notifs])

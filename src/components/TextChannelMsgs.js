@@ -17,44 +17,10 @@ const mapStateToProps = (state) => ({
     servers: state.servers,
     currentchannel: state.currentchannel,
     isLoading: state.isLoading,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
+    msgs: state.msgs,
+    client: state.client
 })
-
-const drawerWidth = 150
-const theme = createTheme({
-    palette: {
-        background: {
-            default: '#1F1C2C',
-            dark: '#353241',
-            light: '#423f51'
-        },
-        text: {
-            primary: 'white',
-            secondary: 'black',
-        },
-        action: {
-            active: '#001E3C',
-        },
-        success: {
-            light: '#81c784',
-            main: '#66bb6a',
-            dark: '#388e3c',
-        },
-    },
-    components: {
-        MuiDrawer: {
-            styleOverrides: {
-                paper: {
-                    backgroundColor: "#353241",
-                    color: "red",
-                }
-            }
-        }
-    }
-
-});
-
-
 
 const TextChannelMsgs = (props) => {
     const [textContent, setTextContent] = useState('')
@@ -64,11 +30,25 @@ const TextChannelMsgs = (props) => {
     const [currClient, setClient] = useState(null)
     const [update, setUpdate] = useState(false)
     
-    const messageRef = useRef();
+    const messageRef = useRef(null);
     const ws = useRef(null);
     const url = window.location.pathname.split('/').pop();
     const history = useHistory()
     
+    
+
+    useEffect(()=>{
+        messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+
+    },[messages])
+ 
+    
+    useEffect( () => {
+        // props.getTextChannel(props.serverid, props.channelid)
+        setMessages(props.msgs)
+        
+    }, [props.msgs])
+
     const handleTextContent = (e) => {
         e.preventDefault()
     
@@ -114,7 +94,7 @@ const TextChannelMsgs = (props) => {
         }
         )
 
-            ws.current.send(JSON.stringify({
+        props.client.send(JSON.stringify({
                 'event': 'send_msg',
                 'text_content': textContent,
                'users': usersMentioned,
@@ -136,8 +116,8 @@ const TextChannelMsgs = (props) => {
             'isMention': false
         }
         )
-
-            ws.current.send(JSON.stringify({
+        
+        props.client.send(JSON.stringify({
                 'event': 'send_msg',
                 'text_content': textContent,
                'users': usersMentioned,
@@ -146,16 +126,15 @@ const TextChannelMsgs = (props) => {
             }))
             setUsersMentioned([])
         }
-        ws.current.onmessage =  (e) => {
+        props.client.onmessage =  (e) => {
             const data =  JSON.parse(e.data)
          //    props.setNotifis()
-         console.log(data)
           if(data.model == 'chatroom.message'){
              
             setMessages((prevState)=>[...prevState, data])
             messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
         }
-        if(data[0].model === 'chatroom.notifications'){
+        if(!data.model && data[0].model === 'chatroom.notifications'){
             props.setNotifis(data)
         }
      }
@@ -163,96 +142,62 @@ const TextChannelMsgs = (props) => {
 
     }
 
-
-    useEffect( () => {
-        // props.getTextChannel(props.serverid, props.channelid)
-        ws.current = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${props.serverid}/${props.channelid}/`);
-        // setClient(client)
-
-        
-        ws.current.onopen =  (e) => {
-            e.preventDefault()
-            console.log('connected')
-            
-            ws.current.send(JSON.stringify({
-                'event': 'receive_msgs',
-            }))
-
-            ws.current.send(JSON.stringify({
-                'event': 'receive_notifs',
-            }))
-        }
-        
-           ws.current.onclose = () =>{
-            console.log('close')
-        }
-        
-        ws.current.onmessage =  (e) => {
-               const data =  JSON.parse(e.data)
-            //    props.setNotifis()
-            console.log(data)
-            if(messages.length === 0 && data[0].model === "chatroom.message" ){
-                setMessages(data)
-                // window.scrollTo(0, messageRef.current.offsetTop);
-                messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-            }
-            // if(data.notifis){
-            //     console.log(data)
-            //         props.setNotifis(data)
-                    
-            //     }
-            else if(data[0].model === "chatroom.notifications"){
-                    props.setNotifis(data)
-                    
-                }
-               
-             if(data.model){
-                
-               setMessages([...messages, data])
-               messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-           }
-      
-        }
-    
-          
-        return() =>{
-            ws.current.close()
-                       
-               }
-    
-    }, [url])
- 
-    
-
     //! send msg button
    
+    
     return (
-           
+        
         <>
 
             <div className="chatboxcon">
                 
          {messages.map(msg => {
-             var dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
-             var datetime = new Date(msg.fields.created_at).toLocaleString('en', dateOptions);
+             const today = new Date();
+             const m = today.getMonth();
+             const d = today.getDate();
+             const y = today.getFullYear();
+
+
+             const todaysDate = new Date(y,m,d)
+             const prevDate = new Date(msg.fields.created_at)
+
+
+
+             let dateOptions = {weekday: 'long',hour: 'numeric', minute: 'numeric', hour12: true}
+             let datetime = new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
+
+             const mili = todaysDate.getTime() - prevDate.getTime()
+             const days = Math.ceil(mili / (1000 * 3600 * 24))
+
+
+            //comparing previous message dates to todays date
+            if(days > 1){
+                dateOptions = {day: 'numeric',month: 'numeric', year: 'numeric'}
+                datetime = new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
+            }
+            else {
+                 dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+                 datetime = 'Today at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
+            }
+
+
                 return(
                     <div className='allmsgsCon'>
                         <div  className='allmessages'  style={msg.fields.isMention && msg.fields.user_mentioned === props.currentuser.id ? {background: 'rgba(255, 217, 61,0.3)', width: '100%'} : {}} >
-                            <div className="userMsgInfoCon" >
+                            <div className="userMsgInfoCon" id="testCon">
                                 <h4 className="userMsgUsername">{msg.fields.author.username}</h4>
                                 <p className="userMsgTime" style={{fontSize: 'smaller'}}>{datetime}</p>
                             </div>
-
-                             <p  key={msg.pk}  className='messagecontent'>{msg.fields.text_content}</p> 
+                            
+                            { msg.fields.isMention ?<p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p> :<p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p> }
                              </div>
                              </div>
                 )
             }) }
-            
             <div ref={messageRef}/>
             </div>
             <div className="messageconParent">
-                    <form className="messageCon" autoC  omplete="off" >
+                    <form className="messageCon" autoComplete="off" >
                             <input type="text" placeholder="Send a message... " name="message" onChange={handleTextContent} id="messageInput" />
                             <button type="submit" style={{display:'none'}} onClick={sendMsg} >Send</button>
                     </form>

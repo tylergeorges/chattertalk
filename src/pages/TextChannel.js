@@ -1,9 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getTextChannel, sendMessage } from "../actions/actions"
-import axios from "axios"
-import { useHistory } from "react-router-dom"
+import { getTextChannel, sendMessage, setMsgs, setNotifis, setClient } from "../actions/actions"
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
 import ServerChannels from "../components/ServerChannels"
@@ -18,7 +16,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.isLoading
 })
 
-const drawerWidth = 150
 const theme = createTheme({
     palette: {
         background: {
@@ -60,34 +57,64 @@ const TextChannel = (props) => {
     const [usersMentioned, setUsersMentioned] = useState([])
     const [currClient, setClient] = useState(null)
     const [update, setUpdate] = useState(false)
+    const messageRef = useRef(null);
+
     const url = window.location.pathname.split('/').pop();
 
 
     useEffect(() => {
         // console.log(props)
 
-      
+        const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${props.match.params.server_id}/${props.match.params.text_id}/`);
+        props.setClient(client)
 
-      
-    //    client.onmessage =  (e) => {
-    //        const data =  JSON.parse(e.data)
-    //        // if(data.fields.created_in === channelId){
-    //            console.log(data)
-    //         if(data[0].model !== 'chatroom.message'){
-    //             setNotifis(data)
-    //         }
-    //             //  messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-              
-    //        // }
-            
-    //    }
-//        return() =>{
-//            client.close()
-           
-//    }
-    
         
-    }, [])
+        
+        
+        client.onopen =  (e) => {
+            e.preventDefault()
+            console.log('connected')
+            
+            client.send(JSON.stringify({
+                'event': 'receive_msgs',
+            }))
+
+            client.send(JSON.stringify({
+                'event': 'receive_notifs',
+            }))
+        }
+        
+        client.onclose = () =>{
+            console.log('close')
+        }
+        
+        client.onmessage =  (e) => {
+               const data =  JSON.parse(e.data)
+            if(messages.length === 0 && data[0].model === "chatroom.message" ){
+                props.setMsgs(data)
+                // messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+            }
+  
+            else if(data[0].model === "chatroom.notifications"){
+                    props.setNotifis(data)
+                    
+                }
+               
+             if(data.model){
+                props.setMsgs(data)
+            //    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+           }
+      
+        }
+    
+          
+        return() =>{
+            client.close()
+                       
+               }
+      
+        
+    }, [url])
     return (
         <ThemeProvider theme={theme}>
             {/* {props.isLoading && <div>Loading...</div>} */}
@@ -99,11 +126,11 @@ const TextChannel = (props) => {
                       <ServerChannels  serverid={props.match.params.server_id} channelid={props.match.params.text_id}/>
                     </Grid>
                 <Grid item className="channelsmsgs" >
-                 <TextChannelMsgs serverid={props.match.params.server_id} channelid={props.match.params.text_id} /> 
+                 <TextChannelMsgs messageRef={messageRef} serverid={props.match.params.server_id} channelid={props.match.params.text_id} /> 
                 </Grid >
             </Grid>
         </ThemeProvider>
     )
 }
 
-export default connect(mapStateToProps, { logout, getTextChannel, sendMessage })(TextChannel)
+export default connect(mapStateToProps, {getTextChannel, sendMessage, setMsgs, setNotifis, setClient})(TextChannel)

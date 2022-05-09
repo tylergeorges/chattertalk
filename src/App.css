@@ -177,7 +177,12 @@ background-color: white;
   height: calc(100% - 50px);
   left: 300px;
   /* margin-bottom: 100px; */
-  overflow-y: auto;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.channelsmsgs::-webkit-scrollbar{
+display: none;
 }
 .channellist{
   display: flex;
@@ -194,8 +199,10 @@ margin: 2%;
 }
 
 .channelheadercon{
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 #createChannelsIcon{
@@ -224,7 +231,12 @@ margin: 2%;
   flex-direction: column;
   align-items: flex-start;
   margin: 0px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.chatboxcon::-webkit-scrollbar{
+display: none;
 }
 /* 
 .messageFieldCon{
@@ -438,7 +450,9 @@ text-align: left;
 }
 
 
-
+.testblue{
+  color: blue;
+}
 
 .mention{
   color: blue;
@@ -487,6 +501,13 @@ top: 0;
   float: left;
   top: 0;
   z-index: 0;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.channelsPanelRel::-webkit-scrollbar{
+  display: none;
 }
 .channelsCon{
   position: relative;
@@ -506,6 +527,11 @@ top: 0;
   top: 0;
   justify-content: center;
   z-index: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.sidebar::-webkit-scrollbar{
+display: none;
 }
 .serversCon{
   position: relative;

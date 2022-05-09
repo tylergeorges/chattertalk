@@ -5,28 +5,24 @@ var axios = require("axios");
 var axiosDefaults = require("axios/lib/defaults");
 export const ADD_ACCOUNT = "ADD_ACCOUNT"
 
-export const CREATE_POST = "CREATE_POST"
-export const FOLLOW_USER = "FOLLOW_USER"
-export const SEARCH_USER =  "SEARCH_USER"
-export const GET_PROFILE = "GET_PROFILE"
-export const FOLLOW_ACCOUNT = "FOLLOW_ACCOUNT"
 export const LOGIN_ACC = "LOGIN_ACC"
 export const USER_NOTFI = "USER_NOTFI"
-export const UNFOLLOW_ACC = "UNFOLLOW_ACC"
 export const GET_CHANNEL = "GET_CHANNEL"
-export const REPLY_POST = "REPLY_POST"
-export const DELETE_POST = "DELETE_POST"
 
 export const FETCH_CR_START = "FETCH_CR_START"
 export const FETCH_CR_SUCCESS = "FETCH_CR_SUCCESS"
 export const FETCH_CR_FAIL = "FETCH_CR_FAIL"
 export const FETCH_CR_HOME = "FETCH_CR_HOME"
-export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
 export const FETCH_CR_LOGIN = "FETCH_CR_LOGIN"
+//CR short for "ChatRoom"
+
+export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
 export const FETCH_SERVER = "FETCH_SERVER"
 export const CREATE_CHANNEL = "CREATE_CHANNEL"
 export const SET_NOTIFIS = "SET_NOTIFIS"
+export const SET_MSGS = "SET_MSGS"
 export const CREATE_MESSAGE = "CREATE_MESSAGE"
+export const SET_CLIENT = "SET_CLIENT"
 
 
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
@@ -155,10 +151,19 @@ export const getServer = (server_id) => (dispatch) =>{
     })
 }
 export const setNotifis = (notifis) => (dispatch) =>{
-
     dispatch({type: SET_NOTIFIS, payload: notifis})
    
 }
+export const setMsgs = (msgs) => (dispatch) =>{
+    dispatch({type: SET_MSGS, payload: msgs})
+   
+}
+export const setClient = (client) => (dispatch) =>{
+    dispatch({type: SET_CLIENT, payload: client})
+   
+}
+
+
 export const createTextChannel = (channel_info) => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
     instance 
