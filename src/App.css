@@ -155,7 +155,8 @@ z-index: 1000;
 }
 #changeicon{
 position: absolute; 
-height: 15%;
+height: 30px;
+width: 30px;
 background-color: #7F00FF;
 border-radius: 50%;
 }
@@ -188,12 +189,27 @@ display: none;
   display: flex;
   align-items: center;
   height: 20px;
+  width: 170px;
   bottom: 0;
   cursor: pointer;
   text-overflow: ellipsis;
+  justify-content: flex-start;
 }
 
-
+.channelcon{
+  text-overflow: elipsis; 
+  display: flex;
+  vertical-align: 15px; 
+  align-self: flex-start; 
+  width: 170px; 
+  margin-top: 3%; 
+  bottom: 30px;
+  right: 10px; 
+  background-color: #353241;
+  border-radius: 2px;
+  height: 40px;
+  align-items: center;
+}
 .channelhashtag{
 margin: 2%;
 }
@@ -203,6 +219,15 @@ margin: 2%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
+  
+}
+.channelslistAll{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: red;
 }
 
 #createChannelsIcon{
@@ -273,6 +298,15 @@ display: none;
   border-radius: 10px;
   text-align: left;
 }
+#txtchannelName{
+  position: relative;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  margin: 0px;
+  height: 100%;
+  text-align: left;
+}
 .userInfoCon{
   bottom: 0;
   position: absolute;
@@ -282,6 +316,7 @@ display: none;
   background-color: #353241;
   align-items: flex-start;
   height: 5%;
+  
 }
 #usertag{
   position: absolute;
@@ -296,15 +331,16 @@ display: none;
 }
 
 .notifiIcon{
-position: relative;
+position: absolute;
 display: flex;
 width: 15%;
 justify-content: center;
 text-align: center;
 background-color: red;
-height: 130%;
+height: 75%;
 align-items: center;
 border-radius: 6px;
+right: 0;
 }
 
 
@@ -505,12 +541,19 @@ top: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+.channelsName{
+  position: relative;
+  text-overflow: ellipsis;
+  display: flex;
+}
 
 .channelsPanelRel::-webkit-scrollbar{
   display: none;
 }
 .channelsCon{
   position: relative;
+  display: flex;
+  justify-content: flex-start;
 }
 .sidebar{
   position: fixed;

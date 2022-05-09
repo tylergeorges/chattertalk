@@ -64,10 +64,12 @@ const theme = createTheme({
 const Sidebar = (props) => {
     const [serverName, setServerName] = useState('')
     const [showServerForm, setShowServerForm] = useState(false)
+    const url = window.location.pathname.split('/').pop();
 
+    
     useEffect(() => {
         props.fetchHome()
-    }, [])
+    }, [url])
 
     const createServerForm = (e) =>{
         e.preventDefault()

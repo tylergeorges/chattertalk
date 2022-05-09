@@ -28,13 +28,13 @@ function App(props) {
     
         <Switch>
         {/* <div className="App"> */}
+          {props.isLoggedIn ? <Redirect from='/login' to='/home'/> : ''}
+          {props.isLoggedIn ? <Redirect from='/register' to='/home'/> : ''}
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/home" component={Home} />
           <Route  path="/channels/:server_id/:text_id" component={TextChannel} />
           <Route  path="/server/:server_id" component={Server} />
-          {props.isLoggedIn ? <Redirect from='/login' to='/home'/> : ''}
-          {props.isLoggedIn ? <Redirect from='/register' to='/home'/> : ''}
           {!props.isLoggedIn ? <Redirect from='/home' to='/login'/> : ''}
           {!props.isLoggedIn ? <Redirect from='/channels/:server_id/:text_id' to='/login'/> : ''}
           {!props.isLoggedIn ? <Redirect from='/server/:server_id' to='/login'/> : ''}

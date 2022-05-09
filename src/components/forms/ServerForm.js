@@ -130,7 +130,7 @@ const ServerForm = (props) => {
 
                         <label htmlFor="server_icon" className={iconChecker === false ? 'uploadBox' : "hide"} onChange={handleServerIcon} id="uploadbox"> 
 
-                             <label htmlFor="server_icon" id='serverFormIcon'><icon.AddPhotoAlternate /> </label> 
+                             <label htmlFor="server_icon" id='serverFormIcon' ><icon.AddPhotoAlternate /> </label> 
 
                             <label label htmlFor="server_icon" id="serverlabel">Upload a Server Icon</label>
 

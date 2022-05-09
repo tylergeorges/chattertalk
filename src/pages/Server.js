@@ -49,7 +49,10 @@ const theme = createTheme({
     }
 });
 const Server = (props) => {
-  
+    const url = window.location.pathname.split('/').pop();
+    useEffect(() =>{
+
+    },[url])
     return (
         <ThemeProvider theme={theme}>
              {props.isLoading && <div>Loading...</div>}

@@ -53,7 +53,11 @@ const theme = createTheme({
 const HomeLists = (props) => {
 
     const [TextChannelName, setTextChannelName] = useState('')
+    const url = window.location.pathname.split('/').pop();
 
+    useEffect(()=>{
+
+    },[url])
     
 
     const handleChannelName = (e) => {

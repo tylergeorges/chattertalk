@@ -39,6 +39,7 @@ const TextChannelMsgs = (props) => {
 
     useEffect(()=>{
         messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+        console.log(messages)
 
     },[messages])
  
@@ -46,7 +47,6 @@ const TextChannelMsgs = (props) => {
     useEffect( () => {
         // props.getTextChannel(props.serverid, props.channelid)
         setMessages(props.msgs)
-        
     }, [props.msgs])
 
     const handleTextContent = (e) => {
@@ -130,7 +130,7 @@ const TextChannelMsgs = (props) => {
             const data =  JSON.parse(e.data)
          //    props.setNotifis()
           if(data.model == 'chatroom.message'){
-             
+             console.log(data)
             setMessages((prevState)=>[...prevState, data])
             messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
         }
@@ -179,17 +179,16 @@ const TextChannelMsgs = (props) => {
                  dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
                  datetime = 'Today at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
             }
-
-
                 return(
                     <div className='allmsgsCon'>
-                        <div  className='allmessages'  style={msg.fields.isMention && msg.fields.user_mentioned === props.currentuser.id ? {background: 'rgba(255, 217, 61,0.3)', width: '100%'} : {}} >
+                        {/* style={msg.fields.isMention && msg.fields.user_mentioned === props.currentuser.id ? {background: 'rgba(255, 217, 61,0.3)', width: '100%'} : {}} */}
+                        <div  className='allmessages'  style={  {background:msg.fields.isMention && msg.fields.user_mentioned.includes(props.currentuser.id) ? 'rgba(255, 217, 61,0.3)' : '', width: '100%'} }>
                             <div className="userMsgInfoCon" id="testCon">
                                 <h4 className="userMsgUsername">{msg.fields.author.username}</h4>
                                 <p className="userMsgTime" style={{fontSize: 'smaller'}}>{datetime}</p>
                             </div>
+                            <p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p>
                             
-                            { msg.fields.isMention ?<p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p> :<p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p> }
                              </div>
                              </div>
                 )

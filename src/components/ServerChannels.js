@@ -107,30 +107,28 @@ const ServerChannels = (props) => {
                         <div className="serverNameCon" >
                             <h3>{props.current_server.server_name}</h3>
                         </div>
-                        <div className="channelscon">
-                            <List item sx={{ display: 'inline-block', alignSelf: 'flex-start', alignItems: 'center', width: 170, }}>    
-                                <div className="channelheadercon">
+                        <List className="channelscon"   >
+                            <List item sx={{position: 'relative',display: 'flex',alignItems: 'center',justifyContent: 'flex-start',width: 100, left: 5 }}>    
                                     <h4 id="txtchannelheader">CHANNELS</h4>
                                     <AddIcon id="createChannelsIcon" onClick={createTextChannel}/>
-                                </div>
                             </List>
+                            
                             {props.text_channels.map(channels => {
                                 return (
-                                    <List  item sx={{  textOverflow: 'elipsis', alignItems: 'center',  display: 'inline-block', verticalAlign: 15, alignSelf: 'flex-start', width: 170, alignItems: 'center', marginTop: '3%', bottom: 30, right: 10, backgroundColor: 'background.dark', borderRadius: 2 }}>
-                                        <Link to={`/channels/${props.serverid}/${channels.id}`}>
+                                            <List item   sx={{textOverflow: 'ellipsis', justifyContent: 'flex-start', display: 'flex',  width: '100%', alignItems: 'center', marginTop: '3%', bottom: 30,  backgroundColor: 'background.dark', borderRadius: 2 }}>
+                                    <Link to={`/channels/${props.serverid}/${channels.id}`}>
                                             <div className="channellist"  id={channels.id} >
                                                 <TagIcon className="channelhashtag" id={channels.id}  />
-                                                <p>{channels.text_channel_name}</p>
+                                                <p id="txtchannelName" >{channels.text_channel_name}</p>
                                                 {notifs.length > 0 ? notifs.map(notif => notif.text_channel === channels.id) ? 
                                                 <>
                                                     {notifs.map(notif => {
                                                         return(
                                                             <> 
                                                     {notif.text_channel === channels.id ? 
-                                                    notif.notifications !== 0 ?<div className="notifiIcon"> 
-                                                     <p id="channelNotifis">
-                                                    {notif.notifications}
-                                                        </p>
+                                                    notif.notifications !== 0 ?
+                                                    <div className="notifiIcon"> 
+                                                     <p id="channelNotifis">{notif.notifications}</p>
                                                     </div> : ''
                                                     
                                                     : ''}
@@ -142,7 +140,7 @@ const ServerChannels = (props) => {
                                     </List>
                                 )
                             })}
-                        </div>
+                        </List>
                     </div>
                             <div className="userInfoCon">
                                 <p id="userInfoUsername">{props.currentuser.username}</p>

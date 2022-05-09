@@ -19,6 +19,7 @@ export const FETCH_CR_LOGIN = "FETCH_CR_LOGIN"
 export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
 export const FETCH_SERVER = "FETCH_SERVER"
 export const CREATE_CHANNEL = "CREATE_CHANNEL"
+export const CREATE_SERVER = "CREATE_SERVER"
 export const SET_NOTIFIS = "SET_NOTIFIS"
 export const SET_MSGS = "SET_MSGS"
 export const CREATE_MESSAGE = "CREATE_MESSAGE"
@@ -130,7 +131,7 @@ export const createServer = (serverInfo) =>  async(dispatch) =>{
     instance 
     .post(`/home`, formData, config)
     .then(data =>{
-        // dispatch({type: FETCH_CR_HOME, payload: data})
+        dispatch({type: CREATE_SERVER, payload: data})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})

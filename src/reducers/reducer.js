@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
@@ -47,12 +47,19 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false, currentuser: action.payload.data.data.currentuser, error: '', servers: action.payload.data.data.servers, auth_token: action.payload.data.token
             }
         case FETCH_SERVER:
+            console.log(action.payload)
             return{
-                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server, text_channels: action.payload.data.data.text_channels, auth_token: action.payload.data.token
+                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server, text_channels: [...action.payload.data.data.text_channels], auth_token: action.payload.data.token
+            }
+        case CREATE_SERVER:
+            console.log(action.payload)
+            return{
+                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server, servers: [...state.servers, action.payload.data.server], auth_token: state.token
             }
         case CREATE_CHANNEL:
+            console.log(action.payload)
             return{
-                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server,
+                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server,text_channels: [...state.text_channels, action.payload.data.chanel]
             }
         case GET_CHANNEL:
 
@@ -70,6 +77,7 @@ export default function reducer(state=initialState, action){
                 }
             }
         case SET_MSGS:
+            console.log(action.payload)
                 return{
                     ...state, isLoading:false, error: '',  currentuser: state.currentuser, msgs: [...action.payload]
                 }
@@ -79,7 +87,7 @@ export default function reducer(state=initialState, action){
                 }
         case CREATE_MESSAGE:
             if(action.payload.data.notifis.user_mentioned === state.currentuser.id){
-
+                console.log(action.payload)
                 return{
                     ...state, isLoading:false, error: '', notifs: action.payload.data.notifis ? [...state.notifs, action.payload.data.notifis]: state.notifs, currentuser: state.currentuser
                 }
