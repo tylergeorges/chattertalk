@@ -36,18 +36,17 @@ const TextChannelMsgs = (props) => {
     const history = useHistory()
     
     
-
-    useEffect(()=>{
-        messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-        console.log(messages)
-
-    },[messages])
- 
-    
     useEffect( () => {
         // props.getTextChannel(props.serverid, props.channelid)
         setMessages(props.msgs)
-    }, [props.msgs])
+    }, [props.msgs, url])
+    
+    useEffect(()=>{
+        messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+
+    },[messages, url])
+ 
+    
 
     const handleTextContent = (e) => {
         e.preventDefault()

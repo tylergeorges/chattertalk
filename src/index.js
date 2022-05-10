@@ -11,13 +11,13 @@ import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory()
 ReactDOM.render(
-  <Provider store={store}>
   <Router >
+  <Provider store={store}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
-  </Router>
-  </Provider>,
+  </Provider>
+  </Router>,
   document.getElementById('root')
 );
 

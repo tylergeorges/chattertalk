@@ -47,17 +47,14 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false, currentuser: action.payload.data.data.currentuser, error: '', servers: action.payload.data.data.servers, auth_token: action.payload.data.token
             }
         case FETCH_SERVER:
-            console.log(action.payload)
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server, text_channels: [...action.payload.data.data.text_channels], auth_token: action.payload.data.token
             }
         case CREATE_SERVER:
-            console.log(action.payload)
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server, servers: [...state.servers, action.payload.data.server], auth_token: state.token
             }
         case CREATE_CHANNEL:
-            console.log(action.payload)
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server,text_channels: [...state.text_channels, action.payload.data.chanel]
             }
@@ -78,16 +75,23 @@ export default function reducer(state=initialState, action){
             }
         case SET_MSGS:
             console.log(action.payload)
+            if(!action.payload.model){
                 return{
                     ...state, isLoading:false, error: '',  currentuser: state.currentuser, msgs: [...action.payload]
                 }
+            }
+            else{
+                return{
+                    ...state, isLoading:false, error: '',  currentuser: state.currentuser, msgs: [...state.msgs, action.payload]
+                }
+            }
         case SET_CLIENT:
                 return{
                     ...state, isLoading:false, error: '',  currentuser: state.currentuser, client: action.payload
                 }
         case CREATE_MESSAGE:
+            console.log(action.payload)
             if(action.payload.data.notifis.user_mentioned === state.currentuser.id){
-                console.log(action.payload)
                 return{
                     ...state, isLoading:false, error: '', notifs: action.payload.data.notifis ? [...state.notifs, action.payload.data.notifis]: state.notifs, currentuser: state.currentuser
                 }

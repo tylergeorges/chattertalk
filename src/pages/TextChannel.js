@@ -68,7 +68,7 @@ const TextChannel = (props) => {
         const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${props.match.params.server_id}/${props.match.params.text_id}/`);
         props.setClient(client)
 
-        
+        props.setMsgs([])
         
         
         client.onopen =  (e) => {
@@ -90,7 +90,13 @@ const TextChannel = (props) => {
         
         client.onmessage =  (e) => {
                const data =  JSON.parse(e.data)
-            if(messages.length === 0 && data[0].model === "chatroom.message" ){
+               console.log(data)
+               if(data.model === "chatroom.message"){
+                 props.setMsgs(data)
+                 console.log(data)
+             //    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+            }
+            else if(messages.length === 0 && data[0].model === "chatroom.message" ){
                 props.setMsgs(data)
                 // messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
             }
@@ -100,10 +106,6 @@ const TextChannel = (props) => {
                     
                 }
                
-             if(data.model){
-                props.setMsgs(data)
-            //    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
-           }
       
         }
     
@@ -115,6 +117,8 @@ const TextChannel = (props) => {
       
         
     }, [url])
+
+ 
     return (
         <ThemeProvider theme={theme}>
             {/* {props.isLoading && <div>Loading...</div>} */}

@@ -50,8 +50,9 @@ const theme = createTheme({
 });
 const Server = (props) => {
     const url = window.location.pathname.split('/').pop();
-    useEffect(() =>{
 
+    useEffect(() =>{
+        props.getServer(props.match.params.server_id)
     },[url])
     return (
         <ThemeProvider theme={theme}>
