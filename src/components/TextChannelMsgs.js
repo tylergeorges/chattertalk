@@ -174,9 +174,13 @@ const TextChannelMsgs = (props) => {
                 dateOptions = {day: 'numeric',month: 'numeric', year: 'numeric'}
                 datetime = new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
             }
-            else {
+            else if(days < 1){
                  dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
                  datetime = 'Today at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
+            }
+            else if(days === 1){
+                 dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+                 datetime = 'Yesterday at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
             }
                 return(
                     <div className='allmsgsCon'>

@@ -59,7 +59,7 @@ const Server = (props) => {
              {props.isLoading && <div>Loading...</div>}
             <Grid container className="serverCon">
                 <Grid item >
-                    <SideBar />
+                    <SideBar serverid={props.match.params.server_id}/>
                 </Grid>
                 <Grid item  >
                     <ServerChannels serverid={props.match.params.server_id} />

@@ -15,6 +15,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AddIcon from '@mui/icons-material/Add';
 import ServerForm from './forms/ServerForm';
+import { CopyAll } from '@mui/icons-material';
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -64,6 +65,7 @@ const theme = createTheme({
 const Sidebar = (props) => {
     const [serverName, setServerName] = useState('')
     const [showServerForm, setShowServerForm] = useState(false)
+    const [isHovered, setIsHovered] = useState(null)
     const url = window.location.pathname.split('/').pop();
 
     
@@ -77,12 +79,23 @@ const Sidebar = (props) => {
         setShowServerForm(!showServerForm)
     }
 
+    const handleHover = (e) =>{
+        e.preventDefault()
+        setIsHovered(e.target.id)
+       const icon = document.getElementById(e.target.id)
+
+    }
+
+    const handleHoverExit = (e) =>{
+        e.preventDefault()
+        setIsHovered(null)
+    }
+
     const logout = (e) => {
         e.preventDefault()
 
         props.logout()
     }
-
     return (
 
         <div className='serverSideBar' >
@@ -93,7 +106,7 @@ const Sidebar = (props) => {
                  <div onClick={createServerForm} className={showServerForm === true ? 'blackScreen' :  'hide'} />
             {/* <Drawer  variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} > */}
              <div className='sidebar' >
-                <List justify="center" align="center" >
+                {/* <List justify="center" align="center" > */}
 
                     <List item="true" xs="false" sm={4} md={6} >
                         <Link to="/home"> <HomeIcon sx={{ color: 'white', bgcolor: 'background.default', fontSize: 70}} className="serverIcons" /></Link>
@@ -101,19 +114,21 @@ const Sidebar = (props) => {
 
                     {props.servers.map(servers => {
                         return (
-                            <>
+                            <div className='sidebarIconsCon'>
                                 {/* <h4>{servers.server_name}</h4> */}
 
-                                <List item="true" xs='false' sm={4} md={6} >
-                                    <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} className="serverIcons" width="70px" /></Link>
-                                </List>
-                            </>
+                                {/* <List item="true" xs='false' sm={4} md={6} > */}
+                                
+                                <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
+                             <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" /></Link>
+                                {/* </List> */}
+                            </div>
                         )
                     })}
                     <List item="true" xs="false" sm={4} md={6}>
                         <AddIcon sx={{ bgcolor: 'background.default', fontSize: 70, }} className="addServerBtn" onClick={createServerForm}/>
                     </List>
-                </List>
+                {/* </List> */}
              </div>
                          <div className={showServerForm === true ?'innerForm' : 'dontShow'} > 
                          <ServerForm />

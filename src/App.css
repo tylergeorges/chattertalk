@@ -23,6 +23,79 @@ body{
   transition: 250ms ease;
   text-decoration: none; 
 }
+
+
+.currentServerIcon{
+  /* align-items: center; */
+  border-radius: 35%;
+  /* width: 100%; */
+  flex-grow:1;
+  transition: 250ms ease;
+  text-decoration: none; 
+  align-self: center;
+}
+.sidebarIconsCon{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+.sideBarCon{
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  
+  top: 0;
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+.serverbarCon{
+  position: relative;
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.currServerBar{
+  position: absolute;
+  /* float:left; */
+  margin: 0px;
+  left: 0;
+  justify-self: left;
+  align-self: center;
+  border-radius: 30px;
+  background-color: white;
+  width: 5%;        
+  height: 50%;
+  transition: 300ms;
+  animation: CURRENTBAR 0.2s ease;
+}
+.hoverServerBar{
+  position: absolute;
+  left: 0;
+  border-radius: 30px;
+  background-color: white;
+  width: 5%;
+  height: 25%;
+  animation: HOVERBAR 0.3s ease;
+}
+@keyframes HOVERBAR {
+  0%   { opacity: 0%;}
+  100% {  opacity: 100%;}
+}
+@keyframes CURRENTBAR {
+  0%   { height: 25%;}
+  100% {  height: 50%;}
+}
+
+.none{
+  display: none;
+  height: 0px;
+  transition: 300ms;
+}
 .serverChannelsCon{
   height: 100%;
   position: relative;
@@ -562,13 +635,13 @@ top: 0;
   width: 100px;
   flex-shrink: 0;
   box-sizing: border-box;
-  
+  flex-direction: column;
   /* position: fixed; */
   float: left;
   left: 0;
   height: 100%;
   top: 0;
-  justify-content: center;
+  /* justify-content: center; */
   z-index: 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
