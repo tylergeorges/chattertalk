@@ -115,7 +115,7 @@ const ServerChannels = (props) => {
                             
                             {props.text_channels.map(channels => {
                                 return (
-                                            <List item   sx={{textOverflow: 'ellipsis', justifyContent: 'flex-start', display: 'flex',  width: '100%', alignItems: 'center', marginTop: '3%', bottom: 30,  backgroundColor: 'background.dark', borderRadius: 2 }}>
+                                            <List item className={channels.id == props.channelid ? "channelsBg" : 'otherChannels' }  sx={{textOverflow: 'ellipsis', justifyContent: 'flex-start', display: 'flex',  width: '100%', alignItems: 'center', marginTop: '3%', bottom: 30,   borderRadius: 2 }}>
                                     <Link to={`/channels/${props.serverid}/${channels.id}`}>
                                             <div className="channellist"  id={channels.id} >
                                                 <TagIcon className="channelhashtag" id={channels.id}  />
@@ -143,8 +143,11 @@ const ServerChannels = (props) => {
                         </List>
                     </div>
                             <div className="userInfoCon">
+                                <img style={{height: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${props.currentuser.profile_picture}`}></img>
+                                <div className="userInfoSubCon">
                                 <p id="userInfoUsername">{props.currentuser.username}</p>
                                 <p id="usertag">{props.currentuser.user_tag}</p>
+                                </div>
                             </div>
                 </div>
             </div>

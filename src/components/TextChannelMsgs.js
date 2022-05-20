@@ -182,15 +182,21 @@ const TextChannelMsgs = (props) => {
                  dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
                  datetime = 'Yesterday at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
             }
+            console.log(msg)
                 return(
                     <div className='allmsgsCon'>
                         {/* style={msg.fields.isMention && msg.fields.user_mentioned === props.currentuser.id ? {background: 'rgba(255, 217, 61,0.3)', width: '100%'} : {}} */}
                         <div  className='allmessages'  style={  {background:msg.fields.isMention && msg.fields.user_mentioned.includes(props.currentuser.id) ? 'rgba(255, 217, 61,0.3)' : '', width: '100%'} }>
                             <div className="userMsgInfoCon" id="testCon">
+                            <img style={{height: '35px', width: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${msg.fields.author.profile_picture}`}></img>
+                                <div className="userMsgCon">
+                                <div className="UserNameUserTime">
                                 <h4 className="userMsgUsername">{msg.fields.author.username}</h4>
                                 <p className="userMsgTime" style={{fontSize: 'smaller'}}>{datetime}</p>
-                            </div>
+                                </div>
                             <p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p>
+                                </div>
+                            </div>
                             
                              </div>
                              </div>

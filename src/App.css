@@ -68,23 +68,32 @@ body{
   align-self: center;
   border-radius: 30px;
   background-color: white;
-  width: 5%;        
+  width: 3%;        
   height: 50%;
   transition: 300ms;
-  animation: CURRENTBAR 0.2s ease;
+  animation: CURRENTBAR 100ms ease;
 }
 .hoverServerBar{
   position: absolute;
   left: 0;
   border-radius: 30px;
   background-color: white;
-  width: 5%;
+  width: 3%;
   height: 25%;
-  animation: HOVERBAR 0.3s ease;
+  animation: HOVERBAR 100ms ease;
+}
+.otherChannels:hover{
+  /* background-color: #353241; */
+  background: rgba(53, 50, 65, 0.5);
+}
+
+.channelsBg{
+  /* background-color: #353241; */
+  background: rgba(53, 50, 65);
 }
 @keyframes HOVERBAR {
-  0%   { opacity: 0%;}
-  100% {  opacity: 100%;}
+  0%   { width: 0%; height: 0%;}
+  100% {  width: 3%; height:  25%;}
 }
 @keyframes CURRENTBAR {
   0%   { height: 25%;}
@@ -202,6 +211,7 @@ z-index: 1000;
   width: 120px;
   border-radius: 55%;
   margin-bottom: 2rem;
+  height: 120px;
 }
 .blackScreen{
   position:fixed;
@@ -382,27 +392,49 @@ display: none;
 }
 .userInfoCon{
   bottom: 0;
-  position: absolute;
+  position: fixed;
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  background-color: #353241;
+  align-items:center;
+  height: 5%;
+}
+#userInfoPfp{
+float: left;
+border-radius: 15px;
+}
+.userMsgCon{
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #353241;
-  align-items: flex-start;
-  height: 5%;
-  
 }
 #usertag{
-  position: absolute;
+  position: relative;
   /* margin-top: 25%; */
-  top: 15%;
+  /* top: 15%; */
+  margin: 0px;
+  text-align: left;
+  font-size: small;
 }
 #userInfoUsername{
-  position: absolute;
-  bottom: 15%;
+  position: relative;
+  /* bottom: 15%; */
+  /* left: 35px; */
+  margin: 0px;
   /* margin-bottom: 25%; */
-  /* margin-top: 15%; */
+  /* margin-top: 15%; */  
+  text-align: left;
 }
-
+.userInfoSubCon{
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  text-align: left;
+  margin-left: 5px;
+  height: 35px;
+}
 .notifiIcon{
 position: absolute;
 display: flex;
@@ -442,6 +474,7 @@ right: 0;
   width: fit-content;
   height: fit-content;
   margin: 0;
+  float: left;
 }
 .userMsgTime{
   width: -moz-fit-content;
@@ -450,6 +483,11 @@ right: 0;
   align-self: flex-end;
   color: #7c7a87;
   padding-left: 5px;
+}
+.UserNameUserTime{
+  position: relative;
+  display: flex;
+  flex-direction: row;
 }
 .allmsgsCon{
   position: relative;
@@ -479,6 +517,7 @@ text-align: left;
   box-sizing: border-box;  
   /* padding-bottom: 5em; */
   padding-top: 0px;
+  float: left;
   margin-top: 0px;
   margin: 0;
 }
@@ -531,7 +570,7 @@ text-align: left;
     display: flex;
     margin-top: 0px;
     text-size-adjust: 80%;
-
+    justify-self: flex-start;
   }
 
   .userMention{
@@ -643,6 +682,7 @@ top: 0;
   top: 0;
   /* justify-content: center; */
   z-index: 0;
+  overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

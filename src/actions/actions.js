@@ -14,6 +14,7 @@ export const FETCH_CR_SUCCESS = "FETCH_CR_SUCCESS"
 export const FETCH_CR_FAIL = "FETCH_CR_FAIL"
 export const FETCH_CR_HOME = "FETCH_CR_HOME"
 export const FETCH_CR_LOGIN = "FETCH_CR_LOGIN"
+export const FETCH_CR_REGISTER = "FETCH_CR_REGISTER"
 //CR short for "ChatRoom"
 
 export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
@@ -43,7 +44,6 @@ const instance = axios.create({
 
 export const fetchCr = () => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
-
     instance 
     .get('/',)
     .then(data =>{
@@ -56,12 +56,19 @@ export const fetchCr = () => (dispatch) =>{
 }
 
 export const addAccount = (acc) => (dispatch) =>{
-   
+    const config = {headers:{"content-type":"multipart/form-data"}}
     dispatch({type: FETCH_CR_START})
 
+    let formData = new FormData() 
+    formData.append('profile_picture', acc.profile_picture);
+    formData.append('username', acc.username);
+    formData.append('password', acc.password);
+
+
     instance 
-    .post('register', JSON.stringify(acc))
+    .post('register', formData, config)
     .then(data =>{
+        console.log(data)
         // dispatch({type: ADD_ACCOUNT, payload: data})
     })
     .catch(err=>{
@@ -69,14 +76,16 @@ export const addAccount = (acc) => (dispatch) =>{
         console.log(err.message)
     })
 }
+
+
 export const fetchRegister = (acc) => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
 
     instance 
     .get('register',)
     .then(data =>{
-        
-        // dispatch({type: FETCH_SM_REGISTER, payload: data})
+        console.log(data)
+        dispatch({type: FETCH_CR_REGISTER, payload: data})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})

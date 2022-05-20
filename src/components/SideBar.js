@@ -120,7 +120,7 @@ const Sidebar = (props) => {
                                 {/* <List item="true" xs='false' sm={4} md={6} > */}
                                 
                                 <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
-                             <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" /></Link>
+                             <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' /></Link>
                                 {/* </List> */}
                             </div>
                         )

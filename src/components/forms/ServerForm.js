@@ -1,20 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout } from "../../actions/actions"
-import { useHistory } from "react-router-dom"
-import Drawer from '@mui/material/Drawer'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import { List, ListItem } from "@mui/material"
-import { borders } from '@mui/system';
-import HomeIcon from '@mui/icons-material/Home';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { fetchHome,  createServer, logout } from "../../actions/actions"
+import {  createTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import * as icon from '@mui/icons-material';
+
+
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -69,6 +61,8 @@ const ServerForm = (props) => {
 
     useEffect(() => {
         props.fetchHome()
+        setServerIcon(null)
+
     }, [])
 
 
@@ -88,6 +82,7 @@ const ServerForm = (props) => {
         e.preventDefault()
         console.log(serverIcon)
         props.createServer({ server_name: serverName, server_icon: serverIcon, auth_token: props.auth_token })
+        setServerIcon(null)
 
     }
 
@@ -95,7 +90,7 @@ const ServerForm = (props) => {
         e.preventDefault()
         // console.log(e.target.files[0])
         setServerIcon(e.target.files[0])
-        const reader = new FileReader();
+        const reader = new FileReader()
 
         reader.onload = () =>{
             setPreviewServerIcon(reader.result)

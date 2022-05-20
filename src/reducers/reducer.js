@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
@@ -18,9 +18,8 @@ const initialState = ({
 export default function reducer(state=initialState, action){
     switch(action.type){
         case FETCH_CR_START:
-            console.log('loading')
         return{
-            ...state, isLoading:true, currentuser: state.currentuser, error: '', 
+            ...state, isLoading:true, currentuser: state.currentuser, error: '', isLoggedIn: state.isLoggedIn
         }
         case FETCH_CR_FAIL:
         return{
@@ -34,6 +33,11 @@ export default function reducer(state=initialState, action){
             return{
                 ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
             }
+        case FETCH_CR_REGISTER:
+            console.log(action.payload)
+            return{
+                ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
+            }
         case LOGIN_ACC:
             return{
                 ...state, isLoading:false,  error: '', auth_token: action.payload.data.Authorization, isLoggedIn: action.payload.data.isLoggedIn
@@ -43,6 +47,7 @@ export default function reducer(state=initialState, action){
             ...state, isLoading:false, currentuser: action.payload.currentuser, error: ''
         }
         case FETCH_CR_HOME:
+            console.log(action.payload)
             return{
                 ...state, isLoading:false, currentuser: action.payload.data.data.currentuser, error: '', servers: action.payload.data.data.servers, auth_token: action.payload.data.token
             }
@@ -59,7 +64,6 @@ export default function reducer(state=initialState, action){
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server,text_channels: [...state.text_channels, action.payload.data.chanel]
             }
         case GET_CHANNEL:
-
             return{
                 ...state, isLoading:false, currentuser: action.payload.data.current_user, error: '', auth_token: action.payload.data.token,
             }
