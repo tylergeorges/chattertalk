@@ -11,7 +11,8 @@ const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
     servers: state.servers,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
+    isLoading: state.isLoading
 })
 
 // --main-bg-color:  #1F1C2C;
@@ -60,17 +61,19 @@ const ServerForm = (props) => {
     const [iconChecker, setIconChecker] = useState(false)
 
     useEffect(() => {
-        props.fetchHome()
-        setServerIcon(null)
+        // props.fetchHome()
 
-    }, [])
-
-
+      
+            document.getElementById('servernameinput').value = `${props.currentuser.username}'s server`
+        
+    }, [props.isLoading])
+    
+    
     const handleServerName = (e) => {
         e.preventDefault()
-
         if (e.target.name == 'server_name') {
             setServerName(e.target.value)
+           
         }
         if (e.target.name == 'server_icon') {
             setServerIcon(e.target.files)
@@ -80,15 +83,18 @@ const ServerForm = (props) => {
 
     const createServer = (e) => {
         e.preventDefault()
-        console.log(serverIcon)
-        props.createServer({ server_name: serverName, server_icon: serverIcon, auth_token: props.auth_token })
-        setServerIcon(null)
 
+        if(serverName !== ''){
+
+            props.createServer({ server_name: serverName, server_icon: serverIcon, auth_token: props.auth_token })
+        }
+        else if(serverName === ''){
+            props.createServer({ server_name: `${props.currentuser.username}'s server`, server_icon: serverIcon, auth_token: props.auth_token })
+        }
     }
 
     const handleServerIcon = (e) =>{
         e.preventDefault()
-        // console.log(e.target.files[0])
         setServerIcon(e.target.files[0])
         const reader = new FileReader()
 
@@ -117,20 +123,21 @@ const ServerForm = (props) => {
                         <form className="serverForm" >
                             <h1 id='serverformheader'>CREATE A SERVER</h1>
 
-                            <div  className='previewIconCon'>
+                    <div  className='previewIconCon'>
                             {iconChecker === true ? <label htmlFor="server_icon"><AddIcon id='changeicon'/></label> : ''}
                            
-                            <label htmlFor="server_icon"><img id="servericonpreview" src={previewServerIcon}/></label>
-                            </div>
+                            {iconChecker === true ? <label htmlFor="server_icon" ><img id="servericonpreview" src={previewServerIcon}/></label> : ''}
 
                         <label htmlFor="server_icon" className={iconChecker === false ? 'uploadBox' : "hide"} onChange={handleServerIcon} id="uploadbox"> 
 
-                             <label htmlFor="server_icon" id='serverFormIcon' ><icon.AddPhotoAlternate /> </label> 
+                            <label htmlFor="server_icon" id='serverFormIcon' ><icon.AddPhotoAlternate /> </label> 
 
                             <label label htmlFor="server_icon" id="serverlabel">Upload a Server Icon</label>
 
                             <input type="file" accept="image/*" id="server_icon" style={{ display: 'none'}} onChange={handleServerName}></input>
                        </label> 
+                    </div>
+
 
                         <div className='forminputCon'>
                         <label htmlFor="servernameinput" style={{fontSize: '14px', marignLeft: '0'}} id="servernamelabel">SERVER NAME</label>

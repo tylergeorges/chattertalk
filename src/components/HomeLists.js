@@ -55,9 +55,6 @@ const HomeLists = (props) => {
     const [TextChannelName, setTextChannelName] = useState('')
     const url = window.location.pathname.split('/').pop();
 
-    useEffect(()=>{
-
-    },[url])
     
 
     const handleChannelName = (e) => {
@@ -100,9 +97,16 @@ const HomeLists = (props) => {
                         </div> */}
                     </div>
                 </div>
+
             </div>
          
-
+        <div className="userInfoCon">
+            <img style={{height: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${props.currentuser.profile_picture}`}></img>
+              <div className="userInfoSubCon">
+                <p id="userInfoUsername">{props.currentuser.username}</p>
+                <p id="usertag">{props.currentuser.user_tag}</p>
+              </div>
+        </div>
 
         </ThemeProvider>
         </div>

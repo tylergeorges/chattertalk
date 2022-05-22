@@ -10,12 +10,18 @@ import { ThemeProvider } from "@emotion/react"
 import HomeLists from "../components/HomeLists"
 import TextChannelMsgs from "../components/TextChannelMsgs"
 import ServerChannels from "../components/ServerChannels"
+import { Redirect } from "react-router-dom"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     currentuser: state.currentuser,
     servers: state.servers,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
+    isLoggedIn: state.isLoggedIn,
+    isLoading: state.isLoading,
+    error: state.error
 })
+
+
 const theme = createTheme({
     palette: {
         background: {
@@ -51,29 +57,17 @@ const theme = createTheme({
 const Home = (props) => {
     const [serverName, setServerName] = useState('')
     const [serverIcon, setServerIcon] = useState(null)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    let history = useHistory();
 
+    
     useEffect(() =>{
         props.fetchHome()
-    },[])
-
-    const handleServerName = (e) =>{
-        e.preventDefault()
+        },[props.isLoggedIn])
         
-        if(e.target.name == 'server_name'){
-            setServerName(e.target.value)
-        }
-        if(e.target.name == 'server_icon'){
-            setServerIcon(e.target.files)
-            
-            }
-    }
 
-    const createServer = (e) =>{
-        e.preventDefault()
-  
-        props.createServer({server_name: serverName, server_icon: serverIcon[0], auth_token: props.auth_token})
 
-    }
 
     const logout = (e) =>{
         e.preventDefault()
@@ -81,13 +75,22 @@ const Home = (props) => {
         props.logout()
     }
 
-    return (
+
+     if(props.isLoggedIn === null){
+        return(
+            <h2>LOADING...</h2>
+        )
+    }
+    else if(props.isLoggedIn !== null){
+    return(
         <ThemeProvider theme={theme}>
+            
+            {/* {!props.isLoggedIn ? <Redirect to="/login" /> : ''} */}
             {/* <SideBar /> */}
             <div className="serversCon">
             <Grid container >
                     <Grid item sx={{zIndex: 10000}} >
-                        <SideBar />
+                        <SideBar home={props.match.path}/>
                     </Grid>
                     <Grid item >
                         <HomeLists serverid={props.match.params.server_id} />
@@ -99,18 +102,11 @@ const Home = (props) => {
             </Grid>
             </div>
 
-{/* 
-            <div className="homeCon">
-            <div className="homeContent">
-            <h1>Home</h1>
-            <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-            </div>
-            </div> */}
-          
-
             <button onClick={logout} style={{zIndex: '99999', position:'absolute'}}>Logout</button>
         </ThemeProvider>
-    )
+    ) 
+ }
+
 }
 
 export default connect(mapStateToProps, { logout, fetchHome, createServer })(Home)

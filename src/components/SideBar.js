@@ -70,7 +70,9 @@ const Sidebar = (props) => {
 
     
     useEffect(() => {
-        props.fetchHome()
+        if(props.home === undefined){
+            props.fetchHome()
+        }
     }, [url])
 
     const createServerForm = (e) =>{
@@ -91,46 +93,36 @@ const Sidebar = (props) => {
         setIsHovered(null)
     }
 
-    const logout = (e) => {
-        e.preventDefault()
 
-        props.logout()
-    }
     return (
 
         <div className='serverSideBar' >
-            {/* <Toolbar /> */}
          <ThemeProvider theme={theme} >
             <CssBaseline/>
 
                  <div onClick={createServerForm} className={showServerForm === true ? 'blackScreen' :  'hide'} />
-            {/* <Drawer  variant="permanent" anchor="left" sx={{ display: 'flex', alignItems: 'center', bgcolor: 'black', width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', } }} > */}
              <div className='sidebar' >
-                {/* <List justify="center" align="center" > */}
 
                     <List item="true" xs="false" sm={4} md={6} >
                         <Link to="/home"> <HomeIcon sx={{ color: 'white', bgcolor: 'background.default', fontSize: 70}} className="serverIcons" /></Link>
                     </List>
 
                     {props.servers.map(servers => {
+                        // console.log(servers)
                         return (
                             <div className='sidebarIconsCon'>
-                                {/* <h4>{servers.server_name}</h4> */}
-
-                                {/* <List item="true" xs='false' sm={4} md={6} > */}
-                                
                                 <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
-                             <Link to={`/server/${servers.id}`}><img src={`http://127.0.0.1:8000${servers.server_icon}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' /></Link>
-                                {/* </List> */}
+                             <Link to={`/channels/${servers.id}/${servers.id + 2}`}>
+                             <img src={`${servers.server_icon_url}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' />
+                             </Link>
                             </div>
                         )
                     })}
                     <List item="true" xs="false" sm={4} md={6}>
                         <AddIcon sx={{ bgcolor: 'background.default', fontSize: 70, }} className="addServerBtn" onClick={createServerForm}/>
                     </List>
-                {/* </List> */}
              </div>
-                         <div className={showServerForm === true ?'innerForm' : 'dontShow'} > 
+                         <div className={showServerForm === true && props.currentuser !== '' ?'innerForm' : 'dontShow'} > 
                          <ServerForm />
                         </div>
          </ThemeProvider>

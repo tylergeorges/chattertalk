@@ -1,10 +1,10 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, JOIN_SERVER, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
    error: '',
    isLoading: false,
-   isLoggedIn: false,
+   isLoggedIn: null,
    login_status: '',
    servers: [],
    current_server: '',
@@ -19,22 +19,21 @@ export default function reducer(state=initialState, action){
     switch(action.type){
         case FETCH_CR_START:
         return{
-            ...state, isLoading:true, currentuser: state.currentuser, error: '', isLoggedIn: state.isLoggedIn
+            ...state, isLoading:true,  error: '', currentuser: state.currentuser
         }
         case FETCH_CR_FAIL:
         return{
-            ...state, isLoading:false, currentuser: state.currentuser, error: action.payload, 
+            ...state, isLoading:false, currentuser: state.currentuser, error: action.payload
         }
         case FETCH_CR_SUCCESS:
         return{
-            ...state, isLoading:false, currentuser: state.currentuser, error: '', 
+            ...state, isLoading:false, currentuser: state.currentuser, error: ''
         }
         case FETCH_CR_LOGIN:
             return{
                 ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
             }
         case FETCH_CR_REGISTER:
-            console.log(action.payload)
             return{
                 ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
             }
@@ -42,22 +41,33 @@ export default function reducer(state=initialState, action){
             return{
                 ...state, isLoading:false,  error: '', auth_token: action.payload.data.Authorization, isLoggedIn: action.payload.data.isLoggedIn
             }
+        case FETCH_LOG_OUT:
+            return{
+                ...state, isLoggedIn: false
+            }
         case ADD_ACCOUNT:
         return{
             ...state, isLoading:false, currentuser: action.payload.currentuser, error: ''
         }
         case FETCH_CR_HOME:
-            console.log(action.payload)
-            return{
-                ...state, isLoading:false, currentuser: action.payload.data.data.currentuser, error: '', servers: action.payload.data.data.servers, auth_token: action.payload.data.token
+            if(action.payload.data.data.servers){
+                return{
+                    ...state, isLoading:false,currentuser: action.payload.data.data.currentuser, servers: [...action.payload.data.data.servers], error: '', auth_token: action.payload.data.token, isLoggedIn: action.payload.data.data.isLoggedIn
+                }
             }
+            
         case FETCH_SERVER:
             return{
                 ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server, text_channels: [...action.payload.data.data.text_channels], auth_token: action.payload.data.token
             }
         case CREATE_SERVER:
+            // action.payload.data.server.server_icon[0].pop()
             return{
-                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server, servers: [...state.servers, action.payload.data.server], auth_token: state.token
+                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server, servers: [...state.servers, action.payload.data], auth_token: state.token
+            }
+        case JOIN_SERVER:
+            return{
+                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: state.current_server, servers: state.servers, auth_token: state.token
             }
         case CREATE_CHANNEL:
             return{
@@ -78,7 +88,6 @@ export default function reducer(state=initialState, action){
                 }
             }
         case SET_MSGS:
-            console.log(action.payload)
             if(!action.payload.model){
                 return{
                     ...state, isLoading:false, error: '',  currentuser: state.currentuser, msgs: [...action.payload]
@@ -94,7 +103,6 @@ export default function reducer(state=initialState, action){
                     ...state, isLoading:false, error: '',  currentuser: state.currentuser, client: action.payload
                 }
         case CREATE_MESSAGE:
-            console.log(action.payload)
             if(action.payload.data.notifis.user_mentioned === state.currentuser.id){
                 return{
                     ...state, isLoading:false, error: '', notifs: action.payload.data.notifis ? [...state.notifs, action.payload.data.notifis]: state.notifs, currentuser: state.currentuser

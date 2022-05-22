@@ -21,6 +21,7 @@ export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
 export const FETCH_SERVER = "FETCH_SERVER"
 export const CREATE_CHANNEL = "CREATE_CHANNEL"
 export const CREATE_SERVER = "CREATE_SERVER"
+export const JOIN_SERVER = "JOIN_SERVER"
 export const SET_NOTIFIS = "SET_NOTIFIS"
 export const SET_MSGS = "SET_MSGS"
 export const CREATE_MESSAGE = "CREATE_MESSAGE"
@@ -39,9 +40,6 @@ const instance = axios.create({
    
 })
 
-
-
-
 export const fetchCr = () => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
     instance 
@@ -54,6 +52,7 @@ export const fetchCr = () => (dispatch) =>{
         console.log(err.message)
     })
 }
+
 
 export const addAccount = (acc) => (dispatch) =>{
     const config = {headers:{"content-type":"multipart/form-data"}}
@@ -68,7 +67,6 @@ export const addAccount = (acc) => (dispatch) =>{
     instance 
     .post('register', formData, config)
     .then(data =>{
-        console.log(data)
         // dispatch({type: ADD_ACCOUNT, payload: data})
     })
     .catch(err=>{
@@ -84,7 +82,6 @@ export const fetchRegister = (acc) => (dispatch) =>{
     instance 
     .get('register',)
     .then(data =>{
-        console.log(data)
         dispatch({type: FETCH_CR_REGISTER, payload: data})
     })
     .catch(err=>{
@@ -98,7 +95,6 @@ export const loginAcc = (acc) =>   (dispatch) =>{
     dispatch({type: FETCH_CR_START})
      instance 
     .post('login',  JSON.stringify(acc))
-    // .then(data =>console.log(data))
     .then(data =>dispatch({type: LOGIN_ACC, payload: data}))
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -124,7 +120,7 @@ export const fetchHome = () =>  (dispatch) =>{
         dispatch({type: FETCH_CR_HOME, payload: data})
     })
     .catch(err=>{
-        dispatch({type: FETCH_CR_FAIL, payload: err.message})
+        dispatch({type: FETCH_CR_FAIL, payload: 401})
         console.log(err.message)
     })
 }
@@ -147,6 +143,24 @@ export const createServer = (serverInfo) =>  async(dispatch) =>{
         console.log(err.message)
     })
 }
+
+export const joinServer = (serverInfo) =>  async(dispatch) =>{
+    const config = {headers:{Authorization:`Token ${serverInfo.auth_token}`}}
+    console.log(serverInfo)
+
+    dispatch({type: FETCH_CR_START})
+    instance 
+    .post(`/server/${serverInfo.invite_code}/members/${serverInfo.user_id}/`, serverInfo, config)
+    .then(data =>{
+        console.log(data)
+        dispatch({type: JOIN_SERVER, payload: data})
+    })
+    .catch(err=>{
+        dispatch({type: FETCH_CR_FAIL, payload: err.message})
+        console.log(err.message)
+    })
+}
+
 export const getServer = (server_id) => (dispatch) =>{
 
     dispatch({type: FETCH_CR_START})
@@ -160,6 +174,7 @@ export const getServer = (server_id) => (dispatch) =>{
         console.log(err.message)
     })
 }
+
 export const setNotifis = (notifis) => (dispatch) =>{
     dispatch({type: SET_NOTIFIS, payload: notifis})
    
@@ -237,7 +252,7 @@ export const logout = () =>  (dispatch) =>{
     instance 
     .get(`/logout`)
     .then(data =>{
-        // dispatch({type: FETCH_CR_HOME, payload: data})
+        dispatch({type: FETCH_LOG_OUT})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})

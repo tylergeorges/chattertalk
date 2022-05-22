@@ -4,8 +4,11 @@ import { Link } from "react-router-dom"
 import { getLogin, loginAcc } from "../actions/actions"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import { Redirect } from "react-router-dom"
+
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
+    isLoggedIn: state.isLoggedIn
     // csrftoken: state.csrftoken
 })
 
@@ -16,6 +19,7 @@ const Login = (props) => {
     const [pass, setPass] = useState('')
     const [acc, loginAcc] = useState('')
     const [status, setStatus] = useState('')
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     // const csrftoken = props.csrftoken
 
@@ -24,12 +28,16 @@ const Login = (props) => {
  
     useEffect(() => {
         props.getLogin()
+        setIsLoggedIn(props.isLoggedIn)
 
-        if(props.login_status == '201'){
-            history.push('/home')
-        }
+        // if(props.login_status == '201'){
+        //     history.push('/home')
+        // }
+        // if(props.isLoggedIn !== false){
+        //     history.push('/home')
+        // }
        
-    },[status])
+    },[])
 
 
  
@@ -59,6 +67,7 @@ const Login = (props) => {
     }
     return (
         <div>
+             {/* {props.isLoggedIn ? <Redirect to="/home" /> : ''} */}
             <h1>Login</h1>
             <form  className="welcomelinks" autoComplete="off" >
        

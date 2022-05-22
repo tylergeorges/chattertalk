@@ -22,6 +22,10 @@ const mapStateToProps = (state) => ({
     client: state.client
 })
 
+const serverCode = 'http://localhost:3000/DjaPOx'
+
+
+
 const TextChannelMsgs = (props) => {
     const [textContent, setTextContent] = useState('')
     const [messages, setMessages] = useState([])
@@ -129,7 +133,6 @@ const TextChannelMsgs = (props) => {
             const data =  JSON.parse(e.data)
          //    props.setNotifis()
           if(data.model == 'chatroom.message'){
-             console.log(data)
             setMessages((prevState)=>[...prevState, data])
             messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
         }
@@ -182,7 +185,6 @@ const TextChannelMsgs = (props) => {
                  dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
                  datetime = 'Yesterday at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
             }
-            console.log(msg)
                 return(
                     <div className='allmsgsCon'>
                         {/* style={msg.fields.isMention && msg.fields.user_mentioned === props.currentuser.id ? {background: 'rgba(255, 217, 61,0.3)', width: '100%'} : {}} */}
