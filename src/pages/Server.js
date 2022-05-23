@@ -15,6 +15,8 @@ const mapStateToProps = (state) => ({
     text_channels: state.text_channels,
     auth_token: state.auth_token,
     isLoading: state.isLoading,
+    notifs: state.notifs,
+    invite_code: state.invite_code,
 })
 const drawerWidth = 150
 const theme = createTheme({
@@ -53,20 +55,24 @@ const Server = (props) => {
 
     useEffect(() =>{
         props.getServer(props.match.params.server_id)
-    },[url])
+    },[url, props.notifs])
+
+
+    if(props.isLoggedIn === null){
+        return(
+            <h2>LOADING...</h2>
+        )
+    }
+    else if(props.isLoggedIn !== null){
     return (
         <ThemeProvider theme={theme}>
-             {props.isLoading && <div>Loading...</div>}
-            <Grid container className="serverCon">
-                <Grid item >
-                    <SideBar serverid={props.match.params.server_id}/>
-                </Grid>
-                <Grid item  >
+            <div className="serverCon">
                     <ServerChannels serverid={props.match.params.server_id} />
-                </Grid>
-            </Grid>
+                    <SideBar serverid={props.match.params.server_id} />
+            </div>
         </ThemeProvider>
     )
+    }
 }
 
 export default connect(mapStateToProps, { logout, getServer, createServer, createTextChannel })(Server)

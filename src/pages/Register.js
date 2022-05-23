@@ -5,6 +5,7 @@ import { addAccount, fetchRegister, getLogin, loginAcc } from "../actions/action
 import axios from "axios"
 import AddIcon from '@mui/icons-material/Add';
 import * as icon from '@mui/icons-material';
+import { Redirect } from "react-router-dom"
 
 const mapStateToProps = (state) =>({
     isLoggedIn : state.isLoggedIn,
@@ -69,6 +70,13 @@ const Register = (props) => {
          
         }
     }
+    if(props.isLoggedIn !== null){
+        return(
+            <Redirect to="/home"/>
+            
+        )
+    }
+    else if(props.isLoggedIn == null){
     return (
         <div>
             <h1>Register</h1>
@@ -98,6 +106,7 @@ const Register = (props) => {
             </form>
         </div>
     )
+    }
 }
 
 export default connect(mapStateToProps, { addAccount, fetchRegister })(Register)

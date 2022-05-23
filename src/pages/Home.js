@@ -62,9 +62,9 @@ const Home = (props) => {
     let history = useHistory();
 
     
-    useEffect(() =>{
-        props.fetchHome()
-        },[props.isLoggedIn])
+    // useEffect(() =>{
+    //     props.fetchHome()
+    //     },[props.isLoggedIn])
         
 
 
@@ -74,7 +74,6 @@ const Home = (props) => {
 
         props.logout()
     }
-
 
      if(props.isLoggedIn === null){
         return(
@@ -87,22 +86,18 @@ const Home = (props) => {
             
             {/* {!props.isLoggedIn ? <Redirect to="/login" /> : ''} */}
             {/* <SideBar /> */}
-            <div className="serversCon">
-            <Grid container >
-                    <Grid item sx={{zIndex: 10000}} >
-                        <SideBar home={props.match.path}/>
-                    </Grid>
-                    <Grid item >
-                        <HomeLists serverid={props.match.params.server_id} />
-                    </Grid>
-                <Grid item className="channelsmsgs"  sx={{height: 300}}>
-                <h1>Home</h1>
-            <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-                </Grid >
-            </Grid>
-            </div>
+            <div className="serverCon">
+                <SideBar home={props.match.path} />
+                <HomeLists  />
 
-            <button onClick={logout} style={{zIndex: '99999', position:'absolute'}}>Logout</button>
+            </div>
+                <div className="channelsmsgs"  style={{height: 300}}>
+                <h1>Home</h1>
+                <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
+                <button onClick={logout} >Logout</button>
+                </div >
+            
+
         </ThemeProvider>
     ) 
  }

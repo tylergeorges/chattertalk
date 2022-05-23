@@ -12,7 +12,8 @@ const initialState = ({
    auth_token: '',
    notifs: [],
    msgs: [], 
-   client: null
+   client: null,
+   invite_code:''
 })
 
 export default function reducer(state=initialState, action){
@@ -58,7 +59,13 @@ export default function reducer(state=initialState, action){
             
         case FETCH_SERVER:
             return{
-                ...state, isLoading:false, currentuser: state.currentuser, error: '', current_server: action.payload.data.data.current_server, text_channels: [...action.payload.data.data.text_channels], auth_token: action.payload.data.token
+                ...state, isLoading:false, 
+                currentuser: state.currentuser, 
+                error: '', 
+                current_server: action.payload.data.data.current_server, 
+                text_channels: [...action.payload.data.data.text_channels], 
+                auth_token: action.payload.data.token,
+                invite_code:action.payload.data.data.invite_code
             }
         case CREATE_SERVER:
             // action.payload.data.server.server_icon[0].pop()

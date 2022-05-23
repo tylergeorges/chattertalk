@@ -117,6 +117,7 @@ export const fetchHome = () =>  (dispatch) =>{
     instance 
     .get(`/home`, )
     .then(data =>{
+        console.log(data)
         dispatch({type: FETCH_CR_HOME, payload: data})
     })
     .catch(err=>{

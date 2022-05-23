@@ -9,7 +9,6 @@ import { Redirect } from "react-router-dom"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
     isLoggedIn: state.isLoggedIn
-    // csrftoken: state.csrftoken
 })
 
 const Login = (props) => {
@@ -65,6 +64,13 @@ const Login = (props) => {
         }
         
     }
+    
+    if(props.isLoggedIn !== null){
+        return(
+            <Redirect to="/home"/>
+        )
+    }
+    else if(props.isLoggedIn == null){
     return (
         <div>
              {/* {props.isLoggedIn ? <Redirect to="/home" /> : ''} */}
@@ -89,6 +95,7 @@ const Login = (props) => {
 
         </div>
     )
+    }
 }
 
 export default connect(mapStateToProps, { loginAcc, getLogin })(Login)

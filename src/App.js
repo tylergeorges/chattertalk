@@ -22,9 +22,15 @@ const mapStateToProps = (state) => ({
 })
 
 function App(props) {
-
+  const url = window.location.pathname.split('/').pop();
 
   const history = createBrowserHistory()
+
+  useEffect(() =>{
+    props.fetchHome()
+
+
+  },[props.isLoggedIn, url])
 
   return (
     <div>

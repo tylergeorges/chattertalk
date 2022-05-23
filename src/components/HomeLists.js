@@ -53,9 +53,6 @@ const theme = createTheme({
 const HomeLists = (props) => {
 
     const [TextChannelName, setTextChannelName] = useState('')
-    const url = window.location.pathname.split('/').pop();
-
-    
 
     const handleChannelName = (e) => {
         e.preventDefault()
@@ -79,37 +76,32 @@ const HomeLists = (props) => {
 
     return (
         <div className="serverChannelsCon">
-            <Toolbar />
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <div className="panelsCon">
-                <div className="channelsPanelRel">
-                <div className="channelspanelCon">
-                        <div className="serverNameCon" >
-                            <h3>Friends</h3>
-                        </div>
-                        {/* <div className="channelscon">
-                            <List item sx={{ display: 'inline-block', alignSelf: 'flex-start', alignItems: 'center', width: 170, }}>    
-                                <div className="channelheadercon">
-                                    <h4 id="txtchannelheader">FRIENDS</h4>
-                                </div>
-                            </List>
-                        </div> */}
-                    </div>
+<ThemeProvider theme={theme}>
+    <CssBaseline />
+    <div className="panelsCon" >
+        <div className="channelsPanelRel">
+        <div className="channelspanelCon">
+                <div className="serverNameCon" >
+                    <h3>FRIENDS</h3>
                 </div>
 
-            </div>
-         
-        <div className="userInfoCon">
-            <img style={{height: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${props.currentuser.profile_picture}`}></img>
-              <div className="userInfoSubCon">
-                <p id="userInfoUsername">{props.currentuser.username}</p>
-                <p id="usertag">{props.currentuser.user_tag}</p>
-              </div>
-        </div>
+                {/* <a href={props.invite_code}>{props.invite_code}</a> */}
 
-        </ThemeProvider>
+                   
+            </div>
+                    <div className="userInfoCon">
+                        <img style={{height: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${props.currentuser.profile_picture}`}></img>
+                        <div className="userInfoSubCon">
+                        <p id="userInfoUsername">{props.currentuser.username}</p>
+                        <p id="usertag">{props.currentuser.user_tag}</p>
+                        </div>
+                    </div>
         </div>
+    </div>
+    
+    
+</ThemeProvider>
+</div>
     )
 }
 

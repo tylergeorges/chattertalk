@@ -69,11 +69,11 @@ const Sidebar = (props) => {
     const url = window.location.pathname.split('/').pop();
 
     
-    useEffect(() => {
-        if(props.home === undefined){
-            props.fetchHome()
-        }
-    }, [url])
+    // useEffect(() => {
+    //     if(props.home === undefined){
+    //         props.fetchHome()
+    //     }
+    // }, [url])
 
     const createServerForm = (e) =>{
         e.preventDefault()
@@ -96,21 +96,23 @@ const Sidebar = (props) => {
 
     return (
 
-        <div className='serverSideBar' >
-         <ThemeProvider theme={theme} >
-            <CssBaseline/>
+        <>
 
-                 <div onClick={createServerForm} className={showServerForm === true ? 'blackScreen' :  'hide'} />
-             <div className='sidebar' >
-
-                    <List item="true" xs="false" sm={4} md={6} >
-                        <Link to="/home"> <HomeIcon sx={{ color: 'white', bgcolor: 'background.default', fontSize: 70}} className="serverIcons" /></Link>
-                    </List>
+                 <div onClick={createServerForm} className={showServerForm   === true ? 'blackScreen' :  'hide'} />
+             <div className='sidebarRel' >
+                <div className='sidebar'> 
+                    <div>
+                        <Link to="/home"><HomeIcon style={{ backgroundColor: '#1F1C2C', fontSize: '70px', marginTop:'10px'}} id="homeIcon" className="serverIcons" /></Link>
+                    </div>
 
                     {props.servers.map(servers => {
-                        // console.log(servers)
                         return (
-                            <div className='sidebarIconsCon'>
+                            <div className='sidebarIconsCon' >
+
+                            <div  className={isHovered == servers.id ? 'servername-sidebarCon' :  'none' }>
+                            <div className='arrow-left'/><p className="servername-sidebar" >{servers.server_name}</p>
+                             </div>
+                             
                                 <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
                              <Link to={`/channels/${servers.id}/${servers.id + 2}`}>
                              <img src={`${servers.server_icon_url}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' />
@@ -118,15 +120,17 @@ const Sidebar = (props) => {
                             </div>
                         )
                     })}
-                    <List item="true" xs="false" sm={4} md={6}>
-                        <AddIcon sx={{ bgcolor: 'background.default', fontSize: 70, }} className="addServerBtn" onClick={createServerForm}/>
-                    </List>
+
+                    <div>
+                        <AddIcon style={{ backgroundColor: '#1F1C2C', fontSize: '70', }}  className="addServerBtn" onClick={createServerForm}/>
+                    </div>
+                    </div>
              </div>
                          <div className={showServerForm === true && props.currentuser !== '' ?'innerForm' : 'dontShow'} > 
                          <ServerForm />
                         </div>
-         </ThemeProvider>
-        </div>
+         <CssBaseline/>
+        </>
     )
 }
 

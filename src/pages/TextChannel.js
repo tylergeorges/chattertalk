@@ -90,10 +90,8 @@ const TextChannel = (props) => {
         
         client.onmessage =  (e) => {
                const data =  JSON.parse(e.data)
-               console.log(data)
                if(data.model === "chatroom.message"){
                  props.setMsgs(data)
-                 console.log(data)
              //    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
             }
             else if(messages.length === 0 && data[0].model === "chatroom.message" ){
