@@ -409,10 +409,74 @@ display: none;
   display: flex;
   align-items: center;
 }
-.servername-sidebar{
+.hide-arrow{
+  position: fixed;
+  left: 110px;
+  transform: scale(.7);
+
+  opacity: 0;
+  transition: 150ms ease;
+
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  border-right:10px solid #2a2834; 
+}
+.icons-sidebarCon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.addicons-sidebar{
+  position: relative;
+  background-color: #1F1C2C;
+  height: fit-content;
+  color: #66bb6a;
+  border-radius: 50%;
+  margin-top: 10px;
+  transition: 150ms ease;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  align-items: center;
+  
+}
+.addicons-sidebar:hover{
+  /* width: 100%; */
+  border-radius: 40%;
+  transition: 150ms ease;
+  color: white;
+  text-decoration: none; 
+  background-color: rgba(102, 187, 106, 0.5);
+}
+.texticons-sidebar{
+  position: relative;
+  background-color: #1F1C2C;
+  height: fit-content;
+  border-radius: 50%;
+  margin: 10px;
+  transition: 150ms ease;
+  text-decoration: none;
+}
+
+.texticons-sidebar:hover{
+  border-radius: 35%;
+  /* width: 100%; */
+  transition: 150ms ease;
+  text-decoration: none; 
+}
+.hide-servername{
   position: fixed;
   /* width: 30%; */
-  
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(.8);
+  transition: 150ms ease;
   padding: 5px;
   /* margin-bottom: 15px; */
   background-color: #2a2834;
@@ -423,6 +487,26 @@ display: none;
   max-width: 150px;
   justify-self: center;
   left: 115px;
+  text-align: left;
+  align-items: center;
+}
+
+.servername-sidebar{
+  position: fixed;
+  /* width: 30%; */
+  transition: 150ms ease;
+  padding: 5px;
+  /* margin-bottom: 15px; */
+  background-color: #2a2834;
+  border-radius: 5px;
+  align-self: center;
+  z-index: 999;
+  height: fit-content;
+  max-width: 150px;
+  justify-self: center;
+  left: 110px;
+;
+  visibility: visible;
   display: flex;
   text-align: left;
   align-items: center;
@@ -430,12 +514,11 @@ display: none;
   .arrow-left {
     position: fixed;
     left: 105px;
-
+    transition: 150ms ease;
     width: 0; 
     height: 0; 
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; 
-    
     border-right:10px solid #2a2834; 
   }
 .userInfoCon{

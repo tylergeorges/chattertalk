@@ -84,7 +84,6 @@ const Sidebar = (props) => {
     const handleHover = (e) =>{
         e.preventDefault()
         setIsHovered(e.target.id)
-       const icon = document.getElementById(e.target.id)
 
     }
 
@@ -101,29 +100,40 @@ const Sidebar = (props) => {
                  <div onClick={createServerForm} className={showServerForm   === true ? 'blackScreen' :  'hide'} />
              <div className='sidebarRel' >
                 <div className='sidebar'> 
-                    <div>
-                        <Link to="/home"><HomeIcon style={{ backgroundColor: '#1F1C2C', fontSize: '70px', marginTop:'10px'}} id="homeIcon" className="serverIcons" /></Link>
-                    </div>
+                        
+                    <div className='icons-sidebarCon' >
+                        <div className={isHovered == 'homeIcon' ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered == 'homeIcon' ? 'servername-sidebar' : 'hide-servername' }>Home</p>
+                            <Link to="/home" >
+                                <div className='texticons-sidebar'>
+                                <HomeIcon style={{fontSize:'70px'}}onMouseEnter={handleHover} onMouseLeave={handleHoverExit} id="homeIcon" />
+                                </div>
+                            </Link>
+                        </div>
+                       
 
                     {props.servers.map(servers => {
                         return (
                             <div className='sidebarIconsCon' >
 
-                            <div  className={isHovered == servers.id ? 'servername-sidebarCon' :  'none' }>
-                            <div className='arrow-left'/><p className="servername-sidebar" >{servers.server_name}</p>
+                            <div className='servername-sidebarCon' >
+                            <div className={isHovered == servers.id ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered == servers.id ? 'servername-sidebar' : 'hide-servername' } >{servers.server_name}</p>
                              </div>
                              
-                                <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
+                             <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
                              <Link to={`/channels/${servers.id}/${servers.id + 2}`}>
                              <img src={`${servers.server_icon_url}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' />
                              </Link>
                             </div>
                         )
                     })}
-
-                    <div>
-                        <AddIcon style={{ backgroundColor: '#1F1C2C', fontSize: '70', }}  className="addServerBtn" onClick={createServerForm}/>
-                    </div>
+                                <div className='icons-sidebarCon'>
+                                <div className='addicons-sidebar'>
+                                <div className={isHovered == 'addserver-sidebar' ? 'arrow-left' : 'hide-arrow' }/><p style={{color:'white'}}className={isHovered == 'addserver-sidebar' ? 'servername-sidebar' : 'hide-servername' }>Add A Server</p>
+                                <AddIcon style={{  fontSize: '70' }}  onClick={createServerForm} id="addserver-sidebar" onMouseEnter={handleHover} onMouseLeave={handleHoverExit}/>
+                                </div>
+                                </div>
+               
+                   
                     </div>
              </div>
                          <div className={showServerForm === true && props.currentuser !== '' ?'innerForm' : 'dontShow'} > 
