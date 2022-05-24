@@ -18,7 +18,8 @@ import JoinServer from './components/JoinServer';
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.isLoggedIn,
-  isLoading: state.isLoading
+  isLoading: state.isLoading,
+  login_status: state.login_status,
 })
 
 function App(props) {
@@ -27,10 +28,15 @@ function App(props) {
   const history = createBrowserHistory()
 
   useEffect(() =>{
-    props.fetchHome()
+
+    if(props.login_status !== null && props.login_status !== 401 && props.login_status !== undefined){
+      console.log(props.login_status)
+      props.fetchHome()
+    }
 
 
-  },[props.isLoggedIn, url])
+
+  },[props.login_status, url, ])
 
   return (
     <div>
@@ -44,11 +50,7 @@ function App(props) {
             <Redirect from='/' to='/login'/>
         </Switch>
 
-            {/* { props.isLoggedIn ? <Redirect from='/login' to='/home'/> : '' }
-            { props.isLoggedIn ? <Redirect from='/register' to='/home'/> : '' }
-            {!props.isLoggedIn  ? <Redirect from='/home' to='/login'/> : '' }
-            {!props.isLoggedIn ? <Redirect from='/channels/:server_id/:text_id' to='/login'/> : '' }
-            {!props.isLoggedIn  ? <Redirect from='/server/:server_id' to='/login'/> : '' } */}
+    
             </div>
   )
 }

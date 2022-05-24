@@ -97,9 +97,9 @@ const Sidebar = (props) => {
 
         <>
 
-                 <div onClick={createServerForm} className={showServerForm   === true ? 'blackScreen' :  'hide'} />
              <div className='sidebarRel' >
                 <div className='sidebar'> 
+                 <div onClick={createServerForm} style={{height:'100%',width:'100%'}} className={showServerForm   === true ? 'blackScreen' :  'hide'} />
                         
                     <div className='icons-sidebarCon' >
                         <div className={isHovered == 'homeIcon' ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered == 'homeIcon' ? 'servername-sidebar' : 'hide-servername' }>Home</p>

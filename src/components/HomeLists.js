@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel } from "../actions/actions"
+import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel,hideForm} from "../actions/actions"
 import SideBar from "../components/SideBar"
 import Grid from '@mui/material/Grid'
 import { CssBaseline, List, ListItem, Toolbar } from "@mui/material"
@@ -9,12 +9,17 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
 import CreateChannelForm from "./forms/CreateChannelForm"
+import MeetingRoomIcon   from '@mui/icons-material/MeetingRoom';
+import { Logout } from "@mui/icons-material"
+import LogOutForm from "./forms/LogOutForm"
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
     current_server: state.current_server,
     text_channels: state.text_channels,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
+    hide_form: state.hide_form,
+    
 })
 
 const drawerWidth = 150
@@ -52,31 +57,24 @@ const theme = createTheme({
 });
 const HomeLists = (props) => {
 
-    const [TextChannelName, setTextChannelName] = useState('')
+    const [showLogOutForm, setShowLogOutForm] = useState(false)
 
-    const handleChannelName = (e) => {
+    useEffect(() =>{
+
+        setShowLogOutForm(props.hide_form)
+    },[props.hide_form])
+
+    const showLogOut = (e) => {
         e.preventDefault()
-
-        setTextChannelName(e.target.value)
+        props.hideForm()
+        // setShowLogOutForm(!showLogOutForm)
     }
 
-    const createTextChannel = (e) => {
-        e.preventDefault()
-
-
-        props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
-
-    }
-
-    const logout = (e) => {
-        e.preventDefault()
-
-        props.logout()
-    }
-
+   
     return (
         <div className="serverChannelsCon">
-<ThemeProvider theme={theme}>
+            <div onClick={showLogOut}  className={showLogOutForm  === true ? 'blackScreen' :  'hide'} />
+        <ThemeProvider theme={theme}>
     <CssBaseline />
     <div className="panelsCon" >
         <div className="channelsPanelRel">
@@ -95,14 +93,16 @@ const HomeLists = (props) => {
                         <p id="userInfoUsername">{props.currentuser.username}</p>
                         <p id="usertag">{props.currentuser.user_tag}</p>
                         </div>
+                        <MeetingRoomIcon  style={{fontSize:'20px'}} id="logout-btn" onClick={showLogOut}/>
                     </div>
         </div>
     </div>
-    
-    
+    <div className={showLogOutForm === true ? 'LogOutFormCon' : 'dontShow'}> 
+                <LogOutForm />
+        </div>
 </ThemeProvider>
 </div>
     )
 }
 
-export default connect(mapStateToProps, { logout, getServer, createServer, createTextChannel, fetchHome })(HomeLists)
+export default connect(mapStateToProps, { logout, getServer, createServer, createTextChannel, fetchHome,hideForm})(HomeLists)

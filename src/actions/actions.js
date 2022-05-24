@@ -26,6 +26,8 @@ export const SET_NOTIFIS = "SET_NOTIFIS"
 export const SET_MSGS = "SET_MSGS"
 export const CREATE_MESSAGE = "CREATE_MESSAGE"
 export const SET_CLIENT = "SET_CLIENT"
+export const HIDE_FORM = "HIDE_FORM"
+export const NEXT_STEP = "NEXT_STEP"
 
 
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
@@ -124,6 +126,13 @@ export const fetchHome = () =>  (dispatch) =>{
         dispatch({type: FETCH_CR_FAIL, payload: 401})
         console.log(err.message)
     })
+}
+export const nextFormStep = () =>  (dispatch) =>{
+    dispatch({type: FETCH_CR_START})
+
+        dispatch({type: NEXT_STEP})
+
+        dispatch({type: FETCH_CR_FAIL})
 }
 
 export const createServer = (serverInfo) =>  async(dispatch) =>{
@@ -253,10 +262,17 @@ export const logout = () =>  (dispatch) =>{
     instance 
     .get(`/logout`)
     .then(data =>{
-        dispatch({type: FETCH_LOG_OUT})
+        dispatch({type: FETCH_LOG_OUT, payload: false})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
         console.log(err.message)
     })
+}
+export const hideForm = () =>  (dispatch) =>{
+
+        dispatch({type: HIDE_FORM, payload: true})
+
+ 
+
 }

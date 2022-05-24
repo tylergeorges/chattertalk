@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom"
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import ServerInivte from "./forms/ServerInivte"
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
-
+import MeetingRoomIcon   from '@mui/icons-material/MeetingRoom';
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -168,6 +168,7 @@ const ServerChannels = (props) => {
                                 <div className="userInfoSubCon">
                                 <p id="userInfoUsername">{props.currentuser.username}</p>
                                 <p id="usertag">{props.currentuser.user_tag}</p>
+                                <MeetingRoomIcon  style={{fontSize:'20px'}} id="logout-btn"/>
                                 </div>
                             </div>
                 </div>

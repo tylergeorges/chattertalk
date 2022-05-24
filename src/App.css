@@ -133,7 +133,6 @@ body{
   width: 100%;
   height: 100%;
   vertical-align: middle;
-  z-index: 1000;
 }
 
 .innerForm{
@@ -148,9 +147,47 @@ body{
   width: 400px;
   position: fixed;
   top: 0; 
-left: 0;
-transform: translate(calc(50vw - 50%), calc(50vh - 50%));
-z-index: 1000;
+  left: 0;
+  transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+  z-index: 1000;
+}
+.innerLoginForm{
+  border-radius: 2%;
+  display: flex;
+  /* text-align: center; */
+  position:fixed; 
+  background-color: #353241; 
+  height: 450px;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+  z-index: 1000;
+}
+.loginForm{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #1F1C2C;
+}
+.LogOutFormCon{
+  border-radius: 2%;
+  display: flex;
+  text-align: center;
+  position:fixed; 
+  background-color: #353241; 
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+  z-index: 1000;
 }
 .dontShow{
   display: none;
@@ -206,6 +243,31 @@ z-index: 1000;
   border-radius: 50px;
 }
 
+#createBtn{
+  position: absolute;
+  top: 85%;
+  left: 70%;
+  border: none;
+  width: 100px;
+  height: 40px;
+  background-color: #7F00FF;
+  color: white;
+  font-size: 15px;
+  border-radius: 50px;
+}
+#disableBtn{
+  position: absolute;
+  top: 85%;
+  left: 70%;
+  border: none;
+  width: 100px;
+  height: 40px;
+  opacity: 30%;
+  background-color: #7F00FF;
+  color: white;
+  font-size: 15px;
+  border-radius: 50px;
+}
 #servericonpreview{
   width: 120px;
   border-radius: 55%;
@@ -224,9 +286,8 @@ z-index: 1000;
 .hide{
   display: none;
 }
-#serverformheader{
+#userpfp-formHeader{
   position: absolute;
-  top: 5%;
   font-size: 25px;
 }
 .forminputCon{
@@ -235,15 +296,66 @@ z-index: 1000;
   flex-direction: column;
   align-items: flex-start;
 }
+#accform-header{
+  position: absolute;
+  top: 5%;
+  /* font-size: 25px; */
+}
+#icon-changepfp{
+  position: absolute;
+  z-index: 2;
+}
+#pfpiconpreview{
+  width: 200px;
+  border-radius: 55%;
+  /* margin-bottom: 40px; */
+  height: 200px;
+}
+.icon-changepfpCon{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+  justify-content: center;
+  background: rgba(255,255,255, 0);
+  width: 45px;
+  height: 45px;
+  border-radius: 60px;
+  z-index: 1;
+  transition: 150ms ease;
+}
+.icon-changepfpCon:hover{
+  background: rgba(255,255,255, 0.2);
+ transition: 150ms ease;
+}
+#pfpiconpreview-black{
+  position: absolute;
+  width: 200px;
+  border-radius: 55%;
+  /* margin-bottom: 40px; */
+  height: 200px;
+  background: rgba(0,0,0, 0.3);
+}
+.changepfpCon{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #changeicon{
 position: absolute; 
 height: 30px;
 width: 30px;
 top: 20%;
 background-color: #7F00FF;
-border-radius: 50%;
+border-radius: 50%; 
 }
-
+#serverformheader{
+  position: absolute;
+  top: 5%;
+  font-size: 25px;
+}
 .previewIconCon{
   position: relative;
   height: 40%;
@@ -490,7 +602,69 @@ display: none;
   text-align: left;
   align-items: center;
 }
+#logout-btn{
+  position: absolute;
+  right: 0;
+  margin-right: 5px;
+  transition: 250ms ease;
+}
+#logout-btn:hover{
+  color: rgba(255, 0, 0, 0.7);
 
+transition: 250ms ease;
+}
+#logout-btn:focus{
+  color: rgba(255, 0, 0, 1);
+
+transition: 250ms ease;
+}
+
+#logout-btn-final{
+height: 50px;
+width: 150px;
+font-size: 20px;
+border-radius: 5px;
+background-color: #7F00FF;
+color: white;
+border: none;
+margin: 5px;
+transition: 200ms ease;
+}
+#logout-btn-final:hover{
+transition: 200ms ease;
+background: rgba(255, 0, 0, 0.3);
+color: red;
+border: none;
+margin: 5px;
+}
+#cancellogout-btn{
+  height: 50px;
+  width: 150px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  background: none;
+  color: #7F00FF;
+  transition: 200ms ease;
+  background-color: white;
+}
+#cancellogout-btn:hover{
+  transition: 200ms ease;
+  color: red;
+  background: rgba(255, 0, 0, 0.3);
+}
+.LogOutForm{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  z-index: 1000;
+}
 .servername-sidebar{
   position: fixed;
   /* width: 30%; */
@@ -604,7 +778,113 @@ right: 0;
   justify-content: flex-start;
   /* align-items: baseline; */
 }
+.acclinks-forminput{
+  color: #7F00FF;
+  cursor: pointer;
+}
+.acclinks-forminput:hover{
+  text-decoration: underline;
+}
+#userpfp-formHeader{
+  position: absolute;
+  top: 5%;
+  font-size: 25px;
+}
+.acc-forminput{
+  width: 100%;
+  height: 30px;
+  outline: none;
+  border: none;
+  background: none;
+  /* border-radius: 3px; */
+  background: rgba(31, 28, 44,0.1);
+  
+  border-bottom: #1F1C2C 3px solid;
+}
+.acc-forminputCon{
+  width: 100%;
+  position: relative;
+  margin: 0px;
+}
+.acc-forminputCon #password:focus + .password-inputborder{
+  background-color: #7F00FF;
+  opacity: 100;
+  width: 100%;
+  transition: 150ms ease;
+ }
+.acc-forminputCon #username:focus + .username-inputborder{
+  background-color: #7F00FF;
+  opacity: 100;
+  width: 100%;
+  transition: 150ms ease;
+ }
+ .acc-forminputCon:not(#password){
+ display: flex;
+ justify-content: center;
+ }
+ 
+ .acc-forminput:focus::placeholder{
+  color: #7F00FF;
+  position: absolute;
+  top: 0;
+ }
+ .acc-forminput:focus{
+   /* border-bottom: #7F00FF 3px solid; */
+   background: rgba(31, 28, 44,0.3);
+   transition:  150ms ease-in-out;
+ }
+ .acc-forminput::placeholder{
+  position: absolute;
+  top: 0;
+  margin: 2px;
+ }
+.username-inputborder{
+  position: absolute;
+  opacity: 0;
+  background-color: #7F00FF;
+  width: 0%;
+  height: 2px;
+  margin: 0px;
+  bottom: 0;
+  padding: 0px;
+  transition: 150ms ease;
+}
 
+.password-inputborder{
+  position: absolute;
+  opacity: 0;
+  background-color: #7F00FF;
+  width: 0%;
+  height: 2px;
+  margin: 0px;
+  bottom: 0;
+  padding: 0px;
+  transition: 150ms ease;
+}
+
+#username:focus + .username-inputborder {
+  background-color: #7F00FF;
+  opacity: 100;
+  width: 100%;
+  transition: 150ms ease;
+}
+
+
+#username{
+  color: white;
+  text-align: left;
+  /* margin-bottom: 10px; */
+  padding: 0px;
+  height: 35px;
+  width: 300px;
+}
+#password{
+  color: white;
+  text-align: left;
+  height: 35px;
+  width: 300px;
+  padding: 0px;
+}
 .userMsgUsername{
   width: -moz-fit-content;
   width: fit-content;

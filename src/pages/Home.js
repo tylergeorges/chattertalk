@@ -62,9 +62,11 @@ const Home = (props) => {
     let history = useHistory();
 
     
-    // useEffect(() =>{
-    //     props.fetchHome()
-    //     },[props.isLoggedIn])
+    useEffect(() =>{
+
+        console.log(props)
+
+        },[props.isLoggedIn])
         
 
 
@@ -75,12 +77,13 @@ const Home = (props) => {
         props.logout()
     }
 
-     if(props.isLoggedIn === null){
+     if(props.isLoading == true){
         return(
             <h2>LOADING...</h2>
         )
     }
-    else if(props.isLoggedIn !== null){
+   
+    else if(props.isLoading !== true && props.isLoggedIn === true){
     return(
         <ThemeProvider theme={theme}>
             
@@ -88,7 +91,7 @@ const Home = (props) => {
             {/* <SideBar /> */}
             <div className="serverCon">
                 <SideBar home={props.match.path} />
-                <HomeLists  />
+                <HomeLists />
 
             </div>
                 <div className="channelsmsgs"  style={{height: 300}}>
@@ -101,7 +104,11 @@ const Home = (props) => {
         </ThemeProvider>
     ) 
  }
-
+ else if(props.login_status == 401 && props.isLoading !== true && props.isLoggedIn !== true ){
+    return(
+        <Redirect to="/login"/>
+    )
+}
 }
 
 export default connect(mapStateToProps, { logout, fetchHome, createServer })(Home)

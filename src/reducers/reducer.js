@@ -1,11 +1,11 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, JOIN_SERVER, LOGIN_ACC, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, HIDE_FORM, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
    error: '',
    isLoading: false,
    isLoggedIn: null,
-   login_status: '',
+   login_status: null,
    servers: [],
    current_server: '',
    text_channels: [],
@@ -13,7 +13,9 @@ const initialState = ({
    notifs: [],
    msgs: [], 
    client: null,
-   invite_code:''
+   invite_code:'',
+   hide_form: false,
+   nextFormStep: false
 })
 
 export default function reducer(state=initialState, action){
@@ -23,8 +25,9 @@ export default function reducer(state=initialState, action){
             ...state, isLoading:true,  error: '', currentuser: state.currentuser
         }
         case FETCH_CR_FAIL:
+            console.log(action.payload)
         return{
-            ...state, isLoading:false, currentuser: state.currentuser, error: action.payload
+            ...state, isLoading:false, currentuser: state.currentuser, login_status: action.payload
         }
         case FETCH_CR_SUCCESS:
         return{
@@ -49,6 +52,10 @@ export default function reducer(state=initialState, action){
         case ADD_ACCOUNT:
         return{
             ...state, isLoading:false, currentuser: action.payload.currentuser, error: ''
+        }
+        case HIDE_FORM:
+        return{
+            ...state, hide_form: !state.hide_form
         }
         case FETCH_CR_HOME:
             if(action.payload.data.data.servers){
@@ -108,6 +115,10 @@ export default function reducer(state=initialState, action){
         case SET_CLIENT:
                 return{
                     ...state, isLoading:false, error: '',  currentuser: state.currentuser, client: action.payload
+                }
+        case NEXT_STEP:
+                return{
+                    ...state, isLoading:false, error: '',   nextFormStep: !state.nextFormStep
                 }
         case CREATE_MESSAGE:
             if(action.payload.data.notifis.user_mentioned === state.currentuser.id){

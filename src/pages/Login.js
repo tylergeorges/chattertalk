@@ -65,34 +65,43 @@ const Login = (props) => {
         
     }
     
-    if(props.isLoggedIn !== null){
+    if(props.isLoggedIn === true){
         return(
             <Redirect to="/home"/>
         )
     }
-    else if(props.isLoggedIn == null){
+    else if(props.isLoggedIn === null || props.isLoggedIn === false){
     return (
-        <div>
-             {/* {props.isLoggedIn ? <Redirect to="/home" /> : ''} */}
-            <h1>Login</h1>
-            <form  className="welcomelinks" autoComplete="off" >
-       
-      
-                <input type='text' placeholder="Username" onChange={handleInput} id="username" />
+        <div className="loginForm">
+            <div className="innerLoginForm">
+            <h1 id='accform-header' style={{color:'white'}}>Login</h1>
 
-                <input type='password' placeholder="Password" onChange={handleInput} id="password" />
-                <button type="submit" className="formSubmit" onClick={handleSubmit} >Login</button>
-                <br />
+            <form  className="welcomelinks" >
+       
+            <div className="acc-forminputCon">
+                    <input type='text'className="acc-forminput"  placeholder="Username" onChange={handleInput} id="username" />
+                    <div className="username-inputborder"/>
+                    </div>
+                <br/>
+                <div className="acc-forminputCon">
+                <input type='password' className="acc-forminput"  placeholder="Password" onChange={handleInput} id="password" />
+                <div className="password-inputborder"/>
+                </div>
+                {user !== '' && pass !== '' ? 
+                <button type="submit" className="formSubmit" onClick={handleSubmit} id="createBtn">Login</button> : 
+                <button type="submit" disabled className="formSubmit" onClick={handleSubmit} id="disableBtn">Login</button> 
+            
+            }
                 <br />
 
                 <nav className="linkotherpage">
                     <div className="linkPageFooter">
-                        <p >Don't have an account? <Link to="register" id="reglink">Create Account</Link></p>
+                        <p style={{color:'white'}}>Don't have an account? <Link className="acclinks-forminput" to="register" id="reglink">Sign Up</Link></p>
                     </div>
                 </nav>
 
             </form>
-
+            </div>
         </div>
     )
     }
