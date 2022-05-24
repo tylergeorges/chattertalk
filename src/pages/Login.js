@@ -76,7 +76,7 @@ const Login = (props) => {
             <div className="innerLoginForm">
             <h1 id='accform-header' style={{color:'white'}}>Login</h1>
 
-            <form  className="welcomelinks" >
+            <form  className="welcomelinks" autoComplete="off">
        
             <div className="acc-forminputCon">
                     <input type='text'className="acc-forminput"  placeholder="Username" onChange={handleInput} id="username" />
@@ -91,7 +91,7 @@ const Login = (props) => {
                 <button type="submit" className="formSubmit" onClick={handleSubmit} id="createBtn">Login</button> : 
                 <button type="submit" disabled className="formSubmit" onClick={handleSubmit} id="disableBtn">Login</button> 
             
-            }
+                }
                 <br />
 
                 <nav className="linkotherpage">

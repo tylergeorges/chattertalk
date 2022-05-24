@@ -63,10 +63,10 @@ const Home = (props) => {
 
     
     useEffect(() =>{
-
+        props.fetchHome()
         console.log(props)
-
-        },[props.isLoggedIn])
+        
+        },[])
         
 
 
@@ -82,8 +82,7 @@ const Home = (props) => {
             <h2>LOADING...</h2>
         )
     }
-   
-    else if(props.isLoading !== true && props.isLoggedIn === true){
+    else if(props.isLoading == false && props.isLoggedIn == true){
     return(
         <ThemeProvider theme={theme}>
             
@@ -97,18 +96,22 @@ const Home = (props) => {
                 <div className="channelsmsgs"  style={{height: 300}}>
                 <h1>Home</h1>
                 <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-                <button onClick={logout} >Logout</button>
                 </div >
             
 
         </ThemeProvider>
     ) 
  }
- else if(props.login_status == 401 && props.isLoading !== true && props.isLoggedIn !== true ){
+ else if(props.isLoading === false && props.isLoggedIn === null ){
     return(
+        <>
         <Redirect to="/login"/>
+        </>
     )
 }
+
+
+ 
 }
 
 export default connect(mapStateToProps, { logout, fetchHome, createServer })(Home)

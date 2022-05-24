@@ -28,6 +28,7 @@ export const CREATE_MESSAGE = "CREATE_MESSAGE"
 export const SET_CLIENT = "SET_CLIENT"
 export const HIDE_FORM = "HIDE_FORM"
 export const NEXT_STEP = "NEXT_STEP"
+export const IS_LOGGEDIN = "IS_LOGGEDIN"
 
 
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
@@ -44,15 +45,10 @@ const instance = axios.create({
 
 export const fetchCr = () => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
-    instance 
-    .get('/',)
-    .then(data =>{
-        dispatch({type: FETCH_CR_SUCCESS, payload: data})
-    })
-    .catch(err=>{
-        dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
-    })
+
+        dispatch({type: FETCH_CR_SUCCESS})
+
+        dispatch({type: FETCH_CR_FAIL})
 }
 
 
@@ -61,7 +57,6 @@ export const addAccount = (acc) => (dispatch) =>{
     dispatch({type: FETCH_CR_START})
 
     let formData = new FormData() 
-    formData.append('profile_picture', acc.profile_picture);
     formData.append('username', acc.username);
     formData.append('password', acc.password);
 
@@ -90,6 +85,13 @@ export const fetchRegister = (acc) => (dispatch) =>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
         console.log(err.message)
     })
+}
+export const loggedin = (status) => (dispatch) =>{
+    dispatch({type: FETCH_CR_START})
+
+        dispatch({type: IS_LOGGEDIN, payload: status})
+
+        dispatch({type: FETCH_CR_FAIL})
 }
 
 export const loginAcc = (acc) =>   (dispatch) =>{

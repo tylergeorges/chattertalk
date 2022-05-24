@@ -13,7 +13,7 @@ import { createBrowserHistory } from 'history';
 import { useHistory } from 'react-router-dom';
 import { Router } from 'react-router-dom';
 import { w3cwebsocket as W3CWebSocket } from "websocket"
-import { fetchHome } from './actions/actions';
+import { fetchCr, fetchHome, loggedin } from './actions/actions';
 import JoinServer from './components/JoinServer';
 
 const mapStateToProps = (state) => ({
@@ -26,27 +26,37 @@ function App(props) {
   const url = window.location.pathname.split('/').pop();
 
   const history = createBrowserHistory()
-
   useEffect(() =>{
+    console.log(props)
 
-    if(props.login_status !== null && props.login_status !== 401 && props.login_status !== undefined){
-      console.log(props.login_status)
-      props.fetchHome()
-    }
+  
+    // props.loggedin(props.isLoggedIn)
+    // console.log(props.login_status)
+    // if(props.isLoggedIn === true){
+    //   props.fetchHome()
+    // }
 
 
 
-  },[props.login_status, url, ])
+  },[])
 
   return (
     <div>
         <Switch>
-            <Route  path="/home" component={Home} />
-            <Route  path="/login" component={Login} />
+
+           
             <Route  path="/register" ><Register isLoggedIn={props.isLoggedIn}/></Route>
+            <Route  path="/login" component={Login} />
+            <Route  path="/home" component={Home} />
+            
+           {props.isLoading === false && props.isLoggedIn === null ? <Redirect to="/login"/> : ''}
+
+           {props.isLoading === false && props.isLoggedIn === true ? <Redirect to="/home"/> : <Redirect to="/login"/>}
+
+            
             <Route  path="/channels/:server_id/:text_id" component={TextChannel} />
             <Route  path="/server/:server_id" component={Server} />
-            <Route exact path="/:server_code" component={JoinServer} />
+            <Route exact path="/:server_code" component={JoinServer} /> 
             <Redirect from='/' to='/login'/>
         </Switch>
 
@@ -55,4 +65,4 @@ function App(props) {
   )
 }
 
-export default connect(mapStateToProps, {fetchHome})(App);
+export default connect(mapStateToProps, {fetchHome, loggedin})(App);

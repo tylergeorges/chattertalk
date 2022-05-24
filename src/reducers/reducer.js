@@ -1,9 +1,9 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, HIDE_FORM, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, HIDE_FORM, IS_LOGGEDIN, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
    error: '',
-   isLoading: false,
+   isLoading: null,
    isLoggedIn: null,
    login_status: null,
    servers: [],
@@ -27,19 +27,20 @@ export default function reducer(state=initialState, action){
         case FETCH_CR_FAIL:
             console.log(action.payload)
         return{
-            ...state, isLoading:false, currentuser: state.currentuser, login_status: action.payload
+            ...state, currentuser: state.currentuser,  isLoggedIn: null, isLoading: false
         }
         case FETCH_CR_SUCCESS:
         return{
-            ...state, isLoading:false, currentuser: state.currentuser, error: ''
+            ...state,  currentuser: state.currentuser, error: '', isLoading: false
         }
         case FETCH_CR_LOGIN:
+            console.log(action.payload)
             return{
-                ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
+                ...state,  error: '', isLoggedIn: Boolean(action.payload.data.isLoggedIn), isLoading: false
             }
         case FETCH_CR_REGISTER:
             return{
-                ...state, isLoading:false,  error: '', isLoggedIn: action.payload.data.isLoggedIn
+                ...state, isLoading:false,  error: '', isLoggedIn: Boolean(action.payload.data.isLoggedIn)
             }
         case LOGIN_ACC:
             return{
@@ -47,7 +48,7 @@ export default function reducer(state=initialState, action){
             }
         case FETCH_LOG_OUT:
             return{
-                ...state, isLoggedIn: false
+                ...state, isLoggedIn: false, isLoading: false
             }
         case ADD_ACCOUNT:
         return{
@@ -58,9 +59,10 @@ export default function reducer(state=initialState, action){
             ...state, hide_form: !state.hide_form
         }
         case FETCH_CR_HOME:
+            console.log(action.payload)
             if(action.payload.data.data.servers){
                 return{
-                    ...state, isLoading:false,currentuser: action.payload.data.data.currentuser, servers: [...action.payload.data.data.servers], error: '', auth_token: action.payload.data.token, isLoggedIn: action.payload.data.data.isLoggedIn
+                    ...state, currentuser: action.payload.data.data.currentuser, isLoading: false, servers: [...action.payload.data.data.servers], error: '', auth_token: action.payload.data.token, isLoggedIn: action.payload.data.data.isLoggedIn
                 }
             }
             

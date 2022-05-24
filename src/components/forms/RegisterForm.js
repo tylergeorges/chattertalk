@@ -23,6 +23,7 @@ const RegisterForm = (props) => {
     const [pass, setPass] = useState('')
     const [userPFP, setUserPFP] = useState(null)
     const [showNextStep, setShowNextStep] = useState(false)
+    const [accCreated, setAccCreated] = useState(false)
 
 
     const handleInput = (e) => {
@@ -52,23 +53,12 @@ const RegisterForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        props.nextFormStep()
+        // props.nextFormStep()
         
-        // if (user && pass !== '') {
-
-
-        //     if(userPFP !== null){
-        //         props.addAccount({ username: user, password: pass, profile_picture: userPFP})
-        //         setUserPFP(null)
-        //     }
-
-        //     else if(userPFP === null){
-
-        //         props.addAccount({ username: user, password: pass, profile_picture: userPFP})
-        //         setUserPFP(null)
-        //     }
-         
-        // }
+        if (user && pass !== '') {
+            props.addAccount({ username: user, password: pass})
+            setAccCreated(!accCreated)
+        }
     }
    
     return (
@@ -76,10 +66,10 @@ const RegisterForm = (props) => {
         <div className="innerLoginForm">
         <h1 id='accform-header' style={{color:'white'}}>Register</h1>
 
-            <form  className="welcomelinks" >
+            <form  className="welcomelinks" autoComplete="off">
 
                 <div className="acc-forminputCon">
-                    <input type='text'className="acc-forminput" required placeholder="Username" onChange={handleInput} id="username" />
+                    <input  type='text'className="acc-forminput" required placeholder="Username" onChange={handleInput} id="username" />
                     <div className="username-inputborder"/>
                     </div>
                 <br/>
@@ -90,11 +80,11 @@ const RegisterForm = (props) => {
                 </div>
 
                 {user !== '' && pass !== '' ? 
-                <button type="submit" className="formSubmit" id="createBtn" onClick={handleSubmit}>Continue</button> : 
-                <button type="submit" disabled className="formSubmit" id='disableBtn'onClick={handleSubmit}>Continue</button>
+                <button type="submit" className="formSubmit" id="createBtn" onClick={handleSubmit}>Register</button> : 
+                <button type="submit" disabled className="formSubmit" id='disableBtn'onClick={handleSubmit}>Register</button>
                 }
-                <br />
-                <br />
+                    {accCreated ? <p style={{color:'#66bb6a'}}>Account Created!</p> : ''}
+                
 
 
 {/* 

@@ -541,7 +541,9 @@ display: none;
   justify-content: center;
 }
 
-
+#username:-webkit-autofill {
+  background-color: white !important;
+}
 
 .addicons-sidebar{
   position: relative;

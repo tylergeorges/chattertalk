@@ -16,15 +16,18 @@ const mapStateToProps = (state) =>({
 })
 
 const Register = (props) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
 
     useEffect(() => {
         props.fetchRegister()
-        
-    },[props.nextFormStep])
+        setIsLoggedIn(props.isLoggedIn)
+
+    },[])
 
 
     
-    if(props.isLoggedIn === true){
+    if(props.isLoggedIn){
         return(
             <Redirect to="/home"/>
         )
@@ -32,7 +35,8 @@ const Register = (props) => {
     else if(props.isLoggedIn === null || props.isLoggedIn === false){
     return (
         <div >
-           { props.nextFormStep ? <UploadAvatar /> : <RegisterForm /> }
+           {/* { props.nextFormStep ? <UploadAvatar /> : <RegisterForm /> } */}
+           <RegisterForm /> 
         </div>
     )
     }
