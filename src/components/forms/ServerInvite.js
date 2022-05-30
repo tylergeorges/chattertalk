@@ -29,7 +29,7 @@ const ServerInvite = (props) => {
 
                         <div className='forminputCon'>
                         <label htmlFor="servernameinput" style={{fontSize: '14px', marignLeft: '0'}} id="servernamelabel">INVITE LINK</label>
-                        <input className="forminput" id="servernameinput" value={props.invite_code}  />
+                        <input className="forminput" id="servernameinput" value={`https://chattertalk.netlify.app/${props.invite_code}`}  />
                         </div>
                         </form>
             </>
