@@ -106,12 +106,12 @@ const Sidebar = (props) => {
                             <div className='sidebarIconsCon' key={servers.id}>
 
                             <div className='servername-sidebarCon' >
-                            <div className={isHovered === servers.id ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered === servers.id ? 'servername-sidebar' : 'hide-servername' } >{servers.server_name}</p>
+                            <div className={isHovered == servers.id ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered == servers.id ? 'servername-sidebar' : 'hide-servername' } >{servers.server_name}</p>
                              </div>
                              
-                             <div className={props.serverid === servers.id ? "currServerBar" : isHovered === servers.id ? 'hoverServerBar' :  'none' }/> 
+                             <div className={props.serverid === servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
                              <Link to={`/channels/${servers.id}/${servers.id + 2}`}>
-                             <img draggable={false} src={`https://chatappbackend.s3.amazonaws.com/static/server_icon/${servers.server_icon_name}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} 
+                             <img  src={`https://chatappbackend.s3.amazonaws.com/static/server_icon/${servers.server_icon_name}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} 
                              className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' />
                              </Link>
                             </div>

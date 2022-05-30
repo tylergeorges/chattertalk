@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
 import CreateChannelForm from "./forms/CreateChannelForm"
 import { useHistory } from "react-router-dom"
-import ServerInivte from "./forms/ServerInivte"
+import ServerInivte from "./forms/ServerInvite"
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import MeetingRoomIcon   from '@mui/icons-material/MeetingRoom';
 const mapStateToProps = (state) => ({

@@ -15,6 +15,7 @@ import { Router } from 'react-router-dom';
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import { fetchCr, fetchHome, loggedin } from './actions/actions';
 import JoinServer from './components/JoinServer';
+import Landing from './pages/Landing';
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.isLoggedIn,
@@ -44,7 +45,8 @@ function App(props) {
             <Route  path="/channels/:server_id/:text_id" component={TextChannel} />
             <Route  path="/server/:server_id" component={Server} />
             <Route exact path="/:server_code" component={JoinServer} /> 
-            <Redirect from='/' to='/login'/>
+            <Route exact path="/" component={Landing} /> 
+            {/* <Redirect from='/' to='/login'/> */}
         </Switch>
 
     

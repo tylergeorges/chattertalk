@@ -33,7 +33,40 @@ body{
   text-decoration: none; 
 }
 
-
+.landingpageBtn{
+  position: relative;
+  border: none;
+  width: 60%;
+  height: 50px;
+  background: none;
+  color: white;
+  font-size: 15px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  border: 2px solid #7F00FF;
+  transition: 200ms ease;
+}
+.landingpageBtn:hover{
+  background-color: #7F00FF;
+  transition: 200ms ease;
+}
+.innerWelcomePage{
+  border-radius: 2%;
+  display: flex;
+  /* text-align: center; */
+  position:fixed; 
+  background-color: #353241; 
+  height: 450px;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+  z-index: 1000;
+  flex-direction: column;
+  }
 .currentServerIcon{
   /* align-items: center; */
   border-radius: 35%;
@@ -43,12 +76,12 @@ body{
   transition: 250ms ease;
   text-decoration: none; 
   align-self: center;
-
+/* 
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; */
 }
 .sidebarIconsCon{
   position: relative;

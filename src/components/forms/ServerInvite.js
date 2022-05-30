@@ -19,35 +19,6 @@ const ServerInvite = (props) => {
     useEffect(() => {
         // props.getServer(props.serverid)
     }, [])
-
-    const handleChannelName = (e) => {
-        e.preventDefault()
-        
-
-        if(e.target.value.indexOf(' ') >= 0 ){
-            e.target.value = e.target.value.split(' ').join('-')
-
-            setTextChannelName(e.target.value.split(' ').join('-'))
-        }
-        if(e.target.value.indexOf('--') !== -1 ){
-            e.target.value = e.target.value.split('--').join('-')
-            setTextChannelName(e.target.value.split('--').join('-'))
-        }
-        else{
-            setTextChannelName(e.target.value)
-
-        }
-
-    }
-
-    const createTextChannel = (e) => {
-        e.preventDefault()
-
-        props.createTextChannel({ server_id: props.serverid, text_channel_name: TextChannelName, token: props.auth_token })
-        
-    }
-
-
   
     return (
        
