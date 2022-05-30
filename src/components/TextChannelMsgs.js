@@ -1,15 +1,7 @@
 import { useEffect, useState, useRef} from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getTextChannel, sendMessage, setNotifis, createMessage } from "../actions/actions"
-import axios from "axios"
+import {  logout, getTextChannel, sendMessage, setNotifis, createMessage } from "../actions/actions"
 import { useHistory } from "react-router-dom"
-import { w3cwebsocket as W3CWebSocket } from "websocket"
-import SideBar from "../components/SideBar"
-import ServerChannels from "../components/ServerChannels"
-import { ThemeProvider } from "@emotion/react"
-import { Box, circularProgressClasses, createTheme, Grid, List, Typography } from "@mui/material"
-import { CompareSharp } from "@mui/icons-material"
 
 const mapStateToProps = (state) => ({
     login_status: state.login_status,

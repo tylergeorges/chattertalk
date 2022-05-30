@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { connect } from "react-redux"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel } from "../actions/actions"
+import { createServer, logout, getServer, createTextChannel } from "../actions/actions"
 import SideBar from "../components/SideBar"
-import Grid from '@mui/material/Grid'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ServerChannels from "../components/ServerChannels"
-import { w3cwebsocket as W3CWebSocket } from "websocket"
 
 
 const mapStateToProps = (state) => ({
@@ -18,7 +16,6 @@ const mapStateToProps = (state) => ({
     notifs: state.notifs,
     invite_code: state.invite_code,
 })
-const drawerWidth = 150
 const theme = createTheme({
     palette: {
         background: {

@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import axios from "axios"
-import AddIcon from '@mui/icons-material/Add';
-import * as icon from '@mui/icons-material';
-import { Redirect } from "react-router-dom"
 import { addAccount, fetchRegister, nextFormStep } from "../../actions/actions";
 
 const mapStateToProps = (state) =>({

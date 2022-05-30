@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { addAccount,fetchHome,  createServer, logout, fetchRegister} from "../../actions/actions"
-import {  createTheme } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
-import * as icon from '@mui/icons-material';
+import { addAccount,fetchRegister} from "../../actions/actions"
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const mapStateToProps = (state) => ({
     login_status: state.login_status,

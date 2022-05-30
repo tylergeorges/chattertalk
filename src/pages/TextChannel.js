@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
 import { getTextChannel, sendMessage, setMsgs, setNotifis, setClient, getServer, setServer, fetchHome } from "../actions/actions"
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
 import ServerChannels from "../components/ServerChannels"
 import { ThemeProvider } from "@mui/material/styles"
-import { Box, createTheme, Grid, List, Toolbar, Typography } from "@mui/material"
+import { createTheme, Grid } from "@mui/material"
 import TextChannelMsgs from "../components/TextChannelMsgs"
 import { Redirect } from "react-router-dom"
 const mapStateToProps = (state) => ({
@@ -55,11 +54,7 @@ const theme = createTheme({
 
 
 const TextChannel = (props) => {
-    const [textContent, setTextContent] = useState('')
     const [messages, setMessages] = useState([])
-    const [usersMentioned, setUsersMentioned] = useState([])
-    const [currClient, setClient] = useState(null)
-    const [update, setUpdate] = useState(false)
     const messageRef = useRef(null);
 
     const url = window.location.pathname.split('/').pop();

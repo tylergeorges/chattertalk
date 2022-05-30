@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout } from "../actions/actions"
-import axios from "axios"
+import { fetchHome,createServer, logout } from "../actions/actions"
 import { useHistory } from "react-router-dom"
 import SideBar from "../components/SideBar"
-import { Box, createTheme, CssBaseline, Grid } from "@mui/material"
+import { createTheme, } from "@mui/material"
 import { ThemeProvider } from "@emotion/react"
 import HomeLists from "../components/HomeLists"
-import TextChannelMsgs from "../components/TextChannelMsgs"
-import ServerChannels from "../components/ServerChannels"
 import { Redirect } from "react-router-dom"
 const mapStateToProps = (state) =>({
     login_status : state.login_status,

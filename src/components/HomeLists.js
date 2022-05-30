@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel,hideForm} from "../actions/actions"
-import SideBar from "../components/SideBar"
-import Grid from '@mui/material/Grid'
-import { CssBaseline, List, ListItem, Toolbar } from "@mui/material"
+import { fetchHome,  createServer, logout, getServer, createTextChannel,hideForm} from "../actions/actions"
+import { CssBaseline,  } from "@mui/material"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
-import TagIcon from '@mui/icons-material/Tag';
-import CreateChannelForm from "./forms/CreateChannelForm"
 import MeetingRoomIcon   from '@mui/icons-material/MeetingRoom';
-import { Logout } from "@mui/icons-material"
 import LogOutForm from "./forms/LogOutForm"
 const mapStateToProps = (state) => ({
     login_status: state.login_status,

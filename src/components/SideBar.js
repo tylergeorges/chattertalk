@@ -2,20 +2,12 @@ import * as React from 'react';
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout } from "../actions/actions"
-import { useHistory } from "react-router-dom"
-import Drawer from '@mui/material/Drawer'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import { List, ListItem, Toolbar } from "@mui/material"
-import { borders } from '@mui/system';
+import { fetchHome, createServer, logout } from "../actions/actions"
 import HomeIcon from '@mui/icons-material/Home';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {  createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AddIcon from '@mui/icons-material/Add';
 import ServerForm from './forms/ServerForm';
-import { CopyAll } from '@mui/icons-material';
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
@@ -100,7 +92,7 @@ const Sidebar = (props) => {
                  <div onClick={createServerForm} style={{height:'100%',width:'100%'}} className={showServerForm   === true ? 'blackScreen' :  'hide'} />
                         
                     <div className='icons-sidebarCon' >
-                        <div className={isHovered == 'homeIcon' ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered == 'homeIcon' ? 'servername-sidebar' : 'hide-servername' }>Home</p>
+                        <div className={isHovered === 'homeIcon' ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered === 'homeIcon' ? 'servername-sidebar' : 'hide-servername' }>Home</p>
                             <Link to="/home" >
                                 <div className='texticons-sidebar'>
                                 <HomeIcon style={{fontSize:'70px'}}onMouseEnter={handleHover} onMouseLeave={handleHoverExit} id="homeIcon" />
@@ -114,12 +106,13 @@ const Sidebar = (props) => {
                             <div className='sidebarIconsCon' key={servers.id}>
 
                             <div className='servername-sidebarCon' >
-                            <div className={isHovered == servers.id ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered == servers.id ? 'servername-sidebar' : 'hide-servername' } >{servers.server_name}</p>
+                            <div className={isHovered === servers.id ? 'arrow-left' : 'hide-arrow' }/><p className={isHovered === servers.id ? 'servername-sidebar' : 'hide-servername' } >{servers.server_name}</p>
                              </div>
                              
-                             <div className={props.serverid == servers.id ? "currServerBar" : isHovered == servers.id ? 'hoverServerBar' :  'none' }/> 
+                             <div className={props.serverid === servers.id ? "currServerBar" : isHovered === servers.id ? 'hoverServerBar' :  'none' }/> 
                              <Link to={`/channels/${servers.id}/${servers.id + 2}`}>
-                             <img draggable={false} src={`https://chatappbackend.s3.amazonaws.com/static/server_icon/${servers.server_icon_name}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' />
+                             <img draggable={false} src={`https://chatappbackend.s3.amazonaws.com/static/server_icon/${servers.server_icon_name}`} id={servers.id} onMouseEnter={handleHover} onMouseLeave={handleHoverExit} 
+                             className={props.serverid == servers.id ? "currentServerIcon" : "serverIcons"} width="70px" height='70px' />
                              </Link>
                             </div>
                         )

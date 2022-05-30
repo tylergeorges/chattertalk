@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { fetchHome, getLogin, loginAcc, createServer, logout, getServer, createTextChannel } from "../actions/actions"
-import SideBar from "../components/SideBar"
-import Grid from '@mui/material/Grid'
-import { CssBaseline, List, ListItem, Toolbar } from "@mui/material"
+import { fetchHome, createServer, logout, getServer, createTextChannel } from "../actions/actions"
+import { CssBaseline, List,  } from "@mui/material"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
 import CreateChannelForm from "./forms/CreateChannelForm"
 import { useHistory } from "react-router-dom"
-import { w3cwebsocket as W3CWebSocket } from "websocket"
 import ServerInivte from "./forms/ServerInivte"
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import MeetingRoomIcon   from '@mui/icons-material/MeetingRoom';

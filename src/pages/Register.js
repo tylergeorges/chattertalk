@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { addAccount, fetchRegister, getLogin, loginAcc } from "../actions/actions"
-import axios from "axios"
-import AddIcon from '@mui/icons-material/Add';
-import * as icon from '@mui/icons-material';
+import { addAccount, fetchRegister,  } from "../actions/actions"
 import { Redirect } from "react-router-dom"
 import RegisterForm from "../components/forms/RegisterForm"
-import UploadAvatar from "../components/forms/UploadAvatar"
 
 const mapStateToProps = (state) =>({
     isLoggedIn : state.isLoggedIn,

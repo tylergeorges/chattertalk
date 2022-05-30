@@ -1,8 +1,4 @@
-import cookie from 'react-cookies'
-import { useHistory } from "react-router-dom";
-
 var axios = require("axios");
-var axiosDefaults = require("axios/lib/defaults");
 export const ADD_ACCOUNT = "ADD_ACCOUNT"
 
 export const LOGIN_ACC = "LOGIN_ACC"
