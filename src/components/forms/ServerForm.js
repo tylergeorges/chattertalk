@@ -64,7 +64,7 @@ const ServerForm = (props) => {
         // props.fetchHome()
 
       
-            document.getElementById('servernameinput').value = `${props.currentuser.username}'s server`
+            document.getElementById('servernameinput').defaultValue = `${props.currentuser.username}'s server`
         
     }, [props.isLoading])
     
@@ -132,7 +132,7 @@ const ServerForm = (props) => {
 
                             <label htmlFor="server_icon" id='serverFormIcon' ><icon.AddPhotoAlternate /> </label> 
 
-                            <label label htmlFor="server_icon" id="serverlabel">Upload a Server Icon</label>
+                            <label   htmlFor="server_icon" id="serverlabel">Upload a Server Icon</label>
 
                             <input type="file" accept="image/*" id="server_icon" style={{ display: 'none'}} onChange={handleServerName}></input>
                        </label> 

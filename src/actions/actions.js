@@ -29,12 +29,14 @@ export const SET_CLIENT = "SET_CLIENT"
 export const HIDE_FORM = "HIDE_FORM"
 export const NEXT_STEP = "NEXT_STEP"
 export const IS_LOGGEDIN = "IS_LOGGEDIN"
+export const GET_SERVER_ID = "GET_SERVER_ID"
 
 
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
 
 const instance = axios.create({ 
-    baseURL:'http://127.0.0.1:8000/',   
+    // baseURL:'http://127.0.0.1:8000/',   
+    baseURL:'https://chatroom-app-tylergeorges.herokuapp.com/',   
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
@@ -95,10 +97,9 @@ export const loggedin = (status) => (dispatch) =>{
 }
 
 export const loginAcc = (acc) =>   (dispatch) =>{
-    
     dispatch({type: FETCH_CR_START})
      instance 
-    .post('login',  JSON.stringify(acc))
+    .post('login',  JSON.stringify(acc),)
     .then(data =>dispatch({type: LOGIN_ACC, payload: data}))
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
@@ -121,7 +122,6 @@ export const fetchHome = () =>  (dispatch) =>{
     instance 
     .get(`/home`, )
     .then(data =>{
-        console.log(data)
         dispatch({type: FETCH_CR_HOME, payload: data})
     })
     .catch(err=>{
@@ -174,17 +174,20 @@ export const joinServer = (serverInfo) =>  async(dispatch) =>{
 }
 
 export const getServer = (server_id) => (dispatch) =>{
+    const id = Number(server_id)
+    if(id !== 0){
 
-    dispatch({type: FETCH_CR_START})
-    instance 
-    .get(`/server/${server_id}/`)
-    .then(data =>{
-        dispatch({type: FETCH_SERVER, payload: data})
-    })
-    .catch(err=>{
-        dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
-    })
+        dispatch({type: FETCH_CR_START})
+        instance 
+        .get(`/server/${id}/`)
+        .then(data =>{
+            dispatch({type: FETCH_SERVER, payload: data})
+        })
+        .catch(err=>{
+            dispatch({type: FETCH_CR_FAIL, payload: err.message})
+            console.log(err.message)
+        })
+    }
 }
 
 export const setNotifis = (notifis) => (dispatch) =>{
@@ -202,6 +205,7 @@ export const setClient = (client) => (dispatch) =>{
 
 
 export const createTextChannel = (channel_info) => (dispatch) =>{
+    console.log(channel_info)
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/server/${channel_info.server_id}/`, {text_channel_name: channel_info.text_channel_name, server_id: channel_info.server_id}, {headers:{Authorization: `Token ${channel_info.token}`}})
@@ -213,12 +217,13 @@ export const createTextChannel = (channel_info) => (dispatch) =>{
         console.log(err.message)
     })
 }
-export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
+export const getTextChannel = (channel) => (dispatch) =>{
 
     dispatch({type: FETCH_CR_START})
     instance 
-    .get(`/channels/${server_id}/${channel_id}/`, )
+    .get(`/channels/${channel.server_id}/${channel.channel_id}/`, )
     .then(data =>{
+        console.log(data)
         dispatch({type: GET_CHANNEL, payload: data})
     })
     .catch(err=>{
@@ -226,7 +231,18 @@ export const getTextChannel = (server_id, channel_id) => (dispatch) =>{
         console.log(err.message)
     })
 }
+export const setServer = (server_id) => (dispatch) =>{
+
+    dispatch({type: FETCH_CR_START})
+    
+        dispatch({type: GET_SERVER_ID, payload: server_id})
+
+
+        dispatch({type: FETCH_CR_FAIL, payload: false})
+
+}
 export const createMessage = (msginfo) => (dispatch) =>{
+    console.log(msginfo)
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/channels/${msginfo.serverid}/${msginfo.channelid}/`, 
@@ -238,7 +254,6 @@ export const createMessage = (msginfo) => (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 export const sendMessage = (message) => (dispatch) =>{

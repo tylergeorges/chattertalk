@@ -9,15 +9,15 @@ const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
     servers: state.servers,
-    auth_token: state.auth_token
+    auth_token: state.auth_token,
 })
 
 const CreateChannelForm = (props) => {
     const [TextChannelName, setTextChannelName] = useState('')
-    useEffect(() => {
-        // props.getServer(props.serverid)
-    }, [])
 
+    // useEffect(() => {
+    //     // props.getServer(props.serverid)
+    // }, [])
     const handleChannelName = (e) => {
         e.preventDefault()
         

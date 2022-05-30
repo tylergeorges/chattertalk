@@ -22,6 +22,7 @@ const mapStateToProps = (state) => ({
     auth_token: state.auth_token,
     notifs: state.notifs,
     invite_code: state.invite_code,
+    server_id: state.server_id
 })
 
 const drawerWidth = 150
@@ -69,14 +70,14 @@ const ServerChannels = (props) => {
     
     useEffect(() => {
         // console.log(props)
-        props.getServer(props.serverid)
+        // props.getServer(props.server_id)
         // console.log(props.current_server)
         setTextChannels([...props.text_channels])
         setNotifs(props.notifs)
           
     
-    }, [props.notifs])
-
+    }, [props.server_id])
+    // props.notifs
 
 
     
@@ -108,6 +109,8 @@ const ServerChannels = (props) => {
         history.push(`/channels/${props.serverid}/${channel_id}`)
     }
 
+
+
     return (
         <div className="serverChannelsCon">
                 <div className={showChannelForm === true ? 'blackScreen' :  'hide'} onClick={createTextChannel} />
@@ -133,8 +136,8 @@ const ServerChannels = (props) => {
                             
                             {props.text_channels.map(channels => {
                                 return (
-                                    <List  item className={channels.id == props.channelid ? "channelsBg" : 'otherChannels' }  sx={{textOverflow: 'ellipsis', justifyContent: 'flex-start', display: 'flex',  width: '100%', alignItems: 'center', marginTop: '3%', bottom: 30,   borderRadius: 2 }}>
-                                    <Link to={`/channels/${props.serverid}/${channels.id}`}>
+                                    <List key={channels.id}  item className={channels.id == props.channelid ? "channelsBg" : 'otherChannels' }  sx={{textOverflow: 'ellipsis', justifyContent: 'flex-start', display: 'flex',  width: '100%', alignItems: 'center', marginTop: '3%', bottom: 30,   borderRadius: 2 }}>
+                                    <Link to={`/channels/${props.server_id}/${channels.id}`}>
                                             <div className="channellist"  id={channels.id} >
                                                 <TagIcon className="channelhashtag" id={channels.id}  />
                                                 <p id="txtchannelName" >{channels.text_channel_name}</p>
@@ -164,7 +167,7 @@ const ServerChannels = (props) => {
                         </List>
                     </div>
                             <div className="userInfoCon">
-                                <img style={{height: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${props.currentuser.profile_picture}`}></img>
+                                <img style={{height: '35px'}} alt="userPFP" id='userInfoPfp'src={`${props.currentuser.profile_picture}`}></img>
                                 <div className="userInfoSubCon">
                                 <p id="userInfoUsername">{props.currentuser.username}</p>
                                 <p id="usertag">{props.currentuser.user_tag}</p>
@@ -179,7 +182,7 @@ const ServerChannels = (props) => {
             </div>
 
             <div className={showChannelForm === true ?'innerForm' : 'dontShow'} > 
-                        <CreateChannelForm serverid={props.serverid}/>
+                        <CreateChannelForm serverid={props.server_id}/>
             </div>
         </ThemeProvider>
         </div>

@@ -1,4 +1,4 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, HIDE_FORM, IS_LOGGEDIN, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, GET_SERVER_ID, HIDE_FORM, IS_LOGGEDIN, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
 
 const initialState = ({
    currentuser: '',
@@ -15,26 +15,25 @@ const initialState = ({
    client: null,
    invite_code:'',
    hide_form: false,
-   nextFormStep: false
+   nextFormStep: false,
+   server_id: null
 })
 
 export default function reducer(state=initialState, action){
     switch(action.type){
         case FETCH_CR_START:
         return{
-            ...state, isLoading:true,  error: '', currentuser: state.currentuser
+            ...state, isLoading:true,  error: ''
         }
         case FETCH_CR_FAIL:
-            console.log(action.payload)
         return{
-            ...state, currentuser: state.currentuser,  isLoggedIn: null, isLoading: false
+            ...state, isLoading: false
         }
         case FETCH_CR_SUCCESS:
         return{
             ...state,  currentuser: state.currentuser, error: '', isLoading: false
         }
         case FETCH_CR_LOGIN:
-            console.log(action.payload)
             return{
                 ...state,  error: '', isLoggedIn: Boolean(action.payload.data.isLoggedIn), isLoading: false
             }
@@ -59,7 +58,6 @@ export default function reducer(state=initialState, action){
             ...state, hide_form: !state.hide_form
         }
         case FETCH_CR_HOME:
-            console.log(action.payload)
             if(action.payload.data.data.servers){
                 return{
                     ...state, currentuser: action.payload.data.data.currentuser, isLoading: false, servers: [...action.payload.data.data.servers], error: '', auth_token: action.payload.data.token, isLoggedIn: action.payload.data.data.isLoggedIn
@@ -91,12 +89,12 @@ export default function reducer(state=initialState, action){
             }
         case GET_CHANNEL:
             return{
-                ...state, isLoading:false, currentuser: action.payload.data.current_user, error: '', auth_token: action.payload.data.token,
+                ...state, isLoading:false, isLoggedIn: action.payload.data.isLoggedIn, server_id: Number(action.payload.data.data.server_id)
             }
         case SET_NOTIFIS:
             if(action.payload[0].user === state.currentuser.id){
                 return{
-                    ...state, isLoading:false, error: '', notifs: action.payload.length ? [...action.payload] : [...state.notifs, action.payload], currentuser: state.currentuser
+                    ...state, isLoading:false, error: '', notifs: action.payload.length ? action.payload : [...state.notifs, action.payload], currentuser: state.currentuser
                 }
             }else{
                 return{
@@ -121,6 +119,10 @@ export default function reducer(state=initialState, action){
         case NEXT_STEP:
                 return{
                     ...state, isLoading:false, error: '',   nextFormStep: !state.nextFormStep
+                }
+        case GET_SERVER_ID:
+                return{
+                    ...state, isLoading:false, error: '',   server_id: Number(action.payload)
                 }
         case CREATE_MESSAGE:
             if(action.payload.data.notifis.user_mentioned === state.currentuser.id){

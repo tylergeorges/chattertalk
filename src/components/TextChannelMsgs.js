@@ -22,9 +22,6 @@ const mapStateToProps = (state) => ({
     client: state.client
 })
 
-const serverCode = 'http://localhost:3000/DjaPOx'
-
-
 
 const TextChannelMsgs = (props) => {
     const [textContent, setTextContent] = useState('')
@@ -42,6 +39,7 @@ const TextChannelMsgs = (props) => {
     
     useEffect( () => {
         // props.getTextChannel(props.serverid, props.channelid)
+        
         setMessages(props.msgs)
     }, [props.msgs, url])
     
@@ -132,6 +130,7 @@ const TextChannelMsgs = (props) => {
         props.client.onmessage =  (e) => {
             const data =  JSON.parse(e.data)
          //    props.setNotifis()
+         console.log(data)
           if(data.model == 'chatroom.message'){
             setMessages((prevState)=>[...prevState, data])
             messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
@@ -151,7 +150,7 @@ const TextChannelMsgs = (props) => {
         
         <>
 
-            <div className="chatboxcon">
+            <>
                 
          {messages.map(msg => {
              const today = new Date();
@@ -186,17 +185,21 @@ const TextChannelMsgs = (props) => {
                  datetime = 'Yesterday at ' + new Date(msg.fields.created_at).toLocaleString('en', dateOptions )
             }
                 return(
-                    <div className='allmsgsCon'>
+                    <div className='allmsgsCon' key={msg.pk} >
                         {/* style={msg.fields.isMention && msg.fields.user_mentioned === props.currentuser.id ? {background: 'rgba(255, 217, 61,0.3)', width: '100%'} : {}} */}
-                        <div  className='allmessages'  style={  {background:msg.fields.isMention && msg.fields.user_mentioned.includes(props.currentuser.id) ? 'rgba(255, 217, 61,0.3)' : '', width: '100%'} }>
-                            <div className="userMsgInfoCon" id="testCon">
-                            <img style={{height: '35px', width: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${msg.fields.author.profile_picture}`}></img>
-                                <div className="userMsgCon">
+                        <div  className='allmessages'  style={msg.fields.isMention && msg.fields.user_mentioned.includes(props.currentuser.id) ? 
+                                                             {
+                                                             background: 'rgba(255, 217, 61,0.3)', 
+                                                             width: '80%'
+                                                             } : {} }>
+                            <div className="userMsgInfoCon" >
+                            <img  style={{height: '35px', width: '35px'}} id='userInfoPfp'src={`${msg.fields.author.profile_picture}`} alt="Profile picture"></img>
+                                <div className="userMsgCon" >
                                 <div className="UserNameUserTime">
                                 <h4 className="userMsgUsername">{msg.fields.author.username}</h4>
                                 <p className="userMsgTime" style={{fontSize: 'smaller'}}>{datetime}</p>
                                 </div>
-                            <p  key={msg.pk}  className='messagecontent' id="msgcontent">{msg.fields.text_content}</p>
+                            <p className='messagecontent' >{msg.fields.text_content}</p>
                                 </div>
                             </div>
                             
@@ -205,7 +208,7 @@ const TextChannelMsgs = (props) => {
                 )
             }) }
             <div ref={messageRef}/>
-            </div>
+            </>
             <div className="messageconParent">
                     <form className="messageCon" autoComplete="off" >
                             <input type="text" placeholder="Send a message... " name="message" onChange={handleTextContent} id="messageInput" />
@@ -215,6 +218,7 @@ const TextChannelMsgs = (props) => {
         </>
            
     )
+    
 }
 
 export default connect(mapStateToProps, { logout, getTextChannel, sendMessage, setNotifis, createMessage })(TextChannelMsgs)

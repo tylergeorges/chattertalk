@@ -8,7 +8,8 @@ import { Redirect } from "react-router-dom"
 
 const mapStateToProps = (state) =>({
     login_status : state.login_status,
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
+    isLoading: state.isLoading
 })
 
 const Login = (props) => {
@@ -65,12 +66,12 @@ const Login = (props) => {
         
     }
     
-    if(props.isLoggedIn === true){
+    if(props.isLoading === false && props.isLoggedIn === true){
         return(
-            <Redirect to="/home"/>
+            <Redirect to="/home"/> 
         )
     }
-    else if(props.isLoggedIn === null || props.isLoggedIn === false){
+    else {
     return (
         <div className="loginForm">
             <div className="innerLoginForm">

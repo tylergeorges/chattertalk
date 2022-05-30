@@ -1,19 +1,22 @@
 import { useEffect, useState, useRef } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { getTextChannel, sendMessage, setMsgs, setNotifis, setClient } from "../actions/actions"
+import { getTextChannel, sendMessage, setMsgs, setNotifis, setClient, getServer, setServer, fetchHome } from "../actions/actions"
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 import SideBar from "../components/SideBar"
 import ServerChannels from "../components/ServerChannels"
 import { ThemeProvider } from "@mui/material/styles"
 import { Box, createTheme, Grid, List, Toolbar, Typography } from "@mui/material"
 import TextChannelMsgs from "../components/TextChannelMsgs"
+import { Redirect } from "react-router-dom"
 const mapStateToProps = (state) => ({
     login_status: state.login_status,
     currentuser: state.currentuser,
     servers: state.servers,
     currentchannel: state.currentchannel,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    isLoggedIn: state.isLoggedIn,
+    notifs: state.notifs
 })
 
 const theme = createTheme({
@@ -63,9 +66,16 @@ const TextChannel = (props) => {
 
 
     useEffect(() => {
-        // console.log(props)
-
-        const client = new W3CWebSocket(`ws://127.0.0.1:8000/channels/${props.match.params.server_id}/${props.match.params.text_id}/`);
+        props.fetchHome()
+        
+        if(props.isLoading === false && props.isLoggedIn == true ){
+            
+    
+        props.getServer(props.match.params.server_id)
+        props.setServer(props.match.params.server_id)
+        
+        props.getTextChannel({server_id:props.match.params.server_id, channel_id:props.match.params.text_id})
+        const client = new W3CWebSocket(`wss://chatroom-app-tylergeorges.herokuapp.com/channels/${props.match.params.server_id}/${props.match.params.text_id}/`);
         props.setClient(client)
 
         props.setMsgs([])
@@ -90,16 +100,16 @@ const TextChannel = (props) => {
         
         client.onmessage =  (e) => {
                const data =  JSON.parse(e.data)
-               if(data.model === "chatroom.message"){
+               if(typeof(data) === 'object' && data.model === "chatroom.message"){
                  props.setMsgs(data)
              //    messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
             }
-            else if(messages.length === 0 && data[0].model === "chatroom.message" ){
+             if(messages.length === 0 && data[0].model === "chatroom.message" ){
                 props.setMsgs(data)
                 // messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
             }
   
-            else if(data[0].model === "chatroom.notifications"){
+             if(data[0].model === "chatroom.notifications"){
                     props.setNotifis(data)
                     
                 }
@@ -113,21 +123,31 @@ const TextChannel = (props) => {
                        
                }
       
-        
-    }, [url])
+            }
 
+    }, [url,props.isLoggedIn])
+    // 
  
+
+     if(props.isLoading == false && props.isLoggedIn === false ){
+        return(
+            <>
+            <Redirect to="/login"/>
+            
+            </>
+        )
+    }
     return (
         <ThemeProvider theme={theme}>
             {/* {props.isLoading && <div>Loading...</div>} */}
             <Grid container  >
-                    <Grid item  >
+                    <Grid>
                         <SideBar  serverid={props.match.params.server_id}/>
                     </Grid>
-                    <Grid item >
-                      <ServerChannels  serverid={props.match.params.server_id} channelid={props.match.params.text_id}/>
+                    <Grid >
+                      <ServerChannels   channelid={props.match.params.text_id}/>
                     </Grid>
-                <Grid item className="channelsmsgs" >
+                <Grid  className="channelsmsgs" >
                  <TextChannelMsgs messageRef={messageRef} serverid={props.match.params.server_id} channelid={props.match.params.text_id} /> 
                 </Grid >
             </Grid>
@@ -135,4 +155,4 @@ const TextChannel = (props) => {
     )
 }
 
-export default connect(mapStateToProps, {getTextChannel, sendMessage, setMsgs, setNotifis, setClient})(TextChannel)
+export default connect(mapStateToProps, {getTextChannel, sendMessage, setMsgs, setNotifis, setClient,getServer,fetchHome,setServer})(TextChannel)

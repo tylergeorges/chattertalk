@@ -25,20 +25,7 @@ const mapStateToProps = (state) => ({
 function App(props) {
   const url = window.location.pathname.split('/').pop();
 
-  const history = createBrowserHistory()
-  useEffect(() =>{
-    console.log(props)
 
-  
-    // props.loggedin(props.isLoggedIn)
-    // console.log(props.login_status)
-    // if(props.isLoggedIn === true){
-    //   props.fetchHome()
-    // }
-
-
-
-  },[])
 
   return (
     <div>
@@ -48,10 +35,10 @@ function App(props) {
             <Route  path="/register" ><Register isLoggedIn={props.isLoggedIn}/></Route>
             <Route  path="/login" component={Login} />
             <Route  path="/home" component={Home} />
-            
-           {props.isLoading === false && props.isLoggedIn === null ? <Redirect to="/login"/> : ''}
 
-           {props.isLoading === false && props.isLoggedIn === true ? <Redirect to="/home"/> : <Redirect to="/login"/>}
+           {/* {props.isLoading === false && props.isLoggedIn === null ? <Redirect to="/login"/> : ''} */}
+
+           {/* {props.isLoading === false && props.isLoggedIn === true ? <Redirect to="/home"/> : <Redirect to="/login"/>} */}
 
             
             <Route  path="/channels/:server_id/:text_id" component={TextChannel} />

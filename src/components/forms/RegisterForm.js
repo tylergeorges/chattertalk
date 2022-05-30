@@ -29,11 +29,11 @@ const RegisterForm = (props) => {
     const handleInput = (e) => {
         
         if (e.target.id === 'username') {
-            e.target.value = e.target.value.replace(/\s/g, '').trim()
+            // e.target.value = e.target.value.replace(/\s/g, '').trim()
             setUser(e.target.value)
         }
         if (e.target.id === 'password') {
-            e.target.value = e.target.value.replace(/\s/g, '').trim()
+            // e.target.value = e.target.value.replace(/\s/g, '').trim()
             setPass(e.target.value)
         }
 

@@ -58,12 +58,13 @@ const Server = (props) => {
     },[url, props.notifs])
 
 
-    if(props.isLoggedIn === null){
+    if(props.isLoading === true){
         return(
             <h2>LOADING...</h2>
         )
     }
-    else if(props.isLoggedIn !== null){
+
+    else if(props.isLoading === false && props.isLoggedIn === true){
     return (
         <ThemeProvider theme={theme}>
             <div className="serverCon">

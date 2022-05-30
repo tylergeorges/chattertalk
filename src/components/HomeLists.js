@@ -85,10 +85,13 @@ const HomeLists = (props) => {
 
                 {/* <a href={props.invite_code}>{props.invite_code}</a> */}
 
-                   
+                {/* https://chatappbackend.s3.us-east-2.amazonaws.com/media/profile_picture/defaultpfp_grey.png */}
             </div>
                     <div className="userInfoCon">
-                        <img style={{height: '35px'}} id='userInfoPfp'src={`http://127.0.0.1:8000${props.currentuser.profile_picture}`}></img>
+                        <img draggable="false" style={{
+                                    height: '35px',
+                                   }} 
+    alt="userPFP" id='userInfoPfp'src={`${props.currentuser.profile_picture}`}></img>
                         <div className="userInfoSubCon">
                         <p id="userInfoUsername">{props.currentuser.username}</p>
                         <p id="usertag">{props.currentuser.user_tag}</p>

@@ -1,20 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap');
+
 * {
   text-align: center;
   font-family: 'Fredoka', sans-serif;
   font-family: 'Poppins', sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 a /* &c... */ {
   all: unset;
 }
+
 body{
-  margin: none;
+    margin: none;
+
+    overflow-x: hidden;
 }
 .serverIcons{
   border-radius: 50%;
   /* width: 100%; */
   transition: 150ms ease;
   text-decoration: none;
+
   /* margin-top: 10px; */
 }
 .serverIcons:hover{
@@ -34,6 +43,12 @@ body{
   transition: 250ms ease;
   text-decoration: none; 
   align-self: center;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 .sidebarIconsCon{
   position: relative;
@@ -373,13 +388,17 @@ background-color: white;
 .channelsmsgs{
   position: absolute;
   width: calc(100% - 300px);
-  height: calc(100% - 50px);
+  height: calc(100% - 70px);
   left: 300px;
   /* height: 300px; */
   /* margin-bottom: 100px; */
-  overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding: 0px;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 .serversHomeLists{
   position: relative;
@@ -457,20 +476,8 @@ margin: 2%;
   width: 100%;
 } */
 
-.chatboxcon{
-  position: relative;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0px;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.chatboxcon::-webkit-scrollbar{
-display: none;
-}
+
+
 /* 
 .messageFieldCon{
   position: relative;
@@ -712,15 +719,30 @@ margin: 5px;
   align-items: center;
 }
 #userInfoPfp{
-float: left;
-border-radius: 15px;
+
+-webkit-user-drag: none;
+user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+justify-self:start;
+
+border-radius: 50px;
 margin-right: 5px;
+float: left;
 }
 .userMsgCon{
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
+  word-wrap: break-word;
+}
+.msgHighlight{
+  background-image: linear-gradient(left, transparent 300px,rgba(39,39,39,.5) 300px, rgba(39,39,39,.5) 100%);
+  width: 100%;
+  height: 500px;
+  /* float: left; */
 }
 #usertag{
   position: relative;
@@ -763,21 +785,32 @@ right: 0;
 
 .allmessages{
   position: relative;
-  height: fit-content;
-  /* margin-bottom: 50px; */
-  width: 100%;
-  
-  /* margin-bottom: 6%; */
+  width: max-content;
+  height: min-content;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  /* padding-block-end: 15%; */
+  word-wrap: break-word;
+  word-break: break-all;
 }
+/* .allmessages::before{
+ content: '';
+ background: rgba(255, 217, 61,0.3);
+ position: absolute;
+ left: 2%;
+ width: calc(100% - 300px);
+ height: 100%;
+ margin-bottom: 20px;
+} */
+
+
+
 .userMsgInfoCon{
   position: relative;
-  width: 20em;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
+  padding: 5px;
+  padding-left: 0px;
+  margin-bottom: 5px;
   /* align-items: baseline; */
 }
 .acclinks-forminput{
@@ -888,10 +921,12 @@ right: 0;
   padding: 0px;
 }
 .userMsgUsername{
+  position: relative;
   width: -moz-fit-content;
   width: fit-content;
   height: fit-content;
   margin: 0;
+  
   float: left;
 }
 .userMsgTime{
@@ -909,38 +944,37 @@ right: 0;
 }
 .allmsgsCon{
   position: relative;
-  margin-bottom: 80px;
-  height: 5px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-left: 2%;
+  /* margin-left: 2%; */
   justify-content: flex-start;
 text-align: left;
   /* margin-left: -200px; */
-  width: auto;
+  left: 2%;
   display: block;
   padding: 0px;
-}
-.messagecontent{
-  position: relative  ;
-  height: fit-content;
-  /* top: 5%; */
-  width: 100%;
-  /* display:inline; */
-  flex-wrap: wrap;
-  text-align: left;
-  /* margin-bottom: 20px; */
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;  
-  /* padding-bottom: 5em; */
-  padding-top: 0px;
-  float: left;
-  margin-top: 0px;
-  margin: 0;
+width: 100%;
 }
 
-@media (max-height:900px){
+.messagecontent{
+  position: relative;
+  /* top: 5%; */
+  width: 80%;
+  /* display:inline; */
+  /* flex-wrap: wrap; */
+  text-align: left;
+  /* padding-bottom: 5em; */
+  padding-top: 0px;
+
+  margin: 0;
+  /* margin-top: 0px; */
+}
+
+@media (max-width: 667px){
+  body {
+    overflow-x: hidden !important;
+}
   .allmessages{
     position: relative;
     height: 40%;
@@ -957,38 +991,36 @@ text-align: left;
   }
   .allmsgsCon{
     position: relative;
-    /* margin-bottom: 80px; */
-    width: 100%;
-    height: 20px;
+    box-sizing: border-box;
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    /* margin-left: 2%; */
     justify-content: flex-start;
-    text-align: left;
-    margin-left: 5px;
-    width: auto;
+  text-align: left;
+    /* margin-left: -200px; */
+    width: 500px;
+    left: 2%;
     display: block;
     padding: 0px;
-    text-size-adjust: 80%;
-
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
   
   .messagecontent{
-    position: relative  ;
+    position: relative ;
     height: fit-content;
     /* top: 5%; */
     width: 100%;
     /* display:inline; */
-    flex-wrap: wrap;
+    margin: 0;
+    word-break: break-word;
     text-align: left;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;  
     padding-top: 0px;
-    text-overflow: ellipsis;
     display: flex;
-    margin-top: 0px;
     text-size-adjust: 80%;
-    justify-self: flex-start;
+    top: 0;
   }
 
   .userMention{
@@ -1055,9 +1087,7 @@ height: 100%;
 top: 0;
 }
 
-.messageconParent{
-  position: relative;
-}
+
 .channelsPanelRel{
   position: fixed;
   justify-content: flex-start;
