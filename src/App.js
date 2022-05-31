@@ -16,24 +16,18 @@ import { w3cwebsocket as W3CWebSocket } from "websocket"
 import { fetchCr, fetchHome, loggedin } from './actions/actions';
 import JoinServer from './components/JoinServer';
 import Landing from './pages/Landing';
+import { ConnectedRouter } from 'connected-react-router';
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.isLoggedIn,
-  isLoading: state.isLoading,
-  login_status: state.login_status,
-})
 
-function App(props) {
-  const url = window.location.pathname.split('/').pop();
+
+function App() {
 
 
 
   return (
-    <div>
         <Switch>
-
            
-            <Route  path="/register" ><Register isLoggedIn={props.isLoggedIn}/></Route>
+            <Route  path="/register"  component={Register}/>
             <Route  path="/login" component={Login} />
             <Route  path="/home" component={Home} />
 
@@ -48,10 +42,8 @@ function App(props) {
             <Route exact path="/" component={Landing} /> 
             {/* <Redirect from='/' to='/login'/> */}
         </Switch>
-
     
-            </div>
   )
 }
 
-export default connect(mapStateToProps, {fetchHome, loggedin})(App);
+export default connect(null, {fetchHome, loggedin})(App);

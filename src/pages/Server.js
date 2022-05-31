@@ -48,11 +48,10 @@ const theme = createTheme({
     }
 });
 const Server = (props) => {
-    const url = window.location.pathname.split('/').pop();
 
     useEffect(() =>{
         props.getServer(props.match.params.server_id)
-    },[url, props.notifs])
+    },[props.notifs])
 
 
     if(props.isLoading === true){

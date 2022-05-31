@@ -58,7 +58,6 @@ const Sidebar = (props) => {
     const [serverName, setServerName] = useState('')
     const [showServerForm, setShowServerForm] = useState(false)
     const [isHovered, setIsHovered] = useState(null)
-    const url = window.location.pathname.split('/').pop();
 
     useEffect(() =>{
 

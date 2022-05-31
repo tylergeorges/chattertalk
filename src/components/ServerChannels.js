@@ -63,7 +63,6 @@ const ServerChannels = (props) => {
     const [textChannels, setTextChannels] = useState([])
     const [notifs, setNotifs] = useState([])
     const [currClient, setClient] = useState(null)
-    const url = window.location.pathname.split('/').pop();
     
     useEffect(() => {
         // console.log(props)

@@ -15,6 +15,7 @@ export const FETCH_CR_REGISTER = "FETCH_CR_REGISTER"
 
 export const FETCH_LOG_OUT = "FETCH_LOG_OUT"
 export const FETCH_SERVER = "FETCH_SERVER"
+export const FETCH_SERVER_PREVIEW = "FETCH_SERVER_PREVIEW"
 export const CREATE_CHANNEL = "CREATE_CHANNEL"
 export const CREATE_SERVER = "CREATE_SERVER"
 export const JOIN_SERVER = "JOIN_SERVER"
@@ -31,8 +32,8 @@ export const GET_SERVER_ID = "GET_SERVER_ID"
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
 
 const instance = axios.create({ 
-    // baseURL:'http://127.0.0.1:8000/',   
-    baseURL:'https://chatroom-app-tylergeorges.herokuapp.com/',   
+    baseURL:'http://127.0.0.1:8000/',   
+    // baseURL:'https://chatroom-app-tylergeorges.herokuapp.com/',   
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
@@ -66,7 +67,6 @@ export const addAccount = (acc) => (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 
@@ -81,7 +81,6 @@ export const fetchRegister = (acc) => (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 export const loggedin = (status) => (dispatch) =>{
@@ -99,7 +98,6 @@ export const loginAcc = (acc) =>   (dispatch) =>{
     .then(data =>dispatch({type: LOGIN_ACC, payload: data}))
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 export const getLogin = (acc) => (dispatch) =>{
@@ -109,7 +107,6 @@ export const getLogin = (acc) => (dispatch) =>{
     .then(data =>dispatch({type: FETCH_CR_LOGIN, payload: data}))
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 
@@ -122,7 +119,6 @@ export const fetchHome = () =>  (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: 401})
-        console.log(err.message)
     })
 }
 export const nextFormStep = () =>  (dispatch) =>{
@@ -148,24 +144,20 @@ export const createServer = (serverInfo) =>  async(dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 
 export const joinServer = (serverInfo) =>  async(dispatch) =>{
     const config = {headers:{Authorization:`Token ${serverInfo.auth_token}`}}
-    console.log(serverInfo)
 
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/server/${serverInfo.invite_code}/members/${serverInfo.user_id}/`, serverInfo, config)
     .then(data =>{
-        console.log(data)
         dispatch({type: JOIN_SERVER, payload: data})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 
@@ -181,9 +173,22 @@ export const getServer = (server_id) => (dispatch) =>{
         })
         .catch(err=>{
             dispatch({type: FETCH_CR_FAIL, payload: err.message})
-            console.log(err.message)
         })
     }
+}
+export const getServerPreview = (serverInfo) => (dispatch) =>{
+
+
+        dispatch({type: FETCH_CR_START})
+        instance 
+        .get(`/server/${serverInfo.invite_code}/members/${serverInfo.user_id}/`)
+        .then(data =>{
+            dispatch({type: FETCH_SERVER_PREVIEW, payload: data})
+        })
+        .catch(err=>{
+            dispatch({type: FETCH_CR_FAIL, payload: err.message})
+        })
+    
 }
 
 export const setNotifis = (notifis) => (dispatch) =>{
@@ -201,7 +206,6 @@ export const setClient = (client) => (dispatch) =>{
 
 
 export const createTextChannel = (channel_info) => (dispatch) =>{
-    console.log(channel_info)
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/server/${channel_info.server_id}/`, {text_channel_name: channel_info.text_channel_name, server_id: channel_info.server_id}, {headers:{Authorization: `Token ${channel_info.token}`}})
@@ -210,7 +214,6 @@ export const createTextChannel = (channel_info) => (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 export const getTextChannel = (channel) => (dispatch) =>{
@@ -219,12 +222,10 @@ export const getTextChannel = (channel) => (dispatch) =>{
     instance 
     .get(`/channels/${channel.server_id}/${channel.channel_id}/`, )
     .then(data =>{
-        console.log(data)
         dispatch({type: GET_CHANNEL, payload: data})
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 export const setServer = (server_id) => (dispatch) =>{
@@ -237,8 +238,8 @@ export const setServer = (server_id) => (dispatch) =>{
         dispatch({type: FETCH_CR_FAIL, payload: false})
 
 }
+
 export const createMessage = (msginfo) => (dispatch) =>{
-    console.log(msginfo)
     dispatch({type: FETCH_CR_START})
     instance 
     .post(`/channels/${msginfo.serverid}/${msginfo.channelid}/`, 
@@ -263,7 +264,6 @@ export const sendMessage = (message) => (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 
@@ -279,7 +279,6 @@ export const logout = () =>  (dispatch) =>{
     })
     .catch(err=>{
         dispatch({type: FETCH_CR_FAIL, payload: err.message})
-        console.log(err.message)
     })
 }
 export const hideForm = () =>  (dispatch) =>{

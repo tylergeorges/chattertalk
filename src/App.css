@@ -23,6 +23,7 @@ body{
   /* width: 100%; */
   transition: 150ms ease;
   text-decoration: none;
+  
 
   /* margin-top: 10px; */
 }
@@ -237,9 +238,11 @@ body{
   transform: translate(calc(50vw - 50%), calc(50vh - 50%));
   z-index: 1000;
 }
+
 .dontShow{
   display: none;
 }
+
 .forminput{
   width: 100%;
   height: 30px;

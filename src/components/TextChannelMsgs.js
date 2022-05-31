@@ -25,7 +25,7 @@ const TextChannelMsgs = (props) => {
     
     const messageRef = useRef(null);
     const ws = useRef(null);
-    const url = window.location.pathname.split('/').pop();
+    // const url = window.location.pathname.split('/').pop();
     const history = useHistory()
     
     
@@ -33,12 +33,12 @@ const TextChannelMsgs = (props) => {
         // props.getTextChannel(props.serverid, props.channelid)
         
         setMessages(props.msgs)
-    }, [props.msgs, url])
+    }, [props.msgs])
     
     useEffect(()=>{
         messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
 
-    },[messages, url])
+    },[messages])
  
     
 
@@ -122,7 +122,6 @@ const TextChannelMsgs = (props) => {
         props.client.onmessage =  (e) => {
             const data =  JSON.parse(e.data)
          //    props.setNotifis()
-         console.log(data)
           if(data.model == 'chatroom.message'){
             setMessages((prevState)=>[...prevState, data])
             messageRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
@@ -132,6 +131,7 @@ const TextChannelMsgs = (props) => {
         }
      }
      
+     document.getElementById('messageInput').value = ''
 
     }
 

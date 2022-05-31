@@ -1,6 +1,9 @@
-import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, GET_CHANNEL, GET_LOGIN, GET_SERVER_ID, HIDE_FORM, IS_LOGGEDIN, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+import { combineReducers } from "redux"
+import { connectRouter } from 'connected-react-router'
 
-const initialState = ({
+import { ADD_ACCOUNT, CREATE_CHANNEL, CREATE_MESSAGE, CREATE_SERVER, FETCH_CR_FAIL, FETCH_CR_HOME, FETCH_CR_LOGIN, FETCH_CR_REGISTER, FETCH_CR_START, FETCH_CR_SUCCESS, FETCH_LOG_OUT, FETCH_SERVER, FETCH_SERVER_PREVIEW, GET_CHANNEL, GET_LOGIN, GET_SERVER_ID, HIDE_FORM, IS_LOGGEDIN, JOIN_SERVER, LOGIN_ACC, NEXT_STEP, SET_CLIENT, SET_MSGS, SET_NOTIFIS} from "../actions/actions"
+
+export const initialState = ({
    currentuser: '',
    error: '',
    isLoading: null,
@@ -8,6 +11,7 @@ const initialState = ({
    login_status: null,
    servers: [],
    current_server: '',
+   server_preview: '',
    text_channels: [],
    auth_token: '',
    notifs: [],
@@ -19,7 +23,7 @@ const initialState = ({
    server_id: null
 })
 
-export default function reducer(state=initialState, action){
+ export default function reducer(state=initialState, action){
     switch(action.type){
         case FETCH_CR_START:
         return{
@@ -60,7 +64,14 @@ export default function reducer(state=initialState, action){
         case FETCH_CR_HOME:
             if(action.payload.data.data.servers){
                 return{
-                    ...state, currentuser: action.payload.data.data.currentuser, isLoading: false, servers: [...action.payload.data.data.servers], error: '', auth_token: action.payload.data.token, isLoggedIn: action.payload.data.data.isLoggedIn
+                    ...state, 
+                    currentuser: action.payload.data.data.currentuser, 
+                    isLoading: false, 
+                    servers: [...action.payload.data.data.servers], 
+                    error: '', 
+                    auth_token: action.payload.data.token, 
+                    isLoggedIn: action.payload.data.data.isLoggedIn,
+                    server_preview: state.server_preview,
                 }
             }
             
@@ -73,6 +84,14 @@ export default function reducer(state=initialState, action){
                 text_channels: [...action.payload.data.data.text_channels], 
                 auth_token: action.payload.data.token,
                 invite_code:action.payload.data.data.invite_code
+            }
+        case FETCH_SERVER_PREVIEW:
+            return{
+                ...state, isLoading:false, 
+                currentuser: state.currentuser, 
+                error: '', 
+                server_preview: action.payload.data.server, 
+                auth_token: action.payload.data.token,
             }
         case CREATE_SERVER:
             // action.payload.data.server.server_icon[0].pop()
@@ -138,3 +157,4 @@ export default function reducer(state=initialState, action){
         default: return state
     }
 }
+

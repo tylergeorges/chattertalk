@@ -14,7 +14,8 @@ const mapStateToProps = (state) =>({
     auth_token: state.auth_token,
     isLoggedIn: state.isLoggedIn,
     isLoading: state.isLoading,
-    error: state.error
+    error: state.error,
+    server_preview: state.server_preview
 })
 
 
@@ -55,12 +56,10 @@ const Home = (props) => {
     const [serverIcon, setServerIcon] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    let history = useHistory();
 
     
     useEffect(() =>{
         props.fetchHome()
-        console.log(props)
         
         },[])
         

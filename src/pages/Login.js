@@ -94,11 +94,11 @@ const Login = (props) => {
                 }
                 <br />
 
-                <nav className="linkotherpage">
+                <div className="linkotherpage">
                     <div className="linkPageFooter">
-                        <p style={{color:'white'}}>Don't have an account? <Link className="acclinks-forminput" to="register" id="reglink">Sign Up</Link></p>
+                        <p style={{color:'white'}}>Don't have an account? <Link className="acclinks-forminput" to="/register" id="reglink">Sign Up</Link></p>
                     </div>
-                </nav>
+                </div>
 
             </form>
             </div>

@@ -57,7 +57,7 @@ const TextChannel = (props) => {
     const [messages, setMessages] = useState([])
     const messageRef = useRef(null);
 
-    const url = window.location.pathname.split('/').pop();
+    // const url = window.location.pathname.split('/').pop();
 
 
     useEffect(() => {
@@ -78,7 +78,6 @@ const TextChannel = (props) => {
         
         client.onopen =  (e) => {
             e.preventDefault()
-            console.log('connected')
             
             client.send(JSON.stringify({
                 'event': 'receive_msgs',
@@ -90,7 +89,6 @@ const TextChannel = (props) => {
         }
         
         client.onclose = () =>{
-            console.log('close')
         }
         
         client.onmessage =  (e) => {
@@ -120,7 +118,7 @@ const TextChannel = (props) => {
       
             }
 
-    }, [url,props.isLoggedIn])
+    }, [props.isLoggedIn])
     // 
  
 
