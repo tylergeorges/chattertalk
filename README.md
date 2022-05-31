@@ -1,4 +1,5 @@
 # chattertalk discord clone
+*documentation coming soon...*
 
 live server
 https://chattertalk.netlify.app/
