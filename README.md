@@ -4,10 +4,10 @@
 live server
 https://chattertalk.netlify.app/
 
-chattertalk is a full stack discord clone that utilizes websockets and redis for peer to peer communication
+chattertalk is a full stack discord clone that utilizes websockets and redis for peer to peer communication.
 
 ## backend(hosted on heroku)
-django, django-channels, redis, postgreSQL
+django, djangorestframework, boto3, django-channels, redis, amazons3, postgreSQL
 
 ## frontend(hosted on netlify)
 react, react-redux, react-redux-thunk, axios, react-router-dom
