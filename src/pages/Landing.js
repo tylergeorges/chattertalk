@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
 import { getLogin, loginAcc } from "../actions/actions"
 import { useHistory } from "react-router-dom"
 import { Redirect } from "react-router-dom"
 
 const mapStateToProps = (state) =>({
-    pathname: state.router.location.pathname,
-
     login_status : state.login_status,
     isLoggedIn: state.isLoggedIn,
     isLoading: state.isLoading

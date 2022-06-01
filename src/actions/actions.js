@@ -32,8 +32,8 @@ export const GET_SERVER_ID = "GET_SERVER_ID"
 // const csrftoken = ('; '+ document.cookie).split(`; csrftoken=`).pop().split(';')[0];
 
 const instance = axios.create({ 
-    baseURL:'http://127.0.0.1:8000/',   
-    // baseURL:'https://chatroom-app-tylergeorges.herokuapp.com/',   
+    // baseURL:'http://127.0.0.1:8000/',   
+    baseURL:'https://chatroom-app-tylergeorges.herokuapp.com/',   
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

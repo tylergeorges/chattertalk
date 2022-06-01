@@ -73,7 +73,7 @@ const HomeLists = (props) => {
         <div className="channelsPanelRel">
         <div className="channelspanelCon">
                 <div className="serverNameCon" >
-                    <h3>FRIENDS</h3>
+                    <h3>HOME</h3>
                 </div>
 
                 {/* <a href={props.invite_code}>{props.invite_code}</a> */}

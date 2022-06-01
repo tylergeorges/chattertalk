@@ -6,15 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
-import { createBrowserHistory } from 'history';
-const history = createBrowserHistory()
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router >
   <React.StrictMode>
+        <Router >
     <App />
-  </React.StrictMode>
   </Router>
+  </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );

@@ -88,11 +88,7 @@ const Home = (props) => {
                 <HomeLists />
 
             </div>
-                <div className="channelsmsgs"  style={{height: 300}}>
-                <h1>Home</h1>
-                <h3>Welcome {props.currentuser.username + props.currentuser.user_tag}</h3>
-                </div >
-            
+         
 
         </ThemeProvider>
     ) 

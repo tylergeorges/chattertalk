@@ -16,7 +16,6 @@ import { w3cwebsocket as W3CWebSocket } from "websocket"
 import { fetchCr, fetchHome, loggedin } from './actions/actions';
 import JoinServer from './components/JoinServer';
 import Landing from './pages/Landing';
-import { ConnectedRouter } from 'connected-react-router';
 
 
 

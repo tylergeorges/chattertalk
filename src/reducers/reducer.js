@@ -23,7 +23,7 @@ export const initialState = ({
    server_id: null
 })
 
- export default function reducer(state=initialState, action){
+ function reducer(state=initialState, action){
     switch(action.type){
         case FETCH_CR_START:
         return{
@@ -158,3 +158,4 @@ export const initialState = ({
     }
 }
 
+export default reducer

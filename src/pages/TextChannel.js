@@ -57,7 +57,7 @@ const TextChannel = (props) => {
     const [messages, setMessages] = useState([])
     const messageRef = useRef(null);
 
-    // const url = window.location.pathname.split('/').pop();
+    const url = window.location.pathname.split('/').pop();
 
 
     useEffect(() => {
@@ -118,7 +118,7 @@ const TextChannel = (props) => {
       
             }
 
-    }, [props.isLoggedIn])
+    }, [props.isLoggedIn,url])
     // 
  
 
